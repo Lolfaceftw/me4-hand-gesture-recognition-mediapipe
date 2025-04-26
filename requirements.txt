@@ -3,4 +3,6 @@ keras == 2.15.0
 mediapipe
 opencv-python
 scikit-learn
-matplotlib 
+matplotlib
+pandas
+seaborn
