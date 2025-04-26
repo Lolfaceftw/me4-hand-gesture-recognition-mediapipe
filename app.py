@@ -182,11 +182,11 @@ def main():
                 )
                 current_point_name = keypoint_classifier_labels[hand_sign_id]
                 
-                target_ges = ["Left", "Right"]  
+                target_ges = ["Previous Slide", "Next Slide"]  
                 if current_point_name in target_ges and current_point_name != previous_point_name:
-                    if current_point_name == "Right":
+                    if current_point_name == "Next Slide":
                         pyautogui.press("right")
-                    elif current_point_name == "Left":
+                    elif current_point_name == "Previous Slide":
                         pyautogui.press("left")
                     print(f"Action: {current_point_name}")
                 previous_point_name = current_point_name
@@ -197,7 +197,7 @@ def main():
         debug_image = draw_info(debug_image, fps, mode, number)
         
         # Screen reflection #############################################################
-        cv.imshow("Hand Gesture Recognition", debug_image)
+        cv.imshow("ME4: Gesture Control of Powerpoint | Christian Klein C. Ramos", debug_image)
 
     cap.release()
     cv.destroyAllWindows()
