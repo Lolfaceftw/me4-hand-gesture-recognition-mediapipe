@@ -41,6 +41,7 @@ def get_args():
 
     return args
 
+stop = 0
 
 def main():
     # Argument parsing #################################################################
@@ -101,7 +102,7 @@ def main():
 
     #  ########################################################################
     mode = 0
-
+    previous_point_name = None
     while True:
         fps = cvFpsCalc.get()
 
@@ -177,13 +178,17 @@ def main():
                     keypoint_classifier_labels[hand_sign_id],
                     point_history_classifier_labels[most_common_fg_id[0][0]],
                 )
-                print(keypoint_classifier_labels[hand_sign_id])
+                current_point_name = point_history_classifier_labels[most_common_fg_id[0][0]]
+                
+                target_ges = ["Next Slide", "Previous Slide"]
+                if current_point_name in target_ges and current_point_name != previous_point_name:
+                    print(f"Action: {current_point_name}")
         else:
             point_history.append([0, 0])
 
         debug_image = draw_point_history(debug_image, point_history)
         debug_image = draw_info(debug_image, fps, mode, number)
-
+        previous_point_name = current_point_name
         # Screen reflection #############################################################
         cv.imshow("Hand Gesture Recognition", debug_image)
 
