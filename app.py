@@ -179,13 +179,13 @@ def main():
                     keypoint_classifier_labels[hand_sign_id],
                     point_history_classifier_labels[most_common_fg_id[0][0]],
                 )
-                current_point_name = point_history_classifier_labels[most_common_fg_id[0][0]]
+                current_point_name = keypoint_classifier_labels[hand_sign_id]
                 
-                target_ges = ["Next Slide", "Previous Slide"]
+                target_ges = ["Left", "Right"]
                 if current_point_name in target_ges and current_point_name != previous_point_name:
-                    if current_point_name == "Next Slide":
+                    if current_point_name == "Right":
                         pyautogui.press("right")
-                    elif current_point_name == "Previous Slide":
+                    elif current_point_name == "Left":
                         pyautogui.press("left")
                     print(f"Action: {current_point_name}")
                 previous_point_name = current_point_name
