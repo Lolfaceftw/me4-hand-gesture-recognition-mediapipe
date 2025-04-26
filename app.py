@@ -284,7 +284,7 @@ def pre_process_point_history(image, point_history):
     # Convert to a one-dimensional list
     temp_point_history = list(itertools.chain.from_iterable(temp_point_history))
 
-    return temp_point_history
+    return temp_point_history   
 
 
 def logging_csv(number, mode, landmark_list, point_history_list):
@@ -574,7 +574,7 @@ def draw_landmarks(image, landmark_point):
         if index == 20:  # 小指：指先
             cv.circle(image, (landmark[0], landmark[1]), 8, (255, 255, 255), -1)
             cv.circle(image, (landmark[0], landmark[1]), 8, (0, 0, 0), 1)
-
+    
     return image
 
 
