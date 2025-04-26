@@ -4,6 +4,7 @@ import csv
 import copy
 import argparse
 import itertools
+import pyautogui
 from collections import Counter
 from collections import deque
 
@@ -187,6 +188,10 @@ def main():
                 
         target_ges = ["Next Slide", "Previous Slide"]
         if current_point_name in target_ges and current_point_name != previous_point_name:
+            if current_point_name == "Next Slide":
+                pyautogui.press("right")
+            elif current_point_name == "Previous Slide":
+                pyautogui.press("left")
             print(f"Action: {current_point_name}")
         previous_point_name = current_point_name
         # Screen reflection #############################################################
