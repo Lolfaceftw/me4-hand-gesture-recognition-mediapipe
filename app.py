@@ -152,7 +152,8 @@ def main():
 
                 # Hand sign classification
                 hand_sign_id = keypoint_classifier(pre_processed_landmark_list)
-                if hand_sign_id == 2:  # Point gesture
+                # Remove point gesture, not applicable
+                if hand_sign_id == "Not applicable":  # Point gesture
                     point_history.append(landmark_list[8])
                 else:
                     point_history.append([0, 0])
@@ -167,7 +168,7 @@ def main():
 
                 # Calculates the gesture IDs in the latest detection
                 finger_gesture_history.append(finger_gesture_id)
-                #most_common_fg_id = Counter(finger_gesture_history).most_common()
+                most_common_fg_id = Counter(finger_gesture_history).most_common()
 
                 # Drawing part
                 debug_image = draw_bounding_rect(use_brect, debug_image, brect)
@@ -177,7 +178,7 @@ def main():
                     brect,
                     handedness,
                     keypoint_classifier_labels[hand_sign_id],
-                    #point_history_classifier_labels[most_common_fg_id[0][0]],
+                    point_history_classifier_labels[most_common_fg_id[0][0]],
                 )
                 current_point_name = keypoint_classifier_labels[hand_sign_id]
                 
@@ -192,7 +193,7 @@ def main():
         else:
             point_history.append([0, 0])
 
-        #debug_image = draw_point_history(debug_image, point_history)
+        debug_image = draw_point_history(debug_image, point_history)
         debug_image = draw_info(debug_image, fps, mode, number)
         
         # Screen reflection #############################################################
@@ -615,27 +616,27 @@ def draw_info_text(image, brect, handedness, hand_sign_text, finger_gesture_text
         cv.LINE_AA,
     )
 
-    if finger_gesture_text != "":
-        cv.putText(
-            image,
-            "Finger Gesture:" + finger_gesture_text,
-            (10, 60),
-            cv.FONT_HERSHEY_SIMPLEX,
-            1.0,
-            (0, 0, 0),
-            4,
-            cv.LINE_AA,
-        )
-        cv.putText(
-            image,
-            "Finger Gesture:" + finger_gesture_text,
-            (10, 60),
-            cv.FONT_HERSHEY_SIMPLEX,
-            1.0,
-            (255, 255, 255),
-            2,
-            cv.LINE_AA,
-        )
+    # if finger_gesture_text != "":
+    #     cv.putText(
+    #         image,
+    #         "Finger Gesture:" + finger_gesture_text,
+    #         (10, 60),
+    #         cv.FONT_HERSHEY_SIMPLEX,
+    #         1.0,
+    #         (0, 0, 0),
+    #         4,
+    #         cv.LINE_AA,
+    #     )
+    #     cv.putText(
+    #         image,
+    #         "Finger Gesture:" + finger_gesture_text,
+    #         (10, 60),
+    #         cv.FONT_HERSHEY_SIMPLEX,
+    #         1.0,
+    #         (255, 255, 255),
+    #         2,
+    #         cv.LINE_AA,
+    #     )
 
     return image
 
