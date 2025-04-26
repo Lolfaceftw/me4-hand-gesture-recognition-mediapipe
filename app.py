@@ -167,7 +167,7 @@ def main():
 
                 # Calculates the gesture IDs in the latest detection
                 finger_gesture_history.append(finger_gesture_id)
-                most_common_fg_id = Counter(finger_gesture_history).most_common()
+                #most_common_fg_id = Counter(finger_gesture_history).most_common()
 
                 # Drawing part
                 debug_image = draw_bounding_rect(use_brect, debug_image, brect)
@@ -177,11 +177,11 @@ def main():
                     brect,
                     handedness,
                     keypoint_classifier_labels[hand_sign_id],
-                    point_history_classifier_labels[most_common_fg_id[0][0]],
+                    #point_history_classifier_labels[most_common_fg_id[0][0]],
                 )
                 current_point_name = keypoint_classifier_labels[hand_sign_id]
                 
-                target_ges = ["Left", "Right"]
+                target_ges = ["Left", "Right"]  
                 if current_point_name in target_ges and current_point_name != previous_point_name:
                     if current_point_name == "Right":
                         pyautogui.press("right")
