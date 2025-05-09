@@ -1,1525 +1,2557 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+This file is a merged representation of the entire codebase, combined into a single document by Repomix.
+
+<file_summary>
+This section contains a summary of this file.
+
+<purpose>
+This file contains a packed representation of the entire repository's contents.
+It is designed to be easily consumable by AI systems for analysis, code review,
+or other automated processes.
+</purpose>
+
+<file_format>
+The content is organized as follows:
+1. This summary section
+2. Repository information
+3. Directory structure
+4. Repository files (if enabled)
+4. Repository files, each consisting of:
+  - File path as an attribute
+  - Full contents of the file
+</file_format>
+
+<usage_guidelines>
+- This file should be treated as read-only. Any changes should be made to the
+  original repository files, not this packed version.
+- When processing this file, use the file path to distinguish
+  between different files in the repository.
+- Be aware that this file may contain sensitive information. Handle it with
+  the same level of security as you would the original repository.
+</usage_guidelines>
+
+<notes>
+- Some files may have been excluded based on .gitignore rules and Repomix's configuration
+- Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
+- Files matching patterns in .gitignore are excluded
+- Files matching default ignore patterns are excluded
+- Files are sorted by Git change count (files with more changes are at the bottom)
+</notes>
+
+<additional_info>
+
+</additional_info>
+
+</file_summary>
+
+<directory_structure>
+model/
+  keypoint_classifier/
+    keypoint_classifier_label.csv
+    keypoint_classifier.py
+    keypoint.csv
+  point_history_classifier/
+    point_history_classifier_label.csv
+    point_history_classifier.py
+  __init__.py
+utils/
+  __init__.py
+  cvfpscalc.py
+app.py
+conv.py
+keypoint_classification_EN.ipynb
+keypoint_classification.ipynb
+keypoint_test.py
+LICENSE
+point_history_classification.ipynb
+README.md
+requirements.txt
+</directory_structure>
+
+<files>
+This section contains the contents of the repository's files.
+
+<file path="model/__init__.py">
+from model.keypoint_classifier.keypoint_classifier import KeyPointClassifier
+from model.point_history_classifier.point_history_classifier import PointHistoryClassifier
+</file>
+
+<file path="utils/__init__.py">
+from utils.cvfpscalc import CvFpsCalc
+</file>
+
+<file path="utils/cvfpscalc.py">
+from collections import deque
+import cv2 as cv
+
+
+class CvFpsCalc(object):
+    def __init__(self, buffer_len=1):
+        self._start_tick = cv.getTickCount()
+        self._freq = 1000.0 / cv.getTickFrequency()
+        self._difftimes = deque(maxlen=buffer_len)
+
+    def get(self):
+        current_tick = cv.getTickCount()
+        different_time = (current_tick - self._start_tick) * self._freq
+        self._start_tick = current_tick
+
+        self._difftimes.append(different_time)
+
+        fps = 1000.0 / (sum(self._difftimes) / len(self._difftimes))
+        fps_rounded = round(fps, 2)
+
+        return fps_rounded
+</file>
+
+<file path="conv.py">
+import sys,json
+f = open(sys.argv[1], 'r')
+j = json.load(f)
+of = open(sys.argv[2], 'w')
+
+if j["nbformat"] >= 4:
+    for i, cell in enumerate(j["cells"]):
+        of.write("#cell "+str(i)+"\n")
+        for line in cell["source"]:
+            of.write(line)
+        of.write('\n\n')
+else:
+    for i,cell in enumerate(j["worksheets"][0]["cells"]):
+        of.write("#cell " + str(i) + "\n")
+        for line in cell["input"]:
+            of.write(line)
+        of.write("\n\n")
+of.close()
+</file>
+
+<file path="keypoint_test.py">
+#cell 0
+import csv
+
+import numpy as np
+import tensorflow as tf
+from sklearn.model_selection import train_test_split
+
+RANDOM_SEED = 42
+
+#cell 1
+# 各パス指定
+
+#cell 2
+dataset = 'model/keypoint_classifier/keypoint.csv'
+model_save_path = 'model/keypoint_classifier/keypoint_classifier.hdf5'
+
+#cell 3
+# 分類数設定
+
+#cell 4
+NUM_CLASSES = 4
+
+#cell 5
+# 学習データ読み込み
+
+#cell 6
+X_dataset = np.loadtxt(dataset, delimiter=',', dtype='float32', usecols=list(range(1, (21 * 2) + 1)))
+
+#cell 7
+y_dataset = np.loadtxt(dataset, delimiter=',', dtype='int32', usecols=(0))
+
+#cell 8
+X_train, X_test, y_train, y_test = train_test_split(X_dataset, y_dataset, train_size=0.75, random_state=RANDOM_SEED)
+
+#cell 9
+# モデル構築
+
+#cell 10
+model = tf.keras.models.Sequential([
+    tf.keras.layers.Input((21 * 2, )),
+    tf.keras.layers.Dropout(0.2),
+    tf.keras.layers.Dense(20, activation='relu'),
+    tf.keras.layers.Dropout(0.4),
+    tf.keras.layers.Dense(10, activation='relu'),
+    tf.keras.layers.Dense(NUM_CLASSES, activation='softmax')
+])
+
+#cell 11
+model.summary()  # tf.keras.utils.plot_model(model, show_shapes=True)
+
+#cell 12
+# モデルチェックポイントのコールバック
+cp_callback = tf.keras.callbacks.ModelCheckpoint(
+    model_save_path, verbose=1, save_weights_only=False)
+# 早期打ち切り用コールバック
+es_callback = tf.keras.callbacks.EarlyStopping(patience=20, verbose=1)
+
+#cell 13
+# モデルコンパイル
+model.compile(
+    optimizer='adam',
+    loss='sparse_categorical_crossentropy',
+    metrics=['accuracy']
+)
+
+#cell 14
+# モデル訓練
+
+#cell 15
+model.fit(
+    X_train,
+    y_train,
+    epochs=1000,
+    batch_size=128,
+    validation_data=(X_test, y_test),
+    callbacks=[cp_callback, es_callback]
+)
+
+#cell 16
+# モデル評価
+val_loss, val_acc = model.evaluate(X_test, y_test, batch_size=128)
+
+#cell 17
+# 保存したモデルのロード
+model = tf.keras.models.load_model(model_save_path)
+
+#cell 18
+# 推論テスト
+predict_result = model.predict(np.array([X_test[0]]))
+print(np.squeeze(predict_result))
+print(np.argmax(np.squeeze(predict_result)))
+
+#cell 19
+# 混同行列
+
+#cell 20
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+from sklearn.metrics import confusion_matrix, classification_report
+
+def print_confusion_matrix(y_true, y_pred, report=True):
+    labels = sorted(list(set(y_true)))
+    cmx_data = confusion_matrix(y_true, y_pred, labels=labels)
+    
+    df_cmx = pd.DataFrame(cmx_data, index=labels, columns=labels)
+ 
+    fig, ax = plt.subplots(figsize=(7, 6))
+    sns.heatmap(df_cmx, annot=True, fmt='g' ,square=False)
+    ax.set_ylim(len(set(y_true)), 0)
+    plt.show()
+    
+    if report:
+        print('Classification Report')
+        print(classification_report(y_test, y_pred))
+
+Y_pred = model.predict(X_test)
+y_pred = np.argmax(Y_pred, axis=1)
+
+print_confusion_matrix(y_test, y_pred)
+
+#cell 21
+# Tensorflow-Lite用のモデルへ変換
+
+#cell 22
+# 推論専用のモデルとして保存
+model.save(model_save_path, include_optimizer=False)
+
+#cell 23
+# モデルを変換(量子化)
+tflite_save_path = 'model/keypoint_classifier/keypoint_classifier.tflite'
+
+converter = tf.lite.TFLiteConverter.from_keras_model(model)
+converter.optimizations = [tf.lite.Optimize.DEFAULT]
+tflite_quantized_model = converter.convert()
+
+open(tflite_save_path, 'wb').write(tflite_quantized_model)
+
+#cell 24
+# 推論テスト
+
+#cell 25
+interpreter = tf.lite.Interpreter(model_path=tflite_save_path)
+interpreter.allocate_tensors()
+
+#cell 26
+# 入出力テンソルを取得
+input_details = interpreter.get_input_details()
+output_details = interpreter.get_output_details()
+
+#cell 27
+interpreter.set_tensor(input_details[0]['index'], np.array([X_test[0]]))
+
+#cell 28
+%%time
+# 推論実施
+interpreter.invoke()
+tflite_results = interpreter.get_tensor(output_details[0]['index'])
+
+#cell 29
+print(np.squeeze(tflite_results))
+print(np.argmax(np.squeeze(tflite_results)))
+</file>
+
+<file path="LICENSE">
+Apache License
+                           Version 2.0, January 2004
+                        http://www.apache.org/licenses/
+
+   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
+
+   1. Definitions.
+
+      "License" shall mean the terms and conditions for use, reproduction,
+      and distribution as defined by Sections 1 through 9 of this document.
+
+      "Licensor" shall mean the copyright owner or entity authorized by
+      the copyright owner that is granting the License.
+
+      "Legal Entity" shall mean the union of the acting entity and all
+      other entities that control, are controlled by, or are under common
+      control with that entity. For the purposes of this definition,
+      "control" means (i) the power, direct or indirect, to cause the
+      direction or management of such entity, whether by contract or
+      otherwise, or (ii) ownership of fifty percent (50%) or more of the
+      outstanding shares, or (iii) beneficial ownership of such entity.
+
+      "You" (or "Your") shall mean an individual or Legal Entity
+      exercising permissions granted by this License.
+
+      "Source" form shall mean the preferred form for making modifications,
+      including but not limited to software source code, documentation
+      source, and configuration files.
+
+      "Object" form shall mean any form resulting from mechanical
+      transformation or translation of a Source form, including but
+      not limited to compiled object code, generated documentation,
+      and conversions to other media types.
+
+      "Work" shall mean the work of authorship, whether in Source or
+      Object form, made available under the License, as indicated by a
+      copyright notice that is included in or attached to the work
+      (an example is provided in the Appendix below).
+
+      "Derivative Works" shall mean any work, whether in Source or Object
+      form, that is based on (or derived from) the Work and for which the
+      editorial revisions, annotations, elaborations, or other modifications
+      represent, as a whole, an original work of authorship. For the purposes
+      of this License, Derivative Works shall not include works that remain
+      separable from, or merely link (or bind by name) to the interfaces of,
+      the Work and Derivative Works thereof.
+
+      "Contribution" shall mean any work of authorship, including
+      the original version of the Work and any modifications or additions
+      to that Work or Derivative Works thereof, that is intentionally
+      submitted to Licensor for inclusion in the Work by the copyright owner
+      or by an individual or Legal Entity authorized to submit on behalf of
+      the copyright owner. For the purposes of this definition, "submitted"
+      means any form of electronic, verbal, or written communication sent
+      to the Licensor or its representatives, including but not limited to
+      communication on electronic mailing lists, source code control systems,
+      and issue tracking systems that are managed by, or on behalf of, the
+      Licensor for the purpose of discussing and improving the Work, but
+      excluding communication that is conspicuously marked or otherwise
+      designated in writing by the copyright owner as "Not a Contribution."
+
+      "Contributor" shall mean Licensor and any individual or Legal Entity
+      on behalf of whom a Contribution has been received by Licensor and
+      subsequently incorporated within the Work.
+
+   2. Grant of Copyright License. Subject to the terms and conditions of
+      this License, each Contributor hereby grants to You a perpetual,
+      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+      copyright license to reproduce, prepare Derivative Works of,
+      publicly display, publicly perform, sublicense, and distribute the
+      Work and such Derivative Works in Source or Object form.
+
+   3. Grant of Patent License. Subject to the terms and conditions of
+      this License, each Contributor hereby grants to You a perpetual,
+      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+      (except as stated in this section) patent license to make, have made,
+      use, offer to sell, sell, import, and otherwise transfer the Work,
+      where such license applies only to those patent claims licensable
+      by such Contributor that are necessarily infringed by their
+      Contribution(s) alone or by combination of their Contribution(s)
+      with the Work to which such Contribution(s) was submitted. If You
+      institute patent litigation against any entity (including a
+      cross-claim or counterclaim in a lawsuit) alleging that the Work
+      or a Contribution incorporated within the Work constitutes direct
+      or contributory patent infringement, then any patent licenses
+      granted to You under this License for that Work shall terminate
+      as of the date such litigation is filed.
+
+   4. Redistribution. You may reproduce and distribute copies of the
+      Work or Derivative Works thereof in any medium, with or without
+      modifications, and in Source or Object form, provided that You
+      meet the following conditions:
+
+      (a) You must give any other recipients of the Work or
+          Derivative Works a copy of this License; and
+
+      (b) You must cause any modified files to carry prominent notices
+          stating that You changed the files; and
+
+      (c) You must retain, in the Source form of any Derivative Works
+          that You distribute, all copyright, patent, trademark, and
+          attribution notices from the Source form of the Work,
+          excluding those notices that do not pertain to any part of
+          the Derivative Works; and
+
+      (d) If the Work includes a "NOTICE" text file as part of its
+          distribution, then any Derivative Works that You distribute must
+          include a readable copy of the attribution notices contained
+          within such NOTICE file, excluding those notices that do not
+          pertain to any part of the Derivative Works, in at least one
+          of the following places: within a NOTICE text file distributed
+          as part of the Derivative Works; within the Source form or
+          documentation, if provided along with the Derivative Works; or,
+          within a display generated by the Derivative Works, if and
+          wherever such third-party notices normally appear. The contents
+          of the NOTICE file are for informational purposes only and
+          do not modify the License. You may add Your own attribution
+          notices within Derivative Works that You distribute, alongside
+          or as an addendum to the NOTICE text from the Work, provided
+          that such additional attribution notices cannot be construed
+          as modifying the License.
+
+      You may add Your own copyright statement to Your modifications and
+      may provide additional or different license terms and conditions
+      for use, reproduction, or distribution of Your modifications, or
+      for any such Derivative Works as a whole, provided Your use,
+      reproduction, and distribution of the Work otherwise complies with
+      the conditions stated in this License.
+
+   5. Submission of Contributions. Unless You explicitly state otherwise,
+      any Contribution intentionally submitted for inclusion in the Work
+      by You to the Licensor shall be under the terms and conditions of
+      this License, without any additional terms or conditions.
+      Notwithstanding the above, nothing herein shall supersede or modify
+      the terms of any separate license agreement you may have executed
+      with Licensor regarding such Contributions.
+
+   6. Trademarks. This License does not grant permission to use the trade
+      names, trademarks, service marks, or product names of the Licensor,
+      except as required for reasonable and customary use in describing the
+      origin of the Work and reproducing the content of the NOTICE file.
+
+   7. Disclaimer of Warranty. Unless required by applicable law or
+      agreed to in writing, Licensor provides the Work (and each
+      Contributor provides its Contributions) on an "AS IS" BASIS,
+      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+      implied, including, without limitation, any warranties or conditions
+      of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A
+      PARTICULAR PURPOSE. You are solely responsible for determining the
+      appropriateness of using or redistributing the Work and assume any
+      risks associated with Your exercise of permissions under this License.
+
+   8. Limitation of Liability. In no event and under no legal theory,
+      whether in tort (including negligence), contract, or otherwise,
+      unless required by applicable law (such as deliberate and grossly
+      negligent acts) or agreed to in writing, shall any Contributor be
+      liable to You for damages, including any direct, indirect, special,
+      incidental, or consequential damages of any character arising as a
+      result of this License or out of the use or inability to use the
+      Work (including but not limited to damages for loss of goodwill,
+      work stoppage, computer failure or malfunction, or any and all
+      other commercial damages or losses), even if such Contributor
+      has been advised of the possibility of such damages.
+
+   9. Accepting Warranty or Additional Liability. While redistributing
+      the Work or Derivative Works thereof, You may choose to offer,
+      and charge a fee for, acceptance of support, warranty, indemnity,
+      or other liability obligations and/or rights consistent with this
+      License. However, in accepting such obligations, You may act only
+      on Your own behalf and on Your sole responsibility, not on behalf
+      of any other Contributor, and only if You agree to indemnify,
+      defend, and hold each Contributor harmless for any liability
+      incurred by, or claims asserted against, such Contributor by reason
+      of your accepting any such warranty or additional liability.
+
+   END OF TERMS AND CONDITIONS
+
+   APPENDIX: How to apply the Apache License to your work.
+
+      To apply the Apache License to your work, attach the following
+      boilerplate notice, with the fields enclosed by brackets "[]"
+      replaced with your own identifying information. (Don't include
+      the brackets!)  The text should be enclosed in the appropriate
+      comment syntax for the file format. We also recommend that a
+      file or class name and description of purpose be included on the
+      same "printed page" as the copyright notice for easier
+      identification within third-party archives.
+
+   Copyright [yyyy] [name of copyright owner]
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+</file>
+
+<file path="model/keypoint_classifier/keypoint_classifier.py">
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+import numpy as np
+import tensorflow as tf
+
+
+class KeyPointClassifier(object):
+    def __init__(
+        self,
+        model_path="model/keypoint_classifier/keypoint_classifier.tflite",
+        num_threads=1,
+    ):
+        self.interpreter = tf.lite.Interpreter(
+            model_path=model_path, num_threads=num_threads
+        )
+
+        self.interpreter.allocate_tensors()
+        self.input_details = self.interpreter.get_input_details()
+        self.output_details = self.interpreter.get_output_details()
+
+    def __call__(
+        self,
+        landmark_list,
+    ):
+        input_details_tensor_index = self.input_details[0]["index"]
+        self.interpreter.set_tensor(
+            input_details_tensor_index, np.array([landmark_list], dtype=np.float32)
+        )
+        self.interpreter.invoke()
+
+        output_details_tensor_index = self.output_details[0]["index"]
+
+        result = self.interpreter.get_tensor(output_details_tensor_index)
+
+        result_index = np.argmax(np.squeeze(result))
+
+        return result_index
+</file>
+
+<file path="model/point_history_classifier/point_history_classifier.py">
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+import numpy as np
+import tensorflow as tf
+
+
+class PointHistoryClassifier(object):
+    def __init__(
+        self,
+        model_path="model/point_history_classifier/point_history_classifier.tflite",
+        score_th=0.5,
+        invalid_value=0,
+        num_threads=1,
+    ):
+        self.interpreter = tf.lite.Interpreter(
+            model_path=model_path, num_threads=num_threads
+        )
+
+        self.interpreter.allocate_tensors()
+        self.input_details = self.interpreter.get_input_details()
+        self.output_details = self.interpreter.get_output_details()
+
+        self.score_th = score_th
+        self.invalid_value = invalid_value
+
+    def __call__(
+        self,
+        point_history,
+    ):
+        input_details_tensor_index = self.input_details[0]["index"]
+        self.interpreter.set_tensor(
+            input_details_tensor_index, np.array([point_history], dtype=np.float32)
+        )
+        self.interpreter.invoke()
+
+        output_details_tensor_index = self.output_details[0]["index"]
+
+        result = self.interpreter.get_tensor(output_details_tensor_index)
+
+        result_index = np.argmax(np.squeeze(result))
+
+        if np.squeeze(result)[result_index] < self.score_th:
+            result_index = self.invalid_value
+
+        return result_index
+</file>
+
+<file path="keypoint_classification_EN.ipynb">
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "kernelspec": {
+      "display_name": "Python 3",
+      "language": "python",
+      "name": "python3"
+    },
+    "language_info": {
+      "codemirror_mode": {
+        "name": "ipython",
+        "version": 3
+      },
+      "file_extension": ".py",
+      "mimetype": "text/x-python",
+      "name": "python",
+      "nbconvert_exporter": "python",
+      "pygments_lexer": "ipython3",
+      "version": "3.8.5"
+    },
+    "colab": {
+      "name": "keypoint_classification_EN.ipynb",
+      "provenance": [],
+      "collapsed_sections": [],
+      "toc_visible": true
+    },
+    "accelerator": "GPU"
+  },
+  "cells": [
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "igMyGnjE9hEp"
+      },
+      "source": [
+        "import csv\n",
+        "\n",
+        "import numpy as np\n",
+        "import tensorflow as tf\n",
+        "from sklearn.model_selection import train_test_split\n",
+        "\n",
+        "RANDOM_SEED = 42"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "t2HDvhIu9hEr"
+      },
+      "source": [
+        "# Specify each path"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "9NvZP2Zn9hEy"
+      },
+      "source": [
+        "dataset = 'model/keypoint_classifier/keypoint.csv'\n",
+        "model_save_path = 'model/keypoint_classifier/keypoint_classifier.hdf5'\n",
+        "tflite_save_path = 'model/keypoint_classifier/keypoint_classifier.tflite'"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "s5oMH7x19hEz"
+      },
+      "source": [
+        "# Set number of classes"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "du4kodXL9hEz"
+      },
+      "source": [
+        "NUM_CLASSES = 4"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "XjnL0uso9hEz"
+      },
+      "source": [
+        "# Dataset reading"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "QT5ZqtEz9hE0"
+      },
+      "source": [
+        "X_dataset = np.loadtxt(dataset, delimiter=',', dtype='float32', usecols=list(range(1, (21 * 2) + 1)))"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "QmoKFsp49hE0"
+      },
+      "source": [
+        "y_dataset = np.loadtxt(dataset, delimiter=',', dtype='int32', usecols=(0))"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "xQU7JTZ_9hE0"
+      },
+      "source": [
+        "X_train, X_test, y_train, y_test = train_test_split(X_dataset, y_dataset, train_size=0.75, random_state=RANDOM_SEED)"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "mxK_lETT9hE0"
+      },
+      "source": [
+        "# Model building"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "vHBmUf1t9hE1"
+      },
+      "source": [
+        "model = tf.keras.models.Sequential([\n",
+        "    tf.keras.layers.Input((21 * 2, )),\n",
+        "    tf.keras.layers.Dropout(0.2),\n",
+        "    tf.keras.layers.Dense(20, activation='relu'),\n",
+        "    tf.keras.layers.Dropout(0.4),\n",
+        "    tf.keras.layers.Dense(10, activation='relu'),\n",
+        "    tf.keras.layers.Dense(NUM_CLASSES, activation='softmax')\n",
+        "])"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "ypqky9tc9hE1",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "5db082bb-30e3-4110-bf63-a1ee777ecd46"
+      },
+      "source": [
+        "model.summary()  # tf.keras.utils.plot_model(model, show_shapes=True)"
+      ],
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "Model: \"sequential\"\n",
+            "_________________________________________________________________\n",
+            "Layer (type)                 Output Shape              Param #   \n",
+            "=================================================================\n",
+            "dropout (Dropout)            (None, 42)                0         \n",
+            "_________________________________________________________________\n",
+            "dense (Dense)                (None, 20)                860       \n",
+            "_________________________________________________________________\n",
+            "dropout_1 (Dropout)          (None, 20)                0         \n",
+            "_________________________________________________________________\n",
+            "dense_1 (Dense)              (None, 10)                210       \n",
+            "_________________________________________________________________\n",
+            "dense_2 (Dense)              (None, 4)                 44        \n",
+            "=================================================================\n",
+            "Total params: 1,114\n",
+            "Trainable params: 1,114\n",
+            "Non-trainable params: 0\n",
+            "_________________________________________________________________\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "MbMjOflQ9hE1"
+      },
+      "source": [
+        "# Model checkpoint callback\n",
+        "cp_callback = tf.keras.callbacks.ModelCheckpoint(\n",
+        "    model_save_path, verbose=1, save_weights_only=False)\n",
+        "# Callback for early stopping\n",
+        "es_callback = tf.keras.callbacks.EarlyStopping(patience=20, verbose=1)"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "c3Dac0M_9hE2"
+      },
+      "source": [
+        "# Model compilation\n",
+        "model.compile(\n",
+        "    optimizer='adam',\n",
+        "    loss='sparse_categorical_crossentropy',\n",
+        "    metrics=['accuracy']\n",
+        ")"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "7XI0j1Iu9hE2"
+      },
+      "source": [
+        "# Model training"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "scrolled": true,
+        "id": "WirBl-JE9hE3",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "71b30ca2-8294-4d9d-8aa2-800d90d399de"
+      },
+      "source": [
+        "model.fit(\n",
+        "    X_train,\n",
+        "    y_train,\n",
+        "    epochs=1000,\n",
+        "    batch_size=128,\n",
+        "    validation_data=(X_test, y_test),\n",
+        "    callbacks=[cp_callback, es_callback]\n",
+        ")"
+      ],
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "Epoch 1/1000\n",
+            "29/29 [==============================] - 2s 15ms/step - loss: 1.3853 - accuracy: 0.3360 - val_loss: 1.2779 - val_accuracy: 0.4244\n",
+            "\n",
+            "Epoch 00001: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 2/1000\n",
+            "29/29 [==============================] - 0s 4ms/step - loss: 1.2943 - accuracy: 0.3780 - val_loss: 1.2151 - val_accuracy: 0.4703\n",
+            "\n",
+            "Epoch 00002: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 3/1000\n",
+            "29/29 [==============================] - 0s 4ms/step - loss: 1.2524 - accuracy: 0.3749 - val_loss: 1.1472 - val_accuracy: 0.5572\n",
+            "\n",
+            "Epoch 00003: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 4/1000\n",
+            "29/29 [==============================] - 0s 4ms/step - loss: 1.1989 - accuracy: 0.4251 - val_loss: 1.0682 - val_accuracy: 0.6374\n",
+            "\n",
+            "Epoch 00004: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 5/1000\n",
+            "29/29 [==============================] - 0s 4ms/step - loss: 1.1363 - accuracy: 0.4733 - val_loss: 1.0027 - val_accuracy: 0.6608\n",
+            "\n",
+            "Epoch 00005: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 6/1000\n",
+            "29/29 [==============================] - 0s 4ms/step - loss: 1.0938 - accuracy: 0.5107 - val_loss: 0.9416 - val_accuracy: 0.6717\n",
+            "\n",
+            "Epoch 00006: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 7/1000\n",
+            "29/29 [==============================] - 0s 4ms/step - loss: 1.0426 - accuracy: 0.5351 - val_loss: 0.8775 - val_accuracy: 0.7043\n",
+            "\n",
+            "Epoch 00007: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 8/1000\n",
+            "29/29 [==============================] - 0s 4ms/step - loss: 1.0024 - accuracy: 0.5597 - val_loss: 0.8238 - val_accuracy: 0.7243\n",
+            "\n",
+            "Epoch 00008: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 9/1000\n",
+            "29/29 [==============================] - 0s 4ms/step - loss: 0.9845 - accuracy: 0.5475 - val_loss: 0.7726 - val_accuracy: 0.7444\n",
+            "\n",
+            "Epoch 00009: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 10/1000\n",
+            "29/29 [==============================] - 0s 4ms/step - loss: 0.9527 - accuracy: 0.5661 - val_loss: 0.7256 - val_accuracy: 0.7602\n",
+            "\n",
+            "Epoch 00010: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 11/1000\n",
+            "29/29 [==============================] - 0s 4ms/step - loss: 0.9066 - accuracy: 0.5915 - val_loss: 0.6922 - val_accuracy: 0.7886\n",
+            "\n",
+            "Epoch 00011: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 12/1000\n",
+            "29/29 [==============================] - 0s 4ms/step - loss: 0.8825 - accuracy: 0.6094 - val_loss: 0.6512 - val_accuracy: 0.8087\n",
+            "\n",
+            "Epoch 00012: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 13/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.8901 - accuracy: 0.6124 - val_loss: 0.6228 - val_accuracy: 0.8246\n",
+            "\n",
+            "Epoch 00013: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 14/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.8616 - accuracy: 0.6238 - val_loss: 0.5969 - val_accuracy: 0.8688\n",
+            "\n",
+            "Epoch 00014: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 15/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.8060 - accuracy: 0.6412 - val_loss: 0.5634 - val_accuracy: 0.8780\n",
+            "\n",
+            "Epoch 00015: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 16/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.8036 - accuracy: 0.6573 - val_loss: 0.5445 - val_accuracy: 0.8897\n",
+            "\n",
+            "Epoch 00016: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 17/1000\n",
+            "29/29 [==============================] - 0s 6ms/step - loss: 0.7658 - accuracy: 0.6752 - val_loss: 0.5247 - val_accuracy: 0.9056\n",
+            "\n",
+            "Epoch 00017: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 18/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.7816 - accuracy: 0.6566 - val_loss: 0.5061 - val_accuracy: 0.9073\n",
+            "\n",
+            "Epoch 00018: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 19/1000\n",
+            "29/29 [==============================] - 0s 4ms/step - loss: 0.7564 - accuracy: 0.6842 - val_loss: 0.4910 - val_accuracy: 0.9039\n",
+            "\n",
+            "Epoch 00019: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 20/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.7531 - accuracy: 0.6800 - val_loss: 0.4742 - val_accuracy: 0.9098\n",
+            "\n",
+            "Epoch 00020: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 21/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.7271 - accuracy: 0.6952 - val_loss: 0.4619 - val_accuracy: 0.9190\n",
+            "\n",
+            "Epoch 00021: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 22/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.7392 - accuracy: 0.6969 - val_loss: 0.4552 - val_accuracy: 0.9240\n",
+            "\n",
+            "Epoch 00022: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 23/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.7169 - accuracy: 0.6980 - val_loss: 0.4407 - val_accuracy: 0.9190\n",
+            "\n",
+            "Epoch 00023: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 24/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.7228 - accuracy: 0.6844 - val_loss: 0.4299 - val_accuracy: 0.9348\n",
+            "\n",
+            "Epoch 00024: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 25/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.7076 - accuracy: 0.6995 - val_loss: 0.4208 - val_accuracy: 0.9273\n",
+            "\n",
+            "Epoch 00025: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 26/1000\n",
+            "29/29 [==============================] - 0s 4ms/step - loss: 0.7026 - accuracy: 0.7094 - val_loss: 0.4089 - val_accuracy: 0.9340\n",
+            "\n",
+            "Epoch 00026: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 27/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.6647 - accuracy: 0.7284 - val_loss: 0.4033 - val_accuracy: 0.9307\n",
+            "\n",
+            "Epoch 00027: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 28/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.7012 - accuracy: 0.7009 - val_loss: 0.4048 - val_accuracy: 0.9282\n",
+            "\n",
+            "Epoch 00028: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 29/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.6833 - accuracy: 0.7196 - val_loss: 0.3877 - val_accuracy: 0.9390\n",
+            "\n",
+            "Epoch 00029: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 30/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.6934 - accuracy: 0.7080 - val_loss: 0.3753 - val_accuracy: 0.9465\n",
+            "\n",
+            "Epoch 00030: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 31/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.6482 - accuracy: 0.7330 - val_loss: 0.3744 - val_accuracy: 0.9407\n",
+            "\n",
+            "Epoch 00031: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 32/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.6765 - accuracy: 0.7150 - val_loss: 0.3752 - val_accuracy: 0.9465\n",
+            "\n",
+            "Epoch 00032: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 33/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.6690 - accuracy: 0.7229 - val_loss: 0.3627 - val_accuracy: 0.9490\n",
+            "\n",
+            "Epoch 00033: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 34/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.6609 - accuracy: 0.7177 - val_loss: 0.3601 - val_accuracy: 0.9415\n",
+            "\n",
+            "Epoch 00034: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 35/1000\n",
+            "29/29 [==============================] - 0s 4ms/step - loss: 0.6472 - accuracy: 0.7369 - val_loss: 0.3538 - val_accuracy: 0.9357\n",
+            "\n",
+            "Epoch 00035: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 36/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.6448 - accuracy: 0.7398 - val_loss: 0.3439 - val_accuracy: 0.9482\n",
+            "\n",
+            "Epoch 00036: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 37/1000\n",
+            "29/29 [==============================] - 0s 4ms/step - loss: 0.6417 - accuracy: 0.7341 - val_loss: 0.3454 - val_accuracy: 0.9482\n",
+            "\n",
+            "Epoch 00037: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 38/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.6605 - accuracy: 0.7270 - val_loss: 0.3479 - val_accuracy: 0.9507\n",
+            "\n",
+            "Epoch 00038: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 39/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.6306 - accuracy: 0.7349 - val_loss: 0.3439 - val_accuracy: 0.9499\n",
+            "\n",
+            "Epoch 00039: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 40/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.6719 - accuracy: 0.7174 - val_loss: 0.3491 - val_accuracy: 0.9490\n",
+            "\n",
+            "Epoch 00040: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 41/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.6213 - accuracy: 0.7391 - val_loss: 0.3326 - val_accuracy: 0.9465\n",
+            "\n",
+            "Epoch 00041: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 42/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.6397 - accuracy: 0.7397 - val_loss: 0.3294 - val_accuracy: 0.9499\n",
+            "\n",
+            "Epoch 00042: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 43/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.6255 - accuracy: 0.7534 - val_loss: 0.3269 - val_accuracy: 0.9515\n",
+            "\n",
+            "Epoch 00043: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 44/1000\n",
+            "29/29 [==============================] - 0s 4ms/step - loss: 0.6403 - accuracy: 0.7363 - val_loss: 0.3300 - val_accuracy: 0.9507\n",
+            "\n",
+            "Epoch 00044: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 45/1000\n",
+            "29/29 [==============================] - 0s 4ms/step - loss: 0.6105 - accuracy: 0.7541 - val_loss: 0.3156 - val_accuracy: 0.9574\n",
+            "\n",
+            "Epoch 00045: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 46/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.6065 - accuracy: 0.7611 - val_loss: 0.3083 - val_accuracy: 0.9582\n",
+            "\n",
+            "Epoch 00046: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 47/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.5970 - accuracy: 0.7595 - val_loss: 0.3147 - val_accuracy: 0.9432\n",
+            "\n",
+            "Epoch 00047: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 48/1000\n",
+            "29/29 [==============================] - 0s 4ms/step - loss: 0.5949 - accuracy: 0.7490 - val_loss: 0.3119 - val_accuracy: 0.9524\n",
+            "\n",
+            "Epoch 00048: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 49/1000\n",
+            "29/29 [==============================] - 0s 4ms/step - loss: 0.6136 - accuracy: 0.7447 - val_loss: 0.3049 - val_accuracy: 0.9591\n",
+            "\n",
+            "Epoch 00049: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 50/1000\n",
+            "29/29 [==============================] - 0s 4ms/step - loss: 0.6021 - accuracy: 0.7487 - val_loss: 0.3109 - val_accuracy: 0.9591\n",
+            "\n",
+            "Epoch 00050: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 51/1000\n",
+            "29/29 [==============================] - 0s 4ms/step - loss: 0.5964 - accuracy: 0.7519 - val_loss: 0.3073 - val_accuracy: 0.9607\n",
+            "\n",
+            "Epoch 00051: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 52/1000\n",
+            "29/29 [==============================] - 0s 4ms/step - loss: 0.6201 - accuracy: 0.7530 - val_loss: 0.3005 - val_accuracy: 0.9657\n",
+            "\n",
+            "Epoch 00052: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 53/1000\n",
+            "29/29 [==============================] - 0s 4ms/step - loss: 0.5830 - accuracy: 0.7675 - val_loss: 0.2952 - val_accuracy: 0.9641\n",
+            "\n",
+            "Epoch 00053: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 54/1000\n",
+            "29/29 [==============================] - 0s 4ms/step - loss: 0.5810 - accuracy: 0.7717 - val_loss: 0.2938 - val_accuracy: 0.9624\n",
+            "\n",
+            "Epoch 00054: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 55/1000\n",
+            "29/29 [==============================] - 0s 4ms/step - loss: 0.5772 - accuracy: 0.7629 - val_loss: 0.2909 - val_accuracy: 0.9616\n",
+            "\n",
+            "Epoch 00055: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 56/1000\n",
+            "29/29 [==============================] - 0s 4ms/step - loss: 0.5697 - accuracy: 0.7671 - val_loss: 0.2858 - val_accuracy: 0.9616\n",
+            "\n",
+            "Epoch 00056: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 57/1000\n",
+            "29/29 [==============================] - 0s 4ms/step - loss: 0.6045 - accuracy: 0.7662 - val_loss: 0.2897 - val_accuracy: 0.9607\n",
+            "\n",
+            "Epoch 00057: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 58/1000\n",
+            "29/29 [==============================] - 0s 4ms/step - loss: 0.5758 - accuracy: 0.7605 - val_loss: 0.2866 - val_accuracy: 0.9649\n",
+            "\n",
+            "Epoch 00058: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 59/1000\n",
+            "29/29 [==============================] - 0s 4ms/step - loss: 0.5680 - accuracy: 0.7674 - val_loss: 0.2823 - val_accuracy: 0.9666\n",
+            "\n",
+            "Epoch 00059: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 60/1000\n",
+            "29/29 [==============================] - 0s 4ms/step - loss: 0.6012 - accuracy: 0.7609 - val_loss: 0.2797 - val_accuracy: 0.9632\n",
+            "\n",
+            "Epoch 00060: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 61/1000\n",
+            "29/29 [==============================] - 0s 7ms/step - loss: 0.5754 - accuracy: 0.7716 - val_loss: 0.2738 - val_accuracy: 0.9657\n",
+            "\n",
+            "Epoch 00061: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 62/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.5867 - accuracy: 0.7662 - val_loss: 0.2681 - val_accuracy: 0.9641\n",
+            "\n",
+            "Epoch 00062: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 63/1000\n",
+            "29/29 [==============================] - 0s 4ms/step - loss: 0.5659 - accuracy: 0.7775 - val_loss: 0.2679 - val_accuracy: 0.9624\n",
+            "\n",
+            "Epoch 00063: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 64/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.5809 - accuracy: 0.7579 - val_loss: 0.2676 - val_accuracy: 0.9616\n",
+            "\n",
+            "Epoch 00064: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 65/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.5411 - accuracy: 0.7946 - val_loss: 0.2597 - val_accuracy: 0.9657\n",
+            "\n",
+            "Epoch 00065: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 66/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.5708 - accuracy: 0.7580 - val_loss: 0.2605 - val_accuracy: 0.9683\n",
+            "\n",
+            "Epoch 00066: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 67/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.5758 - accuracy: 0.7743 - val_loss: 0.2610 - val_accuracy: 0.9666\n",
+            "\n",
+            "Epoch 00067: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 68/1000\n",
+            "29/29 [==============================] - 0s 4ms/step - loss: 0.5817 - accuracy: 0.7755 - val_loss: 0.2627 - val_accuracy: 0.9649\n",
+            "\n",
+            "Epoch 00068: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 69/1000\n",
+            "29/29 [==============================] - 0s 4ms/step - loss: 0.5433 - accuracy: 0.7961 - val_loss: 0.2506 - val_accuracy: 0.9691\n",
+            "\n",
+            "Epoch 00069: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 70/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.5277 - accuracy: 0.7969 - val_loss: 0.2515 - val_accuracy: 0.9674\n",
+            "\n",
+            "Epoch 00070: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 71/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.5326 - accuracy: 0.7916 - val_loss: 0.2523 - val_accuracy: 0.9657\n",
+            "\n",
+            "Epoch 00071: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 72/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.5366 - accuracy: 0.7858 - val_loss: 0.2503 - val_accuracy: 0.9632\n",
+            "\n",
+            "Epoch 00072: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 73/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.5365 - accuracy: 0.7923 - val_loss: 0.2454 - val_accuracy: 0.9674\n",
+            "\n",
+            "Epoch 00073: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 74/1000\n",
+            "29/29 [==============================] - 0s 4ms/step - loss: 0.5308 - accuracy: 0.7907 - val_loss: 0.2477 - val_accuracy: 0.9666\n",
+            "\n",
+            "Epoch 00074: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 75/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.5484 - accuracy: 0.7893 - val_loss: 0.2423 - val_accuracy: 0.9666\n",
+            "\n",
+            "Epoch 00075: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 76/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.5486 - accuracy: 0.7919 - val_loss: 0.2460 - val_accuracy: 0.9657\n",
+            "\n",
+            "Epoch 00076: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 77/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.5641 - accuracy: 0.7737 - val_loss: 0.2504 - val_accuracy: 0.9674\n",
+            "\n",
+            "Epoch 00077: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 78/1000\n",
+            "29/29 [==============================] - 0s 4ms/step - loss: 0.5293 - accuracy: 0.7988 - val_loss: 0.2358 - val_accuracy: 0.9691\n",
+            "\n",
+            "Epoch 00078: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 79/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.5279 - accuracy: 0.8004 - val_loss: 0.2314 - val_accuracy: 0.9699\n",
+            "\n",
+            "Epoch 00079: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 80/1000\n",
+            "29/29 [==============================] - 0s 4ms/step - loss: 0.5228 - accuracy: 0.7923 - val_loss: 0.2357 - val_accuracy: 0.9708\n",
+            "\n",
+            "Epoch 00080: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 81/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.5105 - accuracy: 0.8039 - val_loss: 0.2433 - val_accuracy: 0.9699\n",
+            "\n",
+            "Epoch 00081: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 82/1000\n",
+            "29/29 [==============================] - 0s 4ms/step - loss: 0.5105 - accuracy: 0.7994 - val_loss: 0.2415 - val_accuracy: 0.9699\n",
+            "\n",
+            "Epoch 00082: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 83/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.5323 - accuracy: 0.7907 - val_loss: 0.2395 - val_accuracy: 0.9674\n",
+            "\n",
+            "Epoch 00083: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 84/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.5423 - accuracy: 0.7904 - val_loss: 0.2396 - val_accuracy: 0.9691\n",
+            "\n",
+            "Epoch 00084: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 85/1000\n",
+            "29/29 [==============================] - 0s 4ms/step - loss: 0.5419 - accuracy: 0.7913 - val_loss: 0.2335 - val_accuracy: 0.9683\n",
+            "\n",
+            "Epoch 00085: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 86/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.5259 - accuracy: 0.8041 - val_loss: 0.2351 - val_accuracy: 0.9666\n",
+            "\n",
+            "Epoch 00086: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 87/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.5282 - accuracy: 0.7899 - val_loss: 0.2285 - val_accuracy: 0.9708\n",
+            "\n",
+            "Epoch 00087: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 88/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.5117 - accuracy: 0.7977 - val_loss: 0.2334 - val_accuracy: 0.9699\n",
+            "\n",
+            "Epoch 00088: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 89/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.5065 - accuracy: 0.8034 - val_loss: 0.2389 - val_accuracy: 0.9657\n",
+            "\n",
+            "Epoch 00089: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 90/1000\n",
+            "29/29 [==============================] - 0s 4ms/step - loss: 0.5209 - accuracy: 0.7974 - val_loss: 0.2391 - val_accuracy: 0.9632\n",
+            "\n",
+            "Epoch 00090: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 91/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.5023 - accuracy: 0.8022 - val_loss: 0.2242 - val_accuracy: 0.9699\n",
+            "\n",
+            "Epoch 00091: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 92/1000\n",
+            "29/29 [==============================] - 0s 4ms/step - loss: 0.5345 - accuracy: 0.7989 - val_loss: 0.2257 - val_accuracy: 0.9699\n",
+            "\n",
+            "Epoch 00092: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 93/1000\n",
+            "29/29 [==============================] - 0s 4ms/step - loss: 0.5404 - accuracy: 0.7961 - val_loss: 0.2314 - val_accuracy: 0.9699\n",
+            "\n",
+            "Epoch 00093: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 94/1000\n",
+            "29/29 [==============================] - 0s 4ms/step - loss: 0.5065 - accuracy: 0.8004 - val_loss: 0.2324 - val_accuracy: 0.9691\n",
+            "\n",
+            "Epoch 00094: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 95/1000\n",
+            "29/29 [==============================] - 0s 4ms/step - loss: 0.5292 - accuracy: 0.8023 - val_loss: 0.2263 - val_accuracy: 0.9733\n",
+            "\n",
+            "Epoch 00095: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 96/1000\n",
+            "29/29 [==============================] - 0s 4ms/step - loss: 0.5031 - accuracy: 0.8069 - val_loss: 0.2243 - val_accuracy: 0.9724\n",
+            "\n",
+            "Epoch 00096: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 97/1000\n",
+            "29/29 [==============================] - 0s 4ms/step - loss: 0.4866 - accuracy: 0.8238 - val_loss: 0.2188 - val_accuracy: 0.9691\n",
+            "\n",
+            "Epoch 00097: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 98/1000\n",
+            "29/29 [==============================] - 0s 4ms/step - loss: 0.5235 - accuracy: 0.8082 - val_loss: 0.2216 - val_accuracy: 0.9741\n",
+            "\n",
+            "Epoch 00098: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 99/1000\n",
+            "29/29 [==============================] - 0s 4ms/step - loss: 0.5103 - accuracy: 0.8040 - val_loss: 0.2309 - val_accuracy: 0.9699\n",
+            "\n",
+            "Epoch 00099: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 100/1000\n",
+            "29/29 [==============================] - 0s 4ms/step - loss: 0.4986 - accuracy: 0.8049 - val_loss: 0.2237 - val_accuracy: 0.9733\n",
+            "\n",
+            "Epoch 00100: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 101/1000\n",
+            "29/29 [==============================] - 0s 4ms/step - loss: 0.4859 - accuracy: 0.8137 - val_loss: 0.2149 - val_accuracy: 0.9724\n",
+            "\n",
+            "Epoch 00101: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 102/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.5011 - accuracy: 0.8068 - val_loss: 0.2196 - val_accuracy: 0.9724\n",
+            "\n",
+            "Epoch 00102: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 103/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.4784 - accuracy: 0.8216 - val_loss: 0.2194 - val_accuracy: 0.9733\n",
+            "\n",
+            "Epoch 00103: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 104/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.4757 - accuracy: 0.8298 - val_loss: 0.2195 - val_accuracy: 0.9749\n",
+            "\n",
+            "Epoch 00104: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 105/1000\n",
+            "29/29 [==============================] - 0s 6ms/step - loss: 0.5101 - accuracy: 0.7992 - val_loss: 0.2342 - val_accuracy: 0.9632\n",
+            "\n",
+            "Epoch 00105: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 106/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.4907 - accuracy: 0.8168 - val_loss: 0.2276 - val_accuracy: 0.9641\n",
+            "\n",
+            "Epoch 00106: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 107/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.5035 - accuracy: 0.8050 - val_loss: 0.2187 - val_accuracy: 0.9691\n",
+            "\n",
+            "Epoch 00107: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 108/1000\n",
+            "29/29 [==============================] - 0s 4ms/step - loss: 0.5085 - accuracy: 0.7979 - val_loss: 0.2091 - val_accuracy: 0.9724\n",
+            "\n",
+            "Epoch 00108: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 109/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.4948 - accuracy: 0.8134 - val_loss: 0.2169 - val_accuracy: 0.9699\n",
+            "\n",
+            "Epoch 00109: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 110/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.4943 - accuracy: 0.8085 - val_loss: 0.2115 - val_accuracy: 0.9657\n",
+            "\n",
+            "Epoch 00110: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 111/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.5165 - accuracy: 0.8106 - val_loss: 0.2226 - val_accuracy: 0.9657\n",
+            "\n",
+            "Epoch 00111: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 112/1000\n",
+            "29/29 [==============================] - 0s 4ms/step - loss: 0.4962 - accuracy: 0.8136 - val_loss: 0.2235 - val_accuracy: 0.9666\n",
+            "\n",
+            "Epoch 00112: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 113/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.5203 - accuracy: 0.8059 - val_loss: 0.2215 - val_accuracy: 0.9691\n",
+            "\n",
+            "Epoch 00113: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 114/1000\n",
+            "29/29 [==============================] - 0s 4ms/step - loss: 0.5095 - accuracy: 0.8011 - val_loss: 0.2207 - val_accuracy: 0.9724\n",
+            "\n",
+            "Epoch 00114: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 115/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.4947 - accuracy: 0.8178 - val_loss: 0.2101 - val_accuracy: 0.9683\n",
+            "\n",
+            "Epoch 00115: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 116/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.5079 - accuracy: 0.8116 - val_loss: 0.2172 - val_accuracy: 0.9699\n",
+            "\n",
+            "Epoch 00116: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 117/1000\n",
+            "29/29 [==============================] - 0s 4ms/step - loss: 0.5056 - accuracy: 0.8056 - val_loss: 0.2236 - val_accuracy: 0.9691\n",
+            "\n",
+            "Epoch 00117: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 118/1000\n",
+            "29/29 [==============================] - 0s 4ms/step - loss: 0.5451 - accuracy: 0.7969 - val_loss: 0.2210 - val_accuracy: 0.9649\n",
+            "\n",
+            "Epoch 00118: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 119/1000\n",
+            "29/29 [==============================] - 0s 4ms/step - loss: 0.5005 - accuracy: 0.8192 - val_loss: 0.2220 - val_accuracy: 0.9733\n",
+            "\n",
+            "Epoch 00119: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 120/1000\n",
+            "29/29 [==============================] - 0s 4ms/step - loss: 0.5130 - accuracy: 0.8043 - val_loss: 0.2170 - val_accuracy: 0.9716\n",
+            "\n",
+            "Epoch 00120: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 121/1000\n",
+            "29/29 [==============================] - 0s 4ms/step - loss: 0.4874 - accuracy: 0.8132 - val_loss: 0.2177 - val_accuracy: 0.9724\n",
+            "\n",
+            "Epoch 00121: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 122/1000\n",
+            "29/29 [==============================] - 0s 4ms/step - loss: 0.4863 - accuracy: 0.8106 - val_loss: 0.2247 - val_accuracy: 0.9716\n",
+            "\n",
+            "Epoch 00122: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 123/1000\n",
+            "29/29 [==============================] - 0s 4ms/step - loss: 0.4867 - accuracy: 0.8101 - val_loss: 0.2138 - val_accuracy: 0.9699\n",
+            "\n",
+            "Epoch 00123: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 124/1000\n",
+            "29/29 [==============================] - 0s 4ms/step - loss: 0.4550 - accuracy: 0.8279 - val_loss: 0.2110 - val_accuracy: 0.9724\n",
+            "\n",
+            "Epoch 00124: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 125/1000\n",
+            "29/29 [==============================] - 0s 4ms/step - loss: 0.4908 - accuracy: 0.8152 - val_loss: 0.2088 - val_accuracy: 0.9716\n",
+            "\n",
+            "Epoch 00125: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 126/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.5095 - accuracy: 0.8085 - val_loss: 0.2052 - val_accuracy: 0.9749\n",
+            "\n",
+            "Epoch 00126: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 127/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.4814 - accuracy: 0.8096 - val_loss: 0.2055 - val_accuracy: 0.9733\n",
+            "\n",
+            "Epoch 00127: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 128/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.4960 - accuracy: 0.8126 - val_loss: 0.2153 - val_accuracy: 0.9699\n",
+            "\n",
+            "Epoch 00128: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 129/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.4922 - accuracy: 0.8236 - val_loss: 0.2169 - val_accuracy: 0.9699\n",
+            "\n",
+            "Epoch 00129: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 130/1000\n",
+            "29/29 [==============================] - 0s 4ms/step - loss: 0.4516 - accuracy: 0.8311 - val_loss: 0.2098 - val_accuracy: 0.9666\n",
+            "\n",
+            "Epoch 00130: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 131/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.4596 - accuracy: 0.8147 - val_loss: 0.2010 - val_accuracy: 0.9758\n",
+            "\n",
+            "Epoch 00131: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 132/1000\n",
+            "29/29 [==============================] - 0s 4ms/step - loss: 0.4641 - accuracy: 0.8284 - val_loss: 0.1976 - val_accuracy: 0.9733\n",
+            "\n",
+            "Epoch 00132: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 133/1000\n",
+            "29/29 [==============================] - 0s 4ms/step - loss: 0.4831 - accuracy: 0.8071 - val_loss: 0.2037 - val_accuracy: 0.9766\n",
+            "\n",
+            "Epoch 00133: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 134/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.4643 - accuracy: 0.8149 - val_loss: 0.2157 - val_accuracy: 0.9699\n",
+            "\n",
+            "Epoch 00134: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 135/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.4682 - accuracy: 0.8230 - val_loss: 0.2119 - val_accuracy: 0.9699\n",
+            "\n",
+            "Epoch 00135: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 136/1000\n",
+            "29/29 [==============================] - 0s 4ms/step - loss: 0.4986 - accuracy: 0.8085 - val_loss: 0.2093 - val_accuracy: 0.9724\n",
+            "\n",
+            "Epoch 00136: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 137/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.4729 - accuracy: 0.8226 - val_loss: 0.1992 - val_accuracy: 0.9741\n",
+            "\n",
+            "Epoch 00137: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 138/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.5082 - accuracy: 0.8100 - val_loss: 0.2034 - val_accuracy: 0.9724\n",
+            "\n",
+            "Epoch 00138: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 139/1000\n",
+            "29/29 [==============================] - 0s 4ms/step - loss: 0.4770 - accuracy: 0.8159 - val_loss: 0.2011 - val_accuracy: 0.9691\n",
+            "\n",
+            "Epoch 00139: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 140/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.4842 - accuracy: 0.8167 - val_loss: 0.2040 - val_accuracy: 0.9733\n",
+            "\n",
+            "Epoch 00140: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 141/1000\n",
+            "29/29 [==============================] - 0s 4ms/step - loss: 0.4895 - accuracy: 0.8208 - val_loss: 0.2113 - val_accuracy: 0.9657\n",
+            "\n",
+            "Epoch 00141: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 142/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.4821 - accuracy: 0.8175 - val_loss: 0.2193 - val_accuracy: 0.9649\n",
+            "\n",
+            "Epoch 00142: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 143/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.4909 - accuracy: 0.8237 - val_loss: 0.2194 - val_accuracy: 0.9607\n",
+            "\n",
+            "Epoch 00143: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 144/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.4814 - accuracy: 0.8163 - val_loss: 0.2222 - val_accuracy: 0.9591\n",
+            "\n",
+            "Epoch 00144: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 145/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.4776 - accuracy: 0.8226 - val_loss: 0.2159 - val_accuracy: 0.9657\n",
+            "\n",
+            "Epoch 00145: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 146/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.4810 - accuracy: 0.8290 - val_loss: 0.2111 - val_accuracy: 0.9632\n",
+            "\n",
+            "Epoch 00146: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 147/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.4892 - accuracy: 0.8163 - val_loss: 0.2065 - val_accuracy: 0.9666\n",
+            "\n",
+            "Epoch 00147: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 148/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.4642 - accuracy: 0.8298 - val_loss: 0.2058 - val_accuracy: 0.9716\n",
+            "\n",
+            "Epoch 00148: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 149/1000\n",
+            "29/29 [==============================] - 0s 7ms/step - loss: 0.4666 - accuracy: 0.8255 - val_loss: 0.2084 - val_accuracy: 0.9733\n",
+            "\n",
+            "Epoch 00149: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 150/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.4687 - accuracy: 0.8264 - val_loss: 0.1983 - val_accuracy: 0.9749\n",
+            "\n",
+            "Epoch 00150: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 151/1000\n",
+            "29/29 [==============================] - 0s 4ms/step - loss: 0.4801 - accuracy: 0.8201 - val_loss: 0.2018 - val_accuracy: 0.9724\n",
+            "\n",
+            "Epoch 00151: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 152/1000\n",
+            "29/29 [==============================] - 0s 3ms/step - loss: 0.4387 - accuracy: 0.8379 - val_loss: 0.2064 - val_accuracy: 0.9724\n",
+            "\n",
+            "Epoch 00152: saving model to model/keypoint_classifier/keypoint_classifier.hdf5\n",
+            "Epoch 00152: early stopping\n"
+          ],
+          "name": "stdout"
+        },
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "<tensorflow.python.keras.callbacks.History at 0x7f92ce96a240>"
+            ]
+          },
+          "metadata": {
+            "tags": []
+          },
+          "execution_count": 11
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "pxvb2Y299hE3",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "59eb3185-2e37-4b9e-bc9d-ab1b8ac29b7f"
+      },
+      "source": [
+        "# Model evaluation\n",
+        "val_loss, val_acc = model.evaluate(X_test, y_test, batch_size=128)"
+      ],
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "10/10 [==============================] - 0s 2ms/step - loss: 0.2064 - accuracy: 0.9724\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "RBkmDeUW9hE4"
+      },
+      "source": [
+        "# Loading the saved model\n",
+        "model = tf.keras.models.load_model(model_save_path)"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "tFz9Tb0I9hE4",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "1c3b3528-54ae-4ee2-ab04-77429211cbef"
+      },
+      "source": [
+        "# Inference test\n",
+        "predict_result = model.predict(np.array([X_test[0]]))\n",
+        "print(np.squeeze(predict_result))\n",
+        "print(np.argmax(np.squeeze(predict_result)))"
+      ],
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "[9.8105639e-01 1.8674158e-02 2.2328236e-04 4.6191799e-05]\n",
+            "0\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "S3U4yNWx9hE4"
+      },
+      "source": [
+        "# Confusion matrix"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "AP1V6SCk9hE5",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 582
+        },
+        "outputId": "08e41a80-7a4a-4619-8125-ecc371368d19"
+      },
+      "source": [
+        "import pandas as pd\n",
+        "import seaborn as sns\n",
+        "import matplotlib.pyplot as plt\n",
+        "from sklearn.metrics import confusion_matrix, classification_report\n",
+        "\n",
+        "def print_confusion_matrix(y_true, y_pred, report=True):\n",
+        "    labels = sorted(list(set(y_true)))\n",
+        "    cmx_data = confusion_matrix(y_true, y_pred, labels=labels)\n",
+        "    \n",
+        "    df_cmx = pd.DataFrame(cmx_data, index=labels, columns=labels)\n",
+        " \n",
+        "    fig, ax = plt.subplots(figsize=(7, 6))\n",
+        "    sns.heatmap(df_cmx, annot=True, fmt='g' ,square=False)\n",
+        "    ax.set_ylim(len(set(y_true)), 0)\n",
+        "    plt.show()\n",
+        "    \n",
+        "    if report:\n",
+        "        print('Classification Report')\n",
+        "        print(classification_report(y_test, y_pred))\n",
+        "\n",
+        "Y_pred = model.predict(X_test)\n",
+        "y_pred = np.argmax(Y_pred, axis=1)\n",
+        "\n",
+        "print_confusion_matrix(y_test, y_pred)"
+      ],
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "display_data",
+          "data": {
+            "image/png": "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\n",
+            "text/plain": [
+              "<Figure size 504x432 with 2 Axes>"
+            ]
+          },
+          "metadata": {
+            "tags": [],
+            "needs_background": "light"
+          }
+        },
+        {
+          "output_type": "stream",
+          "text": [
+            "Classification Report\n",
+            "              precision    recall  f1-score   support\n",
+            "\n",
+            "           0       0.99      1.00      0.99       402\n",
+            "           1       0.98      0.94      0.96       366\n",
+            "           2       0.94      0.98      0.96       343\n",
+            "           3       1.00      0.99      0.99        86\n",
+            "\n",
+            "    accuracy                           0.97      1197\n",
+            "   macro avg       0.98      0.98      0.98      1197\n",
+            "weighted avg       0.97      0.97      0.97      1197\n",
+            "\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "FNP6aqzc9hE5"
+      },
+      "source": [
+        "# Convert to model for Tensorflow-Lite"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "ODjnYyld9hE6"
+      },
+      "source": [
+        "# Save as a model dedicated to inference\n",
+        "model.save(model_save_path, include_optimizer=False)"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "zRfuK8Y59hE6",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "a4ca585c-b5d5-4244-8291-8674063209bb"
+      },
+      "source": [
+        "# Transform model (quantization)\n",
+        "\n",
+        "converter = tf.lite.TFLiteConverter.from_keras_model(model)\n",
+        "converter.optimizations = [tf.lite.Optimize.DEFAULT]\n",
+        "tflite_quantized_model = converter.convert()\n",
+        "\n",
+        "open(tflite_save_path, 'wb').write(tflite_quantized_model)"
+      ],
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "INFO:tensorflow:Assets written to: /tmp/tmpe5yx255p/assets\n"
+          ],
+          "name": "stdout"
+        },
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "6352"
+            ]
+          },
+          "metadata": {
+            "tags": []
+          },
+          "execution_count": 17
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "CHBPBXdx9hE6"
+      },
+      "source": [
+        "# Inference test"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "mGAzLocO9hE7"
+      },
+      "source": [
+        "interpreter = tf.lite.Interpreter(model_path=tflite_save_path)\n",
+        "interpreter.allocate_tensors()"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "oQuDK8YS9hE7"
+      },
+      "source": [
+        "# Get I / O tensor\n",
+        "input_details = interpreter.get_input_details()\n",
+        "output_details = interpreter.get_output_details()"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "2_ixAf_l9hE7"
+      },
+      "source": [
+        "interpreter.set_tensor(input_details[0]['index'], np.array([X_test[0]]))"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "scrolled": true,
+        "id": "s4FoAnuc9hE7",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "91f18257-8d8b-4ef3-c558-e9b5f94fabbf"
+      },
+      "source": [
+        "%%time\n",
+        "# Inference implementation\n",
+        "interpreter.invoke()\n",
+        "tflite_results = interpreter.get_tensor(output_details[0]['index'])"
+      ],
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "CPU times: user 131 µs, sys: 17 µs, total: 148 µs\n",
+            "Wall time: 679 µs\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "vONjp19J9hE8",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "77205e24-fd00-42c4-f7b6-e06e527c2cba"
+      },
+      "source": [
+        "print(np.squeeze(tflite_results))\n",
+        "print(np.argmax(np.squeeze(tflite_results)))"
+      ],
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "[9.8105639e-01 1.8674169e-02 2.2328216e-04 4.6191799e-05]\n",
+            "0\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    }
+  ]
+}
+</file>
+
+<file path="model/point_history_classifier/point_history_classifier_label.csv">
+Stop
+Next Slide
+Previous Slide
+</file>
+
+<file path="point_history_classification.ipynb">
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import csv\n",
+    "\n",
+    "import numpy as np\n",
+    "import tensorflow as tf\n",
+    "from sklearn.model_selection import train_test_split\n",
+    "\n",
+    "RANDOM_SEED = 42"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# 各パス指定"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "dataset = 'model/point_history_classifier/point_history.csv'\n",
+    "model_save_path = 'model/point_history_classifier/point_history_classifier.hdf5'"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# 分類数設定"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "NUM_CLASSES = 3"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# 入力長"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "TIME_STEPS = 16\n",
+    "DIMENSION = 2\n",
+    "NUM_FINGERS = 5\n",
+    "TOTAL_FEATURES = TIME_STEPS * NUM_FINGERS * DIMENSION"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# 学習データ読み込み"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "X_dataset = np.loadtxt(dataset, delimiter=',', dtype='float32', usecols=list(range(1, TOTAL_FEATURES + 1)))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "y_dataset = np.loadtxt(dataset, delimiter=',', dtype='int32', usecols=(0))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "X_train, X_test, y_train, y_test = train_test_split(X_dataset, y_dataset, train_size=0.75, random_state=RANDOM_SEED)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# モデル構築"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "use_lstm = False\n",
+    "model = None\n",
+    "\n",
+    "if use_lstm:\n",
+    "    model = tf.keras.models.Sequential([\n",
+    "        tf.keras.layers.InputLayer(input_shape=(TIME_STEPS * NUM_FINGERS * DIMENSION, )),\n",
+    "        tf.keras.layers.Reshape((TIME_STEPS, DIMENSION), input_shape=(TIME_STEPS * DIMENSION, )), \n",
+    "        tf.keras.layers.Dropout(0.2),\n",
+    "        tf.keras.layers.LSTM(16, input_shape=[TIME_STEPS, NUM_FINGERS * DIMENSION]),\n",
+    "        tf.keras.layers.Dropout(0.5),\n",
+    "        tf.keras.layers.Dense(10, activation='relu'),\n",
+    "        tf.keras.layers.Dense(NUM_CLASSES, activation='softmax')\n",
+    "    ])\n",
+    "else:\n",
+    "    model = tf.keras.models.Sequential([\n",
+    "        tf.keras.layers.InputLayer(input_shape=(TIME_STEPS * NUM_FINGERS * DIMENSION, )),\n",
+    "        tf.keras.layers.Dropout(0.2),\n",
+    "        tf.keras.layers.Dense(24, activation='relu'),\n",
+    "        tf.keras.layers.Dropout(0.5),\n",
+    "        tf.keras.layers.Dense(10, activation='relu'),\n",
+    "        tf.keras.layers.Dense(NUM_CLASSES, activation='softmax')\n",
+    "    ])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "model.summary()  # tf.keras.utils.plot_model(model, show_shapes=True)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# モデルチェックポイントのコールバック\n",
+    "cp_callback = tf.keras.callbacks.ModelCheckpoint(\n",
+    "    model_save_path, verbose=1, save_weights_only=False)\n",
+    "# 早期打ち切り用コールバック\n",
+    "es_callback = tf.keras.callbacks.EarlyStopping(patience=20, verbose=1)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# モデルコンパイル\n",
+    "model.compile(\n",
+    "    optimizer='adam',\n",
+    "    loss='sparse_categorical_crossentropy',\n",
+    "    metrics=['accuracy']\n",
+    ")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# モデル訓練"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "scrolled": true
+   },
+   "outputs": [],
+   "source": [
+    "model.fit(\n",
+    "    X_train,\n",
+    "    y_train,\n",
+    "    epochs=1000,\n",
+    "    batch_size=128,\n",
+    "    validation_data=(X_test, y_test),\n",
+    "    callbacks=[cp_callback, es_callback]\n",
+    ")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# 保存したモデルのロード\n",
+    "model = tf.keras.models.load_model(model_save_path)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# 推論テスト\n",
+    "predict_result = model.predict(np.array([X_test[0]]))\n",
+    "print(np.squeeze(predict_result))\n",
+    "print(np.argmax(np.squeeze(predict_result)))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# 混同行列"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import pandas as pd\n",
+    "import seaborn as sns\n",
+    "import matplotlib.pyplot as plt\n",
+    "from sklearn.metrics import confusion_matrix, classification_report\n",
+    "\n",
+    "def print_confusion_matrix(y_true, y_pred, report=True):\n",
+    "    labels = sorted(list(set(y_true)))\n",
+    "    cmx_data = confusion_matrix(y_true, y_pred, labels=labels)\n",
+    "    \n",
+    "    df_cmx = pd.DataFrame(cmx_data, index=labels, columns=labels)\n",
+    " \n",
+    "    fig, ax = plt.subplots(figsize=(7, 6))\n",
+    "    sns.heatmap(df_cmx, annot=True, fmt='g' ,square=False)\n",
+    "    ax.set_ylim(len(set(y_true)), 0)\n",
+    "    plt.show()\n",
+    "    \n",
+    "    if report:\n",
+    "        print('Classification Report')\n",
+    "        print(classification_report(y_test, y_pred))\n",
+    "\n",
+    "Y_pred = model.predict(X_test)\n",
+    "y_pred = np.argmax(Y_pred, axis=1)\n",
+    "\n",
+    "print_confusion_matrix(y_test, y_pred)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Tensorflow-Lite用のモデルへ変換"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# 推論専用のモデルとして保存\n",
+    "model.save(model_save_path, include_optimizer=False)\n",
+    "model = tf.keras.models.load_model(model_save_path)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "tflite_save_path = 'model/point_history_classifier/point_history_classifier.tflite'"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# モデルを変換(量子化\n",
+    "converter = tf.lite.TFLiteConverter.from_keras_model(model)  # converter = tf.lite.TFLiteConverter.from_saved_model(saved_model_path)\n",
+    "converter.optimizations = [tf.lite.Optimize.DEFAULT]\n",
+    "tflite_quantized_model = converter.convert()\n",
+    "\n",
+    "open(tflite_save_path, 'wb').write(tflite_quantized_model)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# 推論テスト"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "interpreter = tf.lite.Interpreter(model_path=tflite_save_path)\n",
+    "interpreter.allocate_tensors()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# 入出力テンソルを取得\n",
+    "input_details = interpreter.get_input_details()\n",
+    "output_details = interpreter.get_output_details()\n",
+    "print(input_details)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "interpreter.set_tensor(input_details[0]['index'], np.array([X_test[0]]))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "%%time\n",
+    "# 推論実施\n",
+    "interpreter.invoke()\n",
+    "tflite_results = interpreter.get_tensor(output_details[0]['index'])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "print(np.squeeze(tflite_results))\n",
+    "print(np.argmax(np.squeeze(tflite_results)))"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": ".venv",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.10.11"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 4
+}
+</file>
+
+<file path="requirements.txt">
+tensorflow == 2.15.0
+keras == 2.15.0
+mediapipe
+opencv-python
+scikit-learn
+matplotlib
+pandas
+seaborn
+pyautogui
+</file>
+
+<file path="model/keypoint_classifier/keypoint_classifier_label.csv">
+No Action
+IC Pose
+Next Slide
+Previous Slide
+</file>
+
+<file path="keypoint_classification.ipynb">
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import csv\n",
+    "\n",
+    "import numpy as np\n",
+    "import tensorflow as tf\n",
+    "from sklearn.model_selection import train_test_split\n",
+    "\n",
+    "RANDOM_SEED = 42"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# 各パス指定"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "dataset = 'model/keypoint_classifier/keypoint.csv'\n",
+    "model_save_path = 'model/keypoint_classifier/keypoint_classifier.hdf5'"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# 分類数設定"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "NUM_CLASSES = 4"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# 学習データ読み込み"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "X_dataset = np.loadtxt(dataset, delimiter=',', dtype='float32', usecols=list(range(1, (21 * 2) + 1)))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "y_dataset = np.loadtxt(dataset, delimiter=',', dtype='int32', usecols=(0))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "X_train, X_test, y_train, y_test = train_test_split(X_dataset, y_dataset, train_size=0.75, random_state=RANDOM_SEED)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# モデル構築"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "model = tf.keras.models.Sequential([\n",
+    "    tf.keras.layers.Input((21 * 2, )),\n",
+    "    tf.keras.layers.Dropout(0.2),\n",
+    "    tf.keras.layers.Dense(20, activation='relu'),\n",
+    "    tf.keras.layers.Dropout(0.4),\n",
+    "    tf.keras.layers.Dense(10, activation='relu'),\n",
+    "    tf.keras.layers.Dense(NUM_CLASSES, activation='softmax')\n",
+    "])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "model.summary()  # tf.keras.utils.plot_model(model, show_shapes=True)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# モデルチェックポイントのコールバック\n",
+    "cp_callback = tf.keras.callbacks.ModelCheckpoint(\n",
+    "    model_save_path, verbose=1, save_weights_only=False)\n",
+    "# 早期打ち切り用コールバック\n",
+    "es_callback = tf.keras.callbacks.EarlyStopping(patience=20, verbose=1)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# モデルコンパイル\n",
+    "model.compile(\n",
+    "    optimizer='adam',\n",
+    "    loss='sparse_categorical_crossentropy',\n",
+    "    metrics=['accuracy']\n",
+    ")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# モデル訓練"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "scrolled": true
+   },
+   "outputs": [],
+   "source": [
+    "model.fit(\n",
+    "    X_train,\n",
+    "    y_train,\n",
+    "    epochs=1000,\n",
+    "    batch_size=128,\n",
+    "    validation_data=(X_test, y_test),\n",
+    "    callbacks=[cp_callback, es_callback]\n",
+    ")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# モデル評価\n",
+    "val_loss, val_acc = model.evaluate(X_test, y_test, batch_size=128)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# 保存したモデルのロード\n",
+    "model = tf.keras.models.load_model(model_save_path)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# 推論テスト\n",
+    "predict_result = model.predict(np.array([X_test[0]]))\n",
+    "print(np.squeeze(predict_result))\n",
+    "print(np.argmax(np.squeeze(predict_result)))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# 混同行列"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import pandas as pd\n",
+    "import seaborn as sns\n",
+    "import matplotlib.pyplot as plt\n",
+    "from sklearn.metrics import confusion_matrix, classification_report\n",
+    "\n",
+    "def print_confusion_matrix(y_true, y_pred, report=True):\n",
+    "    labels = sorted(list(set(y_true)))\n",
+    "    cmx_data = confusion_matrix(y_true, y_pred, labels=labels)\n",
+    "    \n",
+    "    df_cmx = pd.DataFrame(cmx_data, index=labels, columns=labels)\n",
+    " \n",
+    "    fig, ax = plt.subplots(figsize=(7, 6))\n",
+    "    sns.heatmap(df_cmx, annot=True, fmt='g' ,square=False)\n",
+    "    ax.set_ylim(len(set(y_true)), 0)\n",
+    "    plt.show()\n",
+    "    \n",
+    "    if report:\n",
+    "        print('Classification Report')\n",
+    "        print(classification_report(y_test, y_pred))\n",
+    "\n",
+    "Y_pred = model.predict(X_test)\n",
+    "y_pred = np.argmax(Y_pred, axis=1)\n",
+    "\n",
+    "print_confusion_matrix(y_test, y_pred)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Tensorflow-Lite用のモデルへ変換"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# 推論専用のモデルとして保存\n",
+    "model.save(model_save_path, include_optimizer=False)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# モデルを変換(量子化)\n",
+    "tflite_save_path = 'model/keypoint_classifier/keypoint_classifier.tflite'\n",
+    "\n",
+    "converter = tf.lite.TFLiteConverter.from_keras_model(model)\n",
+    "converter.optimizations = [tf.lite.Optimize.DEFAULT]\n",
+    "tflite_quantized_model = converter.convert()\n",
+    "\n",
+    "open(tflite_save_path, 'wb').write(tflite_quantized_model)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# 推論テスト"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "interpreter = tf.lite.Interpreter(model_path=tflite_save_path)\n",
+    "interpreter.allocate_tensors()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# 入出力テンソルを取得\n",
+    "input_details = interpreter.get_input_details()\n",
+    "output_details = interpreter.get_output_details()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "interpreter.set_tensor(input_details[0]['index'], np.array([X_test[0]]))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "scrolled": true
+   },
+   "outputs": [],
+   "source": [
+    "%%time\n",
+    "# 推論実施\n",
+    "interpreter.invoke()\n",
+    "tflite_results = interpreter.get_tensor(output_details[0]['index'])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "print(np.squeeze(tflite_results))\n",
+    "print(np.argmax(np.squeeze(tflite_results)))"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": ".venv",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.10.11"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 4
+}
+</file>
+
+<file path="model/keypoint_classifier/keypoint.csv">
 0,0.0,0.0,-0.3,-0.18666666666666668,-0.44666666666666666,-0.48,-0.4666666666666667,-0.76,-0.4666666666666667,-1.0,-0.3,-0.6733333333333333,-0.29333333333333333,-0.9066666666666666,-0.31333333333333335,-0.6666666666666666,-0.31333333333333335,-0.58,-0.13333333333333333,-0.6466666666666666,-0.11333333333333333,-0.8533333333333334,-0.16666666666666666,-0.5666666666666667,-0.16,-0.54,0.04,-0.58,0.05333333333333334,-0.7666666666666667,-0.02666666666666667,-0.5,-0.02666666666666667,-0.4533333333333333,0.22,-0.5133333333333333,0.21333333333333335,-0.6866666666666666,0.12666666666666668,-0.5133333333333333,0.11333333333333333,-0.44666666666666666
 0,0.0,0.0,-0.32432432432432434,-0.17567567567567569,-0.5,-0.4527027027027027,-0.5472972972972973,-0.7432432432432432,-0.5675675675675675,-1.0,-0.41216216216216217,-0.6554054054054054,-0.39864864864864863,-0.918918918918919,-0.38513513513513514,-0.6756756756756757,-0.38513513513513514,-0.581081081081081,-0.22972972972972974,-0.6418918918918919,-0.19594594594594594,-0.8716216216216216,-0.21621621621621623,-0.5743243243243243,-0.22297297297297297,-0.5405405405405406,-0.04054054054054054,-0.6013513513513513,-0.02027027027027027,-0.7972972972972973,-0.06756756756756757,-0.5202702702702703,-0.08783783783783784,-0.47297297297297297,0.14864864864864866,-0.5472972972972973,0.14864864864864866,-0.722972972972973,0.08108108108108109,-0.5337837837837838,0.05405405405405406,-0.47297297297297297
 0,0.0,0.0,-0.3380281690140845,-0.16901408450704225,-0.5422535211267606,-0.43661971830985913,-0.5985915492957746,-0.7323943661971831,-0.6197183098591549,-1.0,-0.4507042253521127,-0.676056338028169,-0.43661971830985913,-0.9366197183098591,-0.4154929577464789,-0.6830985915492958,-0.4154929577464789,-0.5845070422535211,-0.2535211267605634,-0.6690140845070423,-0.22535211267605634,-0.8873239436619719,-0.2323943661971831,-0.5845070422535211,-0.2535211267605634,-0.5563380281690141,-0.056338028169014086,-0.6267605633802817,-0.04225352112676056,-0.8028169014084507,-0.09154929577464789,-0.5211267605633803,-0.11267605633802817,-0.4788732394366197,0.14084507042253522,-0.5774647887323944,0.13380281690140844,-0.7323943661971831,0.06338028169014084,-0.5352112676056338,0.035211267605633804,-0.47183098591549294
@@ -5893,3 +6925,584 @@
 0,0.0,0.0,0.19166666666666668,-0.2916666666666667,0.21666666666666667,-0.5583333333333333,0.09166666666666666,-0.775,-0.058333333333333334,-0.8666666666666667,0.25833333333333336,-0.7416666666666667,0.09166666666666666,-1.0,0.058333333333333334,-0.8833333333333333,0.08333333333333333,-0.775,0.041666666666666664,-0.7083333333333334,-0.1,-0.925,-0.125,-0.8083333333333333,-0.09166666666666666,-0.7166666666666667,-0.175,-0.65,-0.25,-0.8166666666666667,-0.25,-0.7083333333333334,-0.225,-0.6166666666666667,-0.36666666666666664,-0.5666666666666667,-0.38333333333333336,-0.7083333333333334,-0.36666666666666664,-0.6083333333333333,-0.3416666666666667,-0.5166666666666667
 0,0.0,0.0,0.1694915254237288,-0.2966101694915254,0.1694915254237288,-0.5847457627118644,0.05084745762711865,-0.7966101694915254,-0.09322033898305085,-0.8983050847457628,0.22033898305084745,-0.788135593220339,-0.01694915254237288,-1.0,-0.059322033898305086,-0.8813559322033898,-0.025423728813559324,-0.7966101694915254,0.0423728813559322,-0.7457627118644068,-0.1864406779661017,-0.923728813559322,-0.22033898305084745,-0.8135593220338984,-0.1694915254237288,-0.7203389830508474,-0.1440677966101695,-0.6779661016949152,-0.3135593220338983,-0.8135593220338984,-0.3305084745762712,-0.7033898305084746,-0.2796610169491525,-0.6186440677966102,-0.3220338983050847,-0.5932203389830508,-0.423728813559322,-0.711864406779661,-0.423728813559322,-0.6016949152542372,-0.3898305084745763,-0.5169491525423728
 0,0.0,0.0,0.16379310344827586,-0.3017241379310345,0.1724137931034483,-0.603448275862069,0.04310344827586207,-0.8448275862068966,-0.09482758620689655,-0.9655172413793104,0.22413793103448276,-0.7844827586206896,-0.017241379310344827,-1.0,-0.0603448275862069,-0.896551724137931,-0.02586206896551724,-0.7931034482758621,0.05172413793103448,-0.7413793103448276,-0.1896551724137931,-0.9224137931034483,-0.21551724137931033,-0.8103448275862069,-0.16379310344827586,-0.7241379310344828,-0.13793103448275862,-0.6724137931034483,-0.31896551724137934,-0.8103448275862069,-0.33620689655172414,-0.6982758620689655,-0.27586206896551724,-0.6206896551724138,-0.31896551724137934,-0.5862068965517241,-0.43103448275862066,-0.6982758620689655,-0.43103448275862066,-0.5948275862068966,-0.3879310344827586,-0.5172413793103449
+</file>
+
+<file path="app.py">
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+import csv
+import copy
+import argparse
+import itertools
+import pyautogui
+from collections import Counter
+from collections import deque
+
+import cv2 as cv
+import numpy as np
+import mediapipe as mp
+
+from utils import CvFpsCalc
+from model import KeyPointClassifier
+from model import PointHistoryClassifier
+
+# Landmark indices for fingertips
+FINGERTIP_INDICES = [4, 8, 12, 16, 20]  # Thumb, Index, Middle, Ring, Pinky
+NUM_FINGERS = len(FINGERTIP_INDICES)
+
+
+def get_args():
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument("--device", type=int, default=0)
+    parser.add_argument("--width", help="cap width", type=int, default=960)
+    parser.add_argument("--height", help="cap height", type=int, default=540)
+
+    parser.add_argument("--use_static_image_mode", action="store_true")
+    parser.add_argument(
+        "--min_detection_confidence",
+        help="min_detection_confidence",
+        type=float,
+        default=0.7,
+    )
+    parser.add_argument(
+        "--min_tracking_confidence",
+        help="min_tracking_confidence",
+        type=float,
+        default=0.5,
+    )
+
+    args = parser.parse_args()
+    return args
+
+def main():
+    args = get_args()
+    cap_device = args.device
+    cap_width = args.width
+    cap_height = args.height
+    use_static_image_mode = args.use_static_image_mode
+    min_detection_confidence = args.min_detection_confidence
+    min_tracking_confidence = args.min_tracking_confidence
+    use_brect = True
+
+    cap = cv.VideoCapture(cap_device)
+    cap.set(cv.CAP_PROP_FRAME_WIDTH, cap_width)
+    cap.set(cv.CAP_PROP_FRAME_HEIGHT, cap_height)
+
+    mp_hands = mp.solutions.hands
+    hands = mp_hands.Hands(
+        static_image_mode=use_static_image_mode,
+        max_num_hands=1,
+        min_detection_confidence=min_detection_confidence,
+        min_tracking_confidence=min_tracking_confidence,
+    )
+
+    keypoint_classifier = KeyPointClassifier()
+    point_history_classifier = PointHistoryClassifier() # Default invalid_value is 0
+
+    # Read labels ###########################################################
+    keypoint_classifier_labels = []
+    keypoint_label_path = "model/keypoint_classifier/keypoint_classifier_label.csv"
+    try:
+        with open(keypoint_label_path, encoding="utf-8-sig") as f:
+            reader = csv.reader(f)
+            keypoint_classifier_labels = [row[0] for row in reader if row and row[0].strip()]
+        if not keypoint_classifier_labels:
+            print(f"Warning: {keypoint_label_path} is empty or contains no valid labels.")
+    except FileNotFoundError:
+        print(f"Error: {keypoint_label_path} not found. Hand sign names will not be displayed.")
+
+    point_history_classifier_labels = []
+    point_history_label_path = "model/point_history_classifier/point_history_classifier_label.csv"
+    try:
+        with open(point_history_label_path, encoding="utf-8-sig") as f:
+            reader = csv.reader(f)
+            point_history_classifier_labels = [row[0] for row in reader if row and row[0].strip()]
+        if not point_history_classifier_labels:
+            print(f"Warning: {point_history_label_path} is empty or contains no valid labels. Gesture names may not display.")
+    except FileNotFoundError:
+        print(f"Error: {point_history_label_path} not found. Gesture names will not be displayed.")
+
+    cvFpsCalc = CvFpsCalc(buffer_len=10)
+    history_length = 16
+    point_history = deque(maxlen=history_length)
+    finger_gesture_history = deque(maxlen=history_length)
+    mode = 0
+    previous_point_name = None
+
+    while True:
+        fps = cvFpsCalc.get()
+        key = cv.waitKey(10)
+        if key == 27: break
+        number, mode = select_mode(key, mode)
+
+        ret, image = cap.read()
+        if not ret: break
+        image = cv.flip(image, 1)
+        debug_image = copy.deepcopy(image)
+        image = cv.cvtColor(image, cv.COLOR_BGR2RGB)
+        image.flags.writeable = False
+        results = hands.process(image)
+        image.flags.writeable = True
+
+        if results.multi_hand_landmarks is not None:
+            for hand_landmarks, handedness in zip(
+                results.multi_hand_landmarks, results.multi_handedness
+            ):
+                brect = calc_bounding_rect(debug_image, hand_landmarks)
+                landmark_list = calc_landmark_list(debug_image, hand_landmarks)
+                pre_processed_landmark_list = pre_process_landmark(landmark_list)
+
+                current_finger_coords = []
+                if landmark_list: # Ensure landmark_list is not empty
+                    for idx in FINGERTIP_INDICES:
+                        if idx < len(landmark_list):
+                             current_finger_coords.append(landmark_list[idx])
+                        else: # Should not happen if mediapipe returns full landmarks
+                            current_finger_coords.append([0,0]) 
+                else: # No landmarks, append zeros
+                    current_finger_coords = [[0, 0]] * NUM_FINGERS
+                
+                point_history.append(current_finger_coords)
+                pre_processed_point_history_list = pre_process_point_history(debug_image, point_history)
+
+                logging_csv(number, mode, pre_processed_landmark_list, pre_processed_point_history_list)
+
+                hand_sign_id = keypoint_classifier(pre_processed_landmark_list)
+
+                finger_gesture_id = point_history_classifier.invalid_value # Default to invalid
+                if len(pre_processed_point_history_list) == (history_length * NUM_FINGERS * 2):
+                    finger_gesture_id = point_history_classifier(pre_processed_point_history_list)
+
+                finger_gesture_history.append(finger_gesture_id)
+                most_common_fg_tuples = Counter(finger_gesture_history).most_common(1)
+
+                current_gesture_name = "Unknown"
+                final_gesture_id = point_history_classifier.invalid_value
+                if most_common_fg_tuples:
+                    final_gesture_id = most_common_fg_tuples[0][0]
+                    if point_history_classifier_labels and \
+                       0 <= final_gesture_id < len(point_history_classifier_labels):
+                        current_gesture_name = point_history_classifier_labels[final_gesture_id]
+
+                hand_sign_display_name = "Unknown"
+                if keypoint_classifier_labels and \
+                   0 <= hand_sign_id < len(keypoint_classifier_labels):
+                    hand_sign_display_name = keypoint_classifier_labels[hand_sign_id]
+
+                invalid_gesture_label_to_hide = None
+                if point_history_classifier_labels and \
+                   0 <= point_history_classifier.invalid_value < len(point_history_classifier_labels):
+                    invalid_gesture_label_to_hide = point_history_classifier_labels[point_history_classifier.invalid_value]
+
+                debug_image = draw_bounding_rect(use_brect, debug_image, brect)
+                debug_image = draw_landmarks(debug_image, landmark_list)
+                debug_image = draw_info_text(
+                    debug_image,
+                    brect,
+                    handedness,
+                    hand_sign_display_name,
+                    current_gesture_name,
+                    invalid_gesture_label_to_hide
+                )
+
+                target_hand_signs = ["Previous Slide", "Next Slide"]
+                if hand_sign_display_name in target_hand_signs and hand_sign_display_name != previous_point_name:
+                    if hand_sign_display_name == "Next Slide": pyautogui.press("right")
+                    elif hand_sign_display_name == "Previous Slide": pyautogui.press("left")
+                    print(f"Hand Sign Action: {hand_sign_display_name}")
+                previous_point_name = hand_sign_display_name
+        else:
+            point_history.append([[0, 0]] * NUM_FINGERS)
+
+        debug_image = draw_point_history(debug_image, point_history)
+        debug_image = draw_info(debug_image, fps, mode, number)
+        cv.imshow("ME4: Gesture Control of Powerpoint | Christian Klein C. Ramos", debug_image)
+
+    cap.release()
+    cv.destroyAllWindows()
+
+
+def select_mode(key, mode):
+    number = -1
+    if 48 <= key <= 57:  # 0 ~ 9
+        number = key - 48
+    if key == 110:  # n
+        mode = 0 # Normal mode
+    if key == 107:  # k
+        mode = 1 # Logging Key Point (static hand pose)
+    if key == 104:  # h
+        mode = 2 # Logging Point History (dynamic gesture)
+    return number, mode
+
+
+def calc_bounding_rect(image, landmarks):
+    if not landmarks or not landmarks.landmark: return None
+    image_width, image_height = image.shape[1], image.shape[0]
+    landmark_array = np.empty((0, 2), int)
+    for _, landmark in enumerate(landmarks.landmark):
+        landmark_x = min(int(landmark.x * image_width), image_width - 1)
+        landmark_y = min(int(landmark.y * image_height), image_height - 1)
+        landmark_point = [np.array((landmark_x, landmark_y))]
+        landmark_array = np.append(landmark_array, landmark_point, axis=0)
+    if landmark_array.shape[0] == 0: return None
+    x, y, w, h = cv.boundingRect(landmark_array)
+    return [x, y, x + w, y + h]
+
+
+def calc_landmark_list(image, landmarks):
+    if not landmarks or not landmarks.landmark: return []
+    image_width, image_height = image.shape[1], image.shape[0]
+    landmark_point = []
+    for _, landmark in enumerate(landmarks.landmark):
+        landmark_x = min(int(landmark.x * image_width), image_width - 1)
+        landmark_y = min(int(landmark.y * image_height), image_height - 1)
+        landmark_point.append([landmark_x, landmark_y])
+    return landmark_point
+
+
+def pre_process_landmark(landmark_list):
+    if not landmark_list: return [] # Guard for empty list
+    temp_landmark_list = copy.deepcopy(landmark_list)
+    base_x, base_y = 0, 0
+    if temp_landmark_list:
+        base_x, base_y = temp_landmark_list[0][0], temp_landmark_list[0][1] # Wrist
+        for index, landmark_point in enumerate(temp_landmark_list):
+            temp_landmark_list[index][0] = temp_landmark_list[index][0] - base_x
+            temp_landmark_list[index][1] = temp_landmark_list[index][1] - base_y
+
+    temp_landmark_list = list(itertools.chain.from_iterable(temp_landmark_list))
+    if not temp_landmark_list: return []
+
+    max_value = max(list(map(abs, temp_landmark_list))) if temp_landmark_list else 0
+    def normalize_(n):
+        return n / max_value if max_value != 0 else 0
+    temp_landmark_list = list(map(normalize_, temp_landmark_list))
+    return temp_landmark_list
+
+
+def pre_process_point_history(image, point_history_deque_of_lists):
+    image_width, image_height = image.shape[1], image.shape[0]
+    if image_width == 0: image_width = 1
+    if image_height == 0: image_height = 1
+    processed_history_flat = []
+    if not point_history_deque_of_lists: return []
+
+    base_x_ref, base_y_ref = 0, 0
+    found_ref = False
+    # Try to find the oldest valid thumb tip as reference
+    for t_step_points in point_history_deque_of_lists: # oldest to newest
+        if t_step_points and len(t_step_points) > 0 and t_step_points[0] and \
+           (t_step_points[0][0] != 0 or t_step_points[0][1] != 0):
+            base_x_ref, base_y_ref = t_step_points[0][0], t_step_points[0][1]
+            found_ref = True
+            break
+    
+    if not found_ref and point_history_deque_of_lists[0] and \
+       len(point_history_deque_of_lists[0]) > 0 and point_history_deque_of_lists[0][0]:
+        # Fallback: use the oldest thumb tip even if it's (0,0)
+        base_x_ref, base_y_ref = point_history_deque_of_lists[0][0][0], point_history_deque_of_lists[0][0][1]
+
+
+    for points_at_t in point_history_deque_of_lists:
+        for finger_idx in range(NUM_FINGERS):
+            if finger_idx < len(points_at_t):
+                finger_point = points_at_t[finger_idx]
+                if finger_point[0] == 0 and finger_point[1] == 0:
+                    norm_x, norm_y = 0.0, 0.0
+                else:
+                    norm_x = (finger_point[0] - base_x_ref) / image_width
+                    norm_y = (finger_point[1] - base_y_ref) / image_height
+                processed_history_flat.extend([norm_x, norm_y])
+            else: # Should not happen if point_history is populated correctly
+                processed_history_flat.extend([0.0, 0.0]) 
+
+    return processed_history_flat
+
+
+def logging_csv(number, mode, landmark_list, point_history_list_flat):
+    if mode == 1 and (0 <= number <= 9):
+        csv_path = "model/keypoint_classifier/keypoint.csv"
+        with open(csv_path, "a", newline="") as f:
+            writer = csv.writer(f)
+            writer.writerow([number, *landmark_list])
+    if mode == 2 and (0 <= number <= 9):
+        csv_path = "model/point_history_classifier/point_history.csv"
+        with open(csv_path, "a", newline="") as f:
+            writer = csv.writer(f)
+            writer.writerow([number, *point_history_list_flat])
+    return
+
+
+def draw_landmarks(image, landmark_point):
+    if not landmark_point or len(landmark_point) < 21: return image # Guard if not enough points
+
+    # Lines (connections)
+    # Thumb
+    cv.line(image, tuple(landmark_point[2]), tuple(landmark_point[3]), (0, 0, 0), 6); cv.line(image, tuple(landmark_point[2]), tuple(landmark_point[3]), (255, 255, 255), 2)
+    cv.line(image, tuple(landmark_point[3]), tuple(landmark_point[4]), (0, 0, 0), 6); cv.line(image, tuple(landmark_point[3]), tuple(landmark_point[4]), (255, 255, 255), 2)
+    # Index finger
+    cv.line(image, tuple(landmark_point[5]), tuple(landmark_point[6]), (0, 0, 0), 6); cv.line(image, tuple(landmark_point[5]), tuple(landmark_point[6]), (255, 255, 255), 2)
+    cv.line(image, tuple(landmark_point[6]), tuple(landmark_point[7]), (0, 0, 0), 6); cv.line(image, tuple(landmark_point[6]), tuple(landmark_point[7]), (255, 255, 255), 2)
+    cv.line(image, tuple(landmark_point[7]), tuple(landmark_point[8]), (0, 0, 0), 6); cv.line(image, tuple(landmark_point[7]), tuple(landmark_point[8]), (255, 255, 255), 2)
+    # Middle finger
+    cv.line(image, tuple(landmark_point[9]), tuple(landmark_point[10]), (0, 0, 0), 6); cv.line(image, tuple(landmark_point[9]), tuple(landmark_point[10]), (255, 255, 255), 2)
+    cv.line(image, tuple(landmark_point[10]), tuple(landmark_point[11]), (0, 0, 0), 6); cv.line(image, tuple(landmark_point[10]), tuple(landmark_point[11]), (255, 255, 255), 2)
+    cv.line(image, tuple(landmark_point[11]), tuple(landmark_point[12]), (0, 0, 0), 6); cv.line(image, tuple(landmark_point[11]), tuple(landmark_point[12]), (255, 255, 255), 2)
+    # Ring finger
+    cv.line(image, tuple(landmark_point[13]), tuple(landmark_point[14]), (0, 0, 0), 6); cv.line(image, tuple(landmark_point[13]), tuple(landmark_point[14]), (255, 255, 255), 2)
+    cv.line(image, tuple(landmark_point[14]), tuple(landmark_point[15]), (0, 0, 0), 6); cv.line(image, tuple(landmark_point[14]), tuple(landmark_point[15]), (255, 255, 255), 2)
+    cv.line(image, tuple(landmark_point[15]), tuple(landmark_point[16]), (0, 0, 0), 6); cv.line(image, tuple(landmark_point[15]), tuple(landmark_point[16]), (255, 255, 255), 2)
+    # Little finger
+    cv.line(image, tuple(landmark_point[17]), tuple(landmark_point[18]), (0, 0, 0), 6); cv.line(image, tuple(landmark_point[17]), tuple(landmark_point[18]), (255, 255, 255), 2)
+    cv.line(image, tuple(landmark_point[18]), tuple(landmark_point[19]), (0, 0, 0), 6); cv.line(image, tuple(landmark_point[18]), tuple(landmark_point[19]), (255, 255, 255), 2)
+    cv.line(image, tuple(landmark_point[19]), tuple(landmark_point[20]), (0, 0, 0), 6); cv.line(image, tuple(landmark_point[19]), tuple(landmark_point[20]), (255, 255, 255), 2)
+    # Palm
+    cv.line(image, tuple(landmark_point[0]), tuple(landmark_point[1]), (0, 0, 0), 6); cv.line(image, tuple(landmark_point[0]), tuple(landmark_point[1]), (255, 255, 255), 2)
+    cv.line(image, tuple(landmark_point[1]), tuple(landmark_point[2]), (0, 0, 0), 6); cv.line(image, tuple(landmark_point[1]), tuple(landmark_point[2]), (255, 255, 255), 2)
+    cv.line(image, tuple(landmark_point[2]), tuple(landmark_point[5]), (0, 0, 0), 6); cv.line(image, tuple(landmark_point[2]), tuple(landmark_point[5]), (255, 255, 255), 2)
+    cv.line(image, tuple(landmark_point[5]), tuple(landmark_point[9]), (0, 0, 0), 6); cv.line(image, tuple(landmark_point[5]), tuple(landmark_point[9]), (255, 255, 255), 2)
+    cv.line(image, tuple(landmark_point[9]), tuple(landmark_point[13]), (0, 0, 0), 6); cv.line(image, tuple(landmark_point[9]), tuple(landmark_point[13]), (255, 255, 255), 2)
+    cv.line(image, tuple(landmark_point[13]), tuple(landmark_point[17]), (0, 0, 0), 6); cv.line(image, tuple(landmark_point[13]), tuple(landmark_point[17]), (255, 255, 255), 2)
+    cv.line(image, tuple(landmark_point[17]), tuple(landmark_point[0]), (0, 0, 0), 6); cv.line(image, tuple(landmark_point[17]), tuple(landmark_point[0]), (255, 255, 255), 2)
+
+    # Key Points (Circles)
+    fingertip_draw_color = (152, 251, 152)
+    for index, landmark in enumerate(landmark_point):
+        radius = 5
+        color = (255, 255, 255)
+        if index in FINGERTIP_INDICES:
+            radius = 8
+            color = fingertip_draw_color
+        cv.circle(image, (landmark[0], landmark[1]), radius, color, -1)
+        cv.circle(image, (landmark[0], landmark[1]), radius, (0, 0, 0), 1)
+    return image
+
+
+def draw_bounding_rect(use_brect, image, brect):
+    if use_brect and brect and len(brect) == 4:
+        cv.rectangle(image, (brect[0], brect[1]), (brect[2], brect[3]), (0, 0, 0), 1)
+    return image
+
+
+def draw_info_text(image, brect, handedness, hand_sign_text, finger_gesture_text, invalid_gesture_label_to_hide=None):
+    if brect and len(brect) == 4:
+        cv.rectangle(image, (brect[0], brect[1]), (brect[2], brect[1] - 22), (0, 0, 0), -1)
+        info_text = ""
+        if handedness and handedness.classification and handedness.classification[0]:
+             info_text = handedness.classification[0].label[0:]
+
+        if hand_sign_text != "" and hand_sign_text != "Unknown":
+            info_text = info_text + ":" + hand_sign_text
+        cv.putText(
+            image,
+            info_text,
+            (brect[0] + 5, brect[1] - 4),
+            cv.FONT_HERSHEY_SIMPLEX,
+            0.6,
+            (255, 255, 255),
+            1,
+            cv.LINE_AA,
+        )
+
+    show_gesture = finger_gesture_text != "" and finger_gesture_text != "Unknown"
+    if invalid_gesture_label_to_hide is not None:
+        show_gesture = show_gesture and (finger_gesture_text != invalid_gesture_label_to_hide)
+
+    if show_gesture:
+        cv.putText(image, "Gesture: " + finger_gesture_text, (10, 60),
+                   cv.FONT_HERSHEY_SIMPLEX, 0.8, (0, 0, 0), 4, cv.LINE_AA)
+        cv.putText(image, "Gesture: " + finger_gesture_text, (10, 60),
+                   cv.FONT_HERSHEY_SIMPLEX, 0.8, (255, 255, 255), 2, cv.LINE_AA)
+    return image
+
+
+def draw_point_history(image, point_history_deque_of_lists):
+    trail_color = (152, 251, 152)
+    for finger_trace_idx in range(NUM_FINGERS):
+        for time_idx, points_at_t in enumerate(point_history_deque_of_lists):
+            if finger_trace_idx < len(points_at_t):
+                point = points_at_t[finger_trace_idx]
+                if point[0] != 0 or point[1] != 0: # Only draw if not (0,0)
+                    radius = 1 + int(time_idx / 3)
+                    cv.circle(image, (point[0], point[1]), radius, trail_color, 2)
+    return image
+
+
+def draw_info(image, fps, mode, number):
+    cv.putText(image, "FPS:" + str(fps), (10, 30), cv.FONT_HERSHEY_SIMPLEX, 1.0, (0, 0, 0), 4, cv.LINE_AA)
+    cv.putText(image, "FPS:" + str(fps), (10, 30), cv.FONT_HERSHEY_SIMPLEX, 1.0, (255, 255, 255), 2, cv.LINE_AA)
+
+    mode_string = ["Normal", "Logging KeyPoint", "Logging PointHistory"]
+    # Determine y-position for mode text based on whether gesture text might be displayed
+    # This is a heuristic. A more robust way would be to track if gesture text was actually drawn.
+    y_pos_mode_text = 90 if mode == 0 else 120 # Assume gesture text might be at 60 if mode is 0
+
+    if 0 <= mode < len(mode_string):
+        display_mode_text = "MODE: " + mode_string[mode]
+        if mode in [1, 2] and (0 <= number <= 9):
+            display_mode_text += " (Label: " + str(number) + ")"
+
+        cv.putText(image, display_mode_text, (10, y_pos_mode_text),
+                   cv.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 1, cv.LINE_AA)
+    return image
+
+
+if __name__ == "__main__":
+    main()
+</file>
+
+<file path="README.md">
+# hand-gesture-recognition-using-mediapipe
+Estimate hand pose using MediaPipe (Python version).<br> This is a sample 
+program that recognizes hand signs and finger gestures with a simple MLP using the detected key points.
+<br> ❗ _️**This is English Translated version of the [original repo](https://github.com/Kazuhito00/hand-gesture-recognition-using-mediapipe). All Content is translated to english along with comments and notebooks**_ ❗
+<br> 
+![mqlrf-s6x16](https://user-images.githubusercontent.com/37477845/102222442-c452cd00-3f26-11eb-93ec-c387c98231be.gif)
+
+This repository contains the following contents.
+* Sample program
+* Hand sign recognition model(TFLite)
+* Finger gesture recognition model(TFLite)
+* Learning data for hand sign recognition and notebook for learning
+* Learning data for finger gesture recognition and notebook for learning
+
+# Requirements
+* mediapipe 0.8.1
+* OpenCV 3.4.2 or Later
+* Tensorflow 2.3.0 or Later<br>tf-nightly 2.5.0.dev or later (Only when creating a TFLite for an LSTM model)
+* scikit-learn 0.23.2 or Later (Only if you want to display the confusion matrix) 
+* matplotlib 3.3.2 or Later (Only if you want to display the confusion matrix)
+
+# Demo
+Here's how to run the demo using your webcam.
+```bash
+python app.py
+```
+
+The following options can be specified when running the demo.
+* --device<br>Specifying the camera device number (Default：0)
+* --width<br>Width at the time of camera capture (Default：960)
+* --height<br>Height at the time of camera capture (Default：540)
+* --use_static_image_mode<br>Whether to use static_image_mode option for MediaPipe inference (Default：Unspecified)
+* --min_detection_confidence<br>
+Detection confidence threshold (Default：0.5)
+* --min_tracking_confidence<br>
+Tracking confidence threshold (Default：0.5)
+
+# Directory
+<pre>
+│  app.py
+│  keypoint_classification.ipynb
+│  point_history_classification.ipynb
+│  
+├─model
+│  ├─keypoint_classifier
+│  │  │  keypoint.csv
+│  │  │  keypoint_classifier.hdf5
+│  │  │  keypoint_classifier.py
+│  │  │  keypoint_classifier.tflite
+│  │  └─ keypoint_classifier_label.csv
+│  │          
+│  └─point_history_classifier
+│      │  point_history.csv
+│      │  point_history_classifier.hdf5
+│      │  point_history_classifier.py
+│      │  point_history_classifier.tflite
+│      └─ point_history_classifier_label.csv
+│          
+└─utils
+    └─cvfpscalc.py
+</pre>
+### app.py
+This is a sample program for inference.<br>
+In addition, learning data (key points) for hand sign recognition,<br>
+You can also collect training data (index finger coordinate history) for finger gesture recognition.
+
+### keypoint_classification.ipynb
+This is a model training script for hand sign recognition.
+
+### point_history_classification.ipynb
+This is a model training script for finger gesture recognition.
+
+### model/keypoint_classifier
+This directory stores files related to hand sign recognition.<br>
+The following files are stored.
+* Training data(keypoint.csv)
+* Trained model(keypoint_classifier.tflite)
+* Label data(keypoint_classifier_label.csv)
+* Inference module(keypoint_classifier.py)
+
+### model/point_history_classifier
+This directory stores files related to finger gesture recognition.<br>
+The following files are stored.
+* Training data(point_history.csv)
+* Trained model(point_history_classifier.tflite)
+* Label data(point_history_classifier_label.csv)
+* Inference module(point_history_classifier.py)
+
+### utils/cvfpscalc.py
+This is a module for FPS measurement.
+
+# Training
+Hand sign recognition and finger gesture recognition can add and change training data and retrain the model.
+
+### Hand sign recognition training
+#### 1.Learning data collection
+Press "k" to enter the mode to save key points（displayed as 「MODE:Logging Key Point」）<br>
+<img src="https://user-images.githubusercontent.com/37477845/102235423-aa6cb680-3f35-11eb-8ebd-5d823e211447.jpg" width="60%"><br><br>
+If you press "0" to "9", the key points will be added to "model/keypoint_classifier/keypoint.csv" as shown below.<br>
+1st column: Pressed number (used as class ID), 2nd and subsequent columns: Key point coordinates<br>
+<img src="https://user-images.githubusercontent.com/37477845/102345725-28d26280-3fe1-11eb-9eeb-8c938e3f625b.png" width="80%"><br><br>
+The key point coordinates are the ones that have undergone the following preprocessing up to ④.<br>
+<img src="https://user-images.githubusercontent.com/37477845/102242918-ed328c80-3f3d-11eb-907c-61ba05678d54.png" width="80%">
+<img src="https://user-images.githubusercontent.com/37477845/102244114-418a3c00-3f3f-11eb-8eef-f658e5aa2d0d.png" width="80%"><br><br>
+In the initial state, three types of learning data are included: open hand (class ID: 0), close hand (class ID: 1), and pointing (class ID: 2).<br>
+If necessary, add 3 or later, or delete the existing data of csv to prepare the training data.<br>
+<img src="https://user-images.githubusercontent.com/37477845/102348846-d0519400-3fe5-11eb-8789-2e7daec65751.jpg" width="25%">　<img src="https://user-images.githubusercontent.com/37477845/102348855-d2b3ee00-3fe5-11eb-9c6d-b8924092a6d8.jpg" width="25%">　<img src="https://user-images.githubusercontent.com/37477845/102348861-d3e51b00-3fe5-11eb-8b07-adc08a48a760.jpg" width="25%">
+
+#### 2.Model training
+Open "[keypoint_classification.ipynb](keypoint_classification.ipynb)" in Jupyter Notebook and execute from top to bottom.<br>
+To change the number of training data classes, change the value of "NUM_CLASSES = 3" <br>and modify the label of "model/keypoint_classifier/keypoint_classifier_label.csv" as appropriate.<br><br>
+
+#### X.Model structure
+The image of the model prepared in "[keypoint_classification.ipynb](keypoint_classification.ipynb)" is as follows.
+<img src="https://user-images.githubusercontent.com/37477845/102246723-69c76a00-3f42-11eb-8a4b-7c6b032b7e71.png" width="50%"><br><br>
+
+### Finger gesture recognition training
+#### 1.Learning data collection
+Press "h" to enter the mode to save the history of fingertip coordinates (displayed as "MODE:Logging Point History").<br>
+<img src="https://user-images.githubusercontent.com/37477845/102249074-4d78fc80-3f45-11eb-9c1b-3eb975798871.jpg" width="60%"><br><br>
+If you press "0" to "9", the key points will be added to "model/point_history_classifier/point_history.csv" as shown below.<br>
+1st column: Pressed number (used as class ID), 2nd and subsequent columns: Coordinate history<br>
+<img src="https://user-images.githubusercontent.com/37477845/102345850-54ede380-3fe1-11eb-8d04-88e351445898.png" width="80%"><br><br>
+The key point coordinates are the ones that have undergone the following preprocessing up to ④.<br>
+<img src="https://user-images.githubusercontent.com/37477845/102244148-49e27700-3f3f-11eb-82e2-fc7de42b30fc.png" width="80%"><br><br>
+In the initial state, 4 types of learning data are included: stationary (class ID: 0), clockwise (class ID: 1), counterclockwise (class ID: 2), and moving (class ID: 4). <br>
+If necessary, add 5 or later, or delete the existing data of csv to prepare the training data.<br>
+<img src="https://user-images.githubusercontent.com/37477845/102350939-02b0c080-3fe9-11eb-94d8-54a3decdeebc.jpg" width="20%">　<img src="https://user-images.githubusercontent.com/37477845/102350945-05131a80-3fe9-11eb-904c-a1ec573a5c7d.jpg" width="20%">　<img src="https://user-images.githubusercontent.com/37477845/102350951-06444780-3fe9-11eb-98cc-91e352edc23c.jpg" width="20%">　<img src="https://user-images.githubusercontent.com/37477845/102350942-047a8400-3fe9-11eb-9103-dbf383e67bf5.jpg" width="20%">
+
+#### 2.Model training
+Open "[point_history_classification.ipynb](point_history_classification.ipynb)" in Jupyter Notebook and execute from top to bottom.<br>
+To change the number of training data classes, change the value of "NUM_CLASSES = 4" and <br>modify the label of "model/point_history_classifier/point_history_classifier_label.csv" as appropriate. <br><br>
+
+#### X.Model structure
+The image of the model prepared in "[point_history_classification.ipynb](point_history_classification.ipynb)" is as follows.
+<img src="https://user-images.githubusercontent.com/37477845/102246771-7481ff00-3f42-11eb-8ddf-9e3cc30c5816.png" width="50%"><br>
+The model using "LSTM" is as follows. <br>Please change "use_lstm = False" to "True" when using (tf-nightly required (as of 2020/12/16))<br>
+<img src="https://user-images.githubusercontent.com/37477845/102246817-8368b180-3f42-11eb-9851-23a7b12467aa.png" width="60%">
+
+# Reference
+* [MediaPipe](https://mediapipe.dev/)
+
+# Author
+Kazuhito Takahashi(https://twitter.com/KzhtTkhs)
+
+# Translation and other improvements
+Nikita Kiselov(https://github.com/kinivi)
+ 
+# License 
+hand-gesture-recognition-using-mediapipe is under [Apache v2 license](LICENSE).
+</file>
+
+</files>
