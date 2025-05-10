@@ -1,16 +1,123 @@
-# hand-gesture-recognition-using-mediapipe
-Estimate hand pose using MediaPipe (Python version).<br> This is a sample 
-program that recognizes hand signs and finger gestures with a simple MLP using the detected key points.
-<br> ❗ _️**This is English Translated version of the [original repo](https://github.com/Kazuhito00/hand-gesture-recognition-using-mediapipe). All Content is translated to english along with comments and notebooks**_ ❗
+# 5-Pointer Hand Gesture Recognition using MediaPipe
+Estimate hand pose using MediaPipe (Python version) with enhanced 5 pointer tracking.<br> This is a modified 
+fork that improves hand signs and finger gestures recognition by tracking all 5 fingers simultaneously.
 <br> 
 ![mqlrf-s6x16](https://user-images.githubusercontent.com/37477845/102222442-c452cd00-3f26-11eb-93ec-c387c98231be.gif)
 
-This repository contains the following contents.
-* Sample program
+This repository contains the following contents:
+* Enhanced sample program with 5 pointer tracking
 * Hand sign recognition model(TFLite)
 * Finger gesture recognition model(TFLite)
 * Learning data for hand sign recognition and notebook for learning
 * Learning data for finger gesture recognition and notebook for learning
+
+## Enhancement Features
+This fork enhances the original project by:
+* Enabling simultaneous tracking of all 5 finger pointers
+* Improved gesture recognition accuracy
+* More robust hand pose estimation
+
+## Technical Implementation
+This implementation uses MediaPipe's hand landmark detection but extends it to track all five fingertips simultaneously rather than just the index finger. Here's how it works:
+
+1. **Fingertip Identification**: All five fingertips are identified using their landmark indices:
+   ```python
+   FINGERTIP_INDICES = [4, 8, 12, 16, 20]  # Thumb, Index, Middle, Ring, Pinky
+   ```
+
+2. **Multi-Point History Tracking**: Instead of tracking only the index finger's position history, the system tracks all five fingertips:
+   ```python
+   # Collect all five fingertip coordinates
+   current_finger_coords = []
+   for idx in FINGERTIP_INDICES:
+       if idx < len(landmark_list): 
+           current_finger_coords.append(landmark_list[idx])
+       else: 
+           current_finger_coords.append([0,0])
+   
+   # Add to point history
+   point_history.append(current_finger_coords)
+   ```
+
+3. **Enhanced Preprocessing**: The preprocessing pipeline normalizes all five finger trajectories relative to the base of the hand:
+   ```python
+   # Process each finger's coordinates at each timestep
+   for points_at_t in point_history_deque_of_lists:
+       for finger_idx in range(NUM_FINGERS):
+           if finger_idx < len(points_at_t) and points_at_t[finger_idx] is not None:
+               # Normalize coordinates relative to base point
+               norm_x = (finger_point[0] - base_x_ref) / image_width
+               norm_y = (finger_point[1] - base_y_ref) / image_height
+               processed_history_flat.extend([norm_x, norm_y])
+   ```
+
+4. **Visualization**: Each fingertip trajectory is visualized with fading trails to show movement patterns:
+   ```python
+   # Draw trails for each finger
+   for finger_idx in range(NUM_FINGERS):
+       for time_idx, points_at_t in enumerate(point_history_deque_of_lists):
+           if finger_idx < len(points_at_t) and points_at_t[finger_idx] is not None:
+               pt = points_at_t[finger_idx]
+               # Create fading trail effect
+               cv.circle(image, (pt[0],pt[1]), 1+int(time_idx/3), trail_color, 2)
+   ```
+
+5. **Visibility Toggle**: Press 'v' to toggle the visibility of hand landmarks and trails:
+   ```python
+   # Toggle visibility of landmarks and trails
+   if key == ord('v'):
+       show_points = not show_points
+   ```
+
+This approach significantly improves gesture recognition by providing a richer feature set (5x more spatial information) and enabling more complex gesture patterns that involve multiple fingers.
+
+## Mathematical Model Enhancements
+
+The enhancements to the point history classifier fundamentally transform the mathematical model used for gesture recognition. Here's a detailed explanation of the changes:
+
+1. **Expanded Feature Dimensionality**:
+   - Original model: Used only `TIME_STEPS × 1 × DIMENSION = 16 × 1 × 2 = 32` features (tracking only index finger)
+   - Enhanced model: Uses `TIME_STEPS × NUM_FINGERS × DIMENSION = 16 × 5 × 2 = 160` features (all five fingers)
+   
+   This 5× increase in feature dimensionality provides much richer motion information for the gesture classifier.
+
+2. **Modified Neural Network Architecture**:
+   ```python
+   # Define key dimensions
+   TIME_STEPS = 16
+   DIMENSION = 2
+   NUM_FINGERS = 5  # Was implicitly 1 in original
+   TOTAL_FEATURES = TIME_STEPS * NUM_FINGERS * DIMENSION  # Now 160 features instead of 32
+   ```
+
+3. **LSTM Model Adaptation**:
+   The LSTM sequence model was reconfigured to handle the multi-finger input:
+   ```python
+   model = tf.keras.models.Sequential([
+       tf.keras.layers.InputLayer(input_shape=(TIME_STEPS * NUM_FINGERS * DIMENSION, )),
+       # Reshape from flat (160,) to sequence (16, 10) where 10 = 5 fingers × 2 coordinates
+       tf.keras.layers.Reshape((TIME_STEPS, NUM_FINGERS * DIMENSION)),
+       tf.keras.layers.Dropout(0.2),
+       tf.keras.layers.LSTM(16),
+       tf.keras.layers.Dropout(0.5),
+       tf.keras.layers.Dense(10, activation='relu'),
+       tf.keras.layers.Dense(NUM_CLASSES, activation='softmax')
+   ])
+   ```
+
+4. **Mathematical Formulation**:
+   - Let $P_{t,f} = (x_{t,f}, y_{t,f})$ represent the position of finger $f$ at time step $t$.
+   - For each gesture, we now model the temporal sequence $\{P_{1,1}, P_{1,2}, ..., P_{1,5}, P_{2,1}, ..., P_{16,5}\}$
+   - This sequence is normalized relative to a base point (hand landmark 0) to ensure scale and translation invariance:
+     $P'_{t,f} = \frac{P_{t,f} - P_{base}}{S}$
+     where $S$ is the normalization factor (typically image width/height)
+
+5. **Information Gain**:
+   - With 5 fingers tracked instead of 1, the system captures complex inter-finger relationships
+   - The classifier can now recognize gestures that involve multiple fingers moving in coordinated patterns
+   - The feature space encodes relative finger positions, enabling recognition of static poses and dynamic movements
+
+This mathematical enhancement significantly increases the discriminative power of the model, allowing it to recognize a wider range of natural hand gestures with greater accuracy.
 
 # Requirements
 * mediapipe 0.8.1
@@ -34,6 +141,14 @@ The following options can be specified when running the demo.
 Detection confidence threshold (Default：0.5)
 * --min_tracking_confidence<br>
 Tracking confidence threshold (Default：0.5)
+
+## Key Controls
+* **v** - Toggle visibility of hand landmarks and history trail
+* **k** - Enter KeyPoint logging mode
+* **h** - Enter PointHistory logging mode
+* **n** - Return to Normal mode
+* **0-9** - Record data with corresponding label in logging modes
+* **ESC** - Exit the application
 
 # Directory
 <pre>
@@ -60,9 +175,9 @@ Tracking confidence threshold (Default：0.5)
     └─cvfpscalc.py
 </pre>
 ### app.py
-This is a sample program for inference.<br>
+This is the enhanced sample program for inference with 5 pointer tracking.<br>
 In addition, learning data (key points) for hand sign recognition,<br>
-You can also collect training data (index finger coordinate history) for finger gesture recognition.
+You can also collect training data (all five finger coordinate history) for finger gesture recognition.
 
 ### keypoint_classification.ipynb
 This is a model training script for hand sign recognition.
@@ -139,12 +254,11 @@ The model using "LSTM" is as follows. <br>Please change "use_lstm = False" to "T
 
 # Reference
 * [MediaPipe](https://mediapipe.dev/)
+* [Original Repository by Kazuhito Takahashi](https://github.com/Kazuhito00/hand-gesture-recognition-using-mediapipe)
+* [English Translated Fork by Nikita Kiselov](https://github.com/kinivi/hand-gesture-recognition-mediapipe)
 
 # Author
-Kazuhito Takahashi(https://twitter.com/KzhtTkhs)
-
-# Translation and other improvements
-Nikita Kiselov(https://github.com/kinivi)
+Forked and enhanced by Christian Klein C. Ramos
  
 # License 
 hand-gesture-recognition-using-mediapipe is under [Apache v2 license](LICENSE).
