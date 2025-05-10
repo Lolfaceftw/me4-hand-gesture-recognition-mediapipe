@@ -1,5 +1,5 @@
 # Byte-compiled / optimized / DLL files
-__pycache__/
+**/__pycache__
 *.py[cod]
 *$py.class
 
@@ -133,3 +133,7 @@ dmypy.json
 .idea/
 
 .DS_Store
+.repomixignore
+.gitignore
+repomix-output.md
+repomix.config.json
