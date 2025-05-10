@@ -22,6 +22,8 @@ This fork enhances the original project by:
 * More robust hand pose estimation
 * **Focus on finger trajectory tracking only** (keypoint static pose classification is disabled)
 * **Specialization for presentation control** with left and right swipe detection
+* **Warning suppression by default** with optional debug mode
+* **UI toggle with 'v' key** to hide all UI elements including landmarks and text
 
 ## Presentation Control Mode
 This fork is specifically trained to control PowerPoint presentations using simple hand gestures:
@@ -31,6 +33,86 @@ This fork is specifically trained to control PowerPoint presentations using simp
 3. **All Other Movements** → **No Action**: Any other hand position or movement does nothing
 
 The system uses only three states and is optimized for presenting in a natural way without having to hold any device.
+
+# Quick Start Guide for Beginners
+
+## Installation
+
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/your-username/5-pointer-hand-gesture-recognition.git
+   cd 5-pointer-hand-gesture-recognition
+   ```
+
+2. **Create a virtual environment** (recommended):
+   ```bash
+   # On Windows
+   python -m venv venv
+   venv\Scripts\activate
+
+   # On macOS/Linux
+   python -m venv venv
+   source venv/bin/activate
+   ```
+
+3. **Install required packages**:
+   ```bash
+   pip install -r requirements.txt
+   ```
+   If the requirements.txt file doesn't exist, install these packages:
+   ```bash
+   pip install mediapipe==0.8.1 opencv-python==4.5.1.48 tensorflow==2.4.0 pyautogui
+   ```
+
+## Running the Application
+
+### Basic Usage
+```bash
+python app.py
+```
+
+### Options
+* `--device 0` - Specify which camera to use (default: 0, which is usually your webcam)
+* `--width 960` - Width of the camera capture (default: 960)
+* `--height 540` - Height of the camera capture (default: 540)
+* `--min_detection_confidence 0.7` - Set how confident the system must be to detect a hand (default: 0.7)
+* `--min_tracking_confidence 0.5` - Set how confident the system must be to track a hand (default: 0.5)
+* `--disable_webcam` - Run the app without webcam (for testing or environments without a camera)
+* `--debug` - Show TensorFlow and Mediapipe warning messages (hidden by default)
+
+### Example
+```bash
+# Run with a higher resolution
+python app.py --width 1280 --height 720
+
+# Run without webcam (for testing or environments without a camera)
+python app.py --disable_webcam
+
+# Run with debug messages enabled
+python app.py --debug
+```
+
+## How to Use
+
+1. **Start the application** using one of the commands above
+2. **Position your hand** in front of the camera
+3. **Make gestures**:
+   - Swipe your hand to the right → Next slide 
+   - Swipe your hand to the left → Previous slide
+4. **Key controls**:
+   - Press `v` to toggle visibility of all UI elements (hand landmarks, trails, gesture text, and controls)
+   - Press `n` to enter Normal mode
+   - Press `k` to enter KeyPoint collection mode (for training)
+   - Press `h` to enter PointHistory collection mode (for training)
+   - Press `ESC` to exit the application
+
+## Troubleshooting
+
+- **Camera not found**: Try specifying a different camera device number with `--device 1` or use `--disable_webcam`
+- **Low performance**: Lower the resolution using `--width 640 --height 360`
+- **Poor detection**: Make sure you're in a well-lit environment and your hand is clearly visible
+- **Actions not registering**: Try moving your hand more distinctly when making swipe gestures
+- **TensorFlow/Mediapipe warnings**: Use the `--debug` flag to see warning messages that might help diagnose issues
 
 ## Technical Implementation
 This implementation uses MediaPipe's hand landmark detection but extends it to track all five fingertips simultaneously rather than just the index finger. Here's how it works:
@@ -77,11 +159,11 @@ This implementation uses MediaPipe's hand landmark detection but extends it to t
                cv.circle(image, (pt[0],pt[1]), 1+int(time_idx/3), trail_color, 2)
    ```
 
-5. **Visibility Toggle**: Press 'v' to toggle the visibility of hand landmarks and trails:
+5. **Visibility Toggle**: Press 'v' to toggle the visibility of hand landmarks, trails, and all UI elements:
    ```python
-   # Toggle visibility of landmarks and trails
+   # Toggle visibility of all UI elements
    if key == ord('v'):
-       show_points = not show_points
+       show_ui = not show_ui
    ```
 
 6. **Gesture Action Cooldown**: A cooldown timer prevents accidental detection of gestures when transitioning between different hand positions:
@@ -118,6 +200,35 @@ This implementation uses MediaPipe's hand landmark detection but extends it to t
        cv.putText(image, wait_text, (10, cooldown_text_y_pos), 
                  cv.FONT_HERSHEY_SIMPLEX, 0.6, (255,0,0), 1, cv.LINE_AA)
    ```
+
+7. **No-Webcam Mode**: You can run the application without a webcam using the `--disable_webcam` flag:
+   ```python
+   # Create dummy image for no-webcam mode
+   if disable_webcam:
+       dummy_image = np.zeros((cap_height, cap_width, 3), dtype=np.uint8)
+       # Add some text to the dummy image
+       cv.putText(dummy_image, "No Webcam Mode", (int(cap_width/4), int(cap_height/2)), 
+                 cv.FONT_HERSHEY_SIMPLEX, 1.5, (255, 255, 255), 2, cv.LINE_AA)
+   ```
+
+   This is useful for:
+   - Testing the application on systems without a camera
+   - Debugging in environments where camera access is restricted
+   - Learning how the interface works without actually triggering actions
+
+8. **Warning Suppression**: By default, the application suppresses TensorFlow and Mediapipe warnings to keep the console clean:
+   ```python
+   # Disable TensorFlow logging
+   os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'  # 0=debug, 1=info, 2=warning, 3=error
+   
+   # Disable Mediapipe logging
+   os.environ["MEDIAPIPE_DISABLE_GPU"] = "1"
+   
+   # Disable Python warnings
+   warnings.filterwarnings("ignore")
+   ```
+
+   For debugging purposes, you can enable these warnings with the `--debug` flag.
 
 This approach significantly improves gesture recognition by providing a richer feature set (5x more spatial information) and enabling more complex gesture patterns that involve multiple fingers.
 
@@ -169,7 +280,9 @@ The enhancements to the point history classifier fundamentally transform the mat
 
 This mathematical enhancement significantly increases the discriminative power of the model, allowing it to recognize a wider range of natural hand gestures with greater accuracy.
 
-# Requirements
+# Advanced Topics
+
+## Requirements
 * mediapipe 0.8.1
 * OpenCV 3.4.2 or Later
 * Tensorflow 2.3.0 or Later<br>tf-nightly 2.5.0.dev or later (Only when creating a TFLite for an LSTM model)
@@ -177,54 +290,63 @@ This mathematical enhancement significantly increases the discriminative power o
 * matplotlib 3.3.2 or Later (Only if you want to display the confusion matrix)
 * pyautogui (For presentation control with keyboard commands)
 
-# Demo
-Here's how to run the demo using your webcam.
+## Command Line Options
+Here's a complete list of the command line options available:
 ```bash
-python app.py
+python app.py --help
 ```
 
-The following options can be specified when running the demo.
-* --device<br>Specifying the camera device number (Default：0)
-* --width<br>Width at the time of camera capture (Default：960)
-* --height<br>Height at the time of camera capture (Default：540)
-* --use_static_image_mode<br>Whether to use static_image_mode option for MediaPipe inference (Default：Unspecified)
-* --min_detection_confidence<br>
-Detection confidence threshold (Default：0.5)
-* --min_tracking_confidence<br>
-Tracking confidence threshold (Default：0.5)
+Output:
+```
+usage: app.py [-h] [--device DEVICE] [--width WIDTH] [--height HEIGHT]
+              [--use_static_image_mode] [--min_detection_confidence MIN_DETECTION_CONFIDENCE]
+              [--min_tracking_confidence MIN_TRACKING_CONFIDENCE] [--disable_webcam]
+              [--debug]
 
-## Key Controls
-* **v** - Toggle visibility of hand landmarks and history trail
-* **k** - Enter KeyPoint logging mode
-* **h** - Enter PointHistory logging mode
-* **n** - Return to Normal mode
-* **0-9** - Record data with corresponding label in logging modes
-* **ESC** - Exit the application
+Hand Gesture Recognition for Presentation Control
 
-# Directory
+optional arguments:
+  -h, --help            show this help message and exit
+  --device DEVICE       Camera device number to use (default: 0)
+  --width WIDTH         Camera capture width (default: 960)
+  --height HEIGHT       Camera capture height (default: 540)
+  --use_static_image_mode
+                        Enable static image mode for MediaPipe (default: False)
+  --min_detection_confidence MIN_DETECTION_CONFIDENCE
+                        Minimum confidence value for hand detection (default: 0.7)
+  --min_tracking_confidence MIN_TRACKING_CONFIDENCE
+                        Minimum confidence value for hand tracking (default: 0.5)
+  --disable_webcam      Run without webcam (for debugging or environments without camera) (default: False)
+  --debug               Show debug messages and warnings (default: False)
+```
+
+## Directory Structure
 <pre>
-│  app.py
-│  keypoint_classification.ipynb
-│  point_history_classification.ipynb
+│  app.py                       # Main application file
+│  keypoint_classification.ipynb  # Training notebook for hand signs
+│  point_history_classification.ipynb  # Training notebook for gestures
 │  
-├─model
-│  ├─keypoint_classifier
-│  │  │  keypoint.csv
-│  │  │  keypoint_classifier.hdf5
-│  │  │  keypoint_classifier.py
-│  │  │  keypoint_classifier.tflite
-│  │  └─ keypoint_classifier_label.csv
+├─model                         # Model directory
+│  ├─keypoint_classifier        # Hand sign classifier
+│  │  │  keypoint.csv           # Training data
+│  │  │  keypoint_classifier.hdf5  # Keras model
+│  │  │  keypoint_classifier.py   # Inference module
+│  │  │  keypoint_classifier.tflite  # TFLite model
+│  │  └─ keypoint_classifier_label.csv  # Class labels
 │  │          
-│  └─point_history_classifier
-│      │  point_history.csv
-│      │  point_history_classifier.hdf5
-│      │  point_history_classifier.py
-│      │  point_history_classifier.tflite
-│      └─ point_history_classifier_label.csv
+│  └─point_history_classifier   # Gesture classifier
+│      │  point_history.csv     # Training data
+│      │  point_history_classifier.hdf5  # Keras model
+│      │  point_history_classifier.py  # Inference module
+│      │  point_history_classifier.tflite  # TFLite model
+│      └─ point_history_classifier_label.csv  # Class labels
 │          
-└─utils
-    └─cvfpscalc.py
+└─utils                         # Utility functions
+    └─cvfpscalc.py              # FPS calculation
 </pre>
+
+## File Descriptions
+
 ### app.py
 This is the enhanced sample program for inference with 5 pointer tracking.<br>
 In addition, learning data (key points) for hand sign recognition,<br>
@@ -255,7 +377,7 @@ The following files are stored.
 ### utils/cvfpscalc.py
 This is a module for FPS measurement.
 
-# Training
+# Training (Advanced Users)
 Hand sign recognition and finger gesture recognition can add and change training data and retrain the model.
 
 ### Hand sign recognition training

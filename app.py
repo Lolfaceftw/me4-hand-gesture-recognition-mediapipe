@@ -1,11 +1,100 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import os
+import sys
+import argparse
+import warnings
+import datetime
+from datetime import timezone, timedelta
+
+# Add before other imports
+def suppress_absl_warnings():
+    """Suppress ABSL warning messages programmatically"""
+    # Try multiple methods to suppress ABSL warnings
+    try:
+        # Method 1: Using absl.logging directly
+        try:
+            from absl import logging
+            logging.set_verbosity(logging.ERROR)
+        except ImportError:
+            pass
+            
+        # Method 2: Override the ABSL logger's stream
+        import logging as py_logging
+        loggers = [py_logging.getLogger(name) for name in py_logging.root.manager.loggerDict]
+        for logger in loggers:
+            if 'absl' in logger.name.lower():
+                logger.setLevel(py_logging.ERROR)
+                for handler in logger.handlers:
+                    if hasattr(handler, 'setLevel'):
+                        handler.setLevel(py_logging.ERROR)
+    except Exception:
+        # If anything goes wrong, just continue
+        pass
+
+# Special filter for TensorFlow warnings
+class TFLiteWarningFilter:
+    def __init__(self, original_stderr):
+        self.original_stderr = original_stderr
+        self.blocked_phrases = [
+            "Created TensorFlow Lite XNNPACK delegate",
+            "All log messages before absl::InitializeLog",
+            "Feedback manager requires a model with a single signature",
+            "tensorflow:",
+            "TensorFlow ",
+            "W0000",  # This catches the W0000 timestamp prefix used by Mediapipe
+            "inference_feedback_manager",
+            "Disabling support for feedback tensors"
+        ]
+    
+    def write(self, text):
+        # Skip writing if text contains any of the blocked phrases
+        if not any(phrase in text for phrase in self.blocked_phrases):
+            self.original_stderr.write(text)
+    
+    def flush(self):
+        self.original_stderr.flush()
+    
+    # Add these methods so it behaves like a file
+    def fileno(self):
+        return self.original_stderr.fileno()
+    
+    def isatty(self):
+        return self.original_stderr.isatty()
+    
+    def close(self):
+        pass  # Don't close the underlying stderr
+
+# Parse only the debug flag first, before any imports that might produce warnings
+parser = argparse.ArgumentParser(add_help=False)
+parser.add_argument("--debug", action="store_true", help="Show debug messages and warnings")
+args, _ = parser.parse_known_args()
+
+# Apply suppression if not in debug mode
+if not args.debug:
+    suppress_absl_warnings()
+
+# Set up warning suppression
+if not args.debug:
+    # Basic environment variable suppression
+    os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'  # 0=debug, 1=info, 2=warning, 3=error
+    os.environ['TF_ENABLE_DEPRECATION_WARNINGS'] = '0'
+    os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
+    os.environ["MEDIAPIPE_DISABLE_GPU"] = "1"
+    os.environ["GLOG_minloglevel"] = "2"
+    os.environ["ABSL_LOGGING_LEVEL"] = "50"
+    
+    # Python warnings
+    warnings.filterwarnings("ignore")
+    
+    # Stderr redirection
+    sys.stderr = TFLiteWarningFilter(sys.stderr)
+
+# Now import the rest of the libraries
 import csv
 import copy
-import argparse
 import itertools
 import pyautogui # For actions
-import os
 import time # For cooldown and display timing
 from collections import Counter
 from collections import deque
@@ -26,17 +115,31 @@ ACTION_COOLDOWN_SECONDS = 2.0 # Cooldown period for performing actions
 ACTION_GESTURE_DISPLAY_DURATION_SECONDS = 1.0 # How long to visually show an action gesture after it's performed
 
 def get_args():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--device", type=int, default=0)
-    parser.add_argument("--width", help="cap width", type=int, default=960)
-    parser.add_argument("--height", help="cap height", type=int, default=540)
-    parser.add_argument("--use_static_image_mode", action="store_true")
-    parser.add_argument("--min_detection_confidence", type=float, default=0.7)
-    parser.add_argument("--min_tracking_confidence", type=float, default=0.5)
+    # Create a new parser with all options, including the debug flag we already parsed
+    parser = argparse.ArgumentParser(
+        description="Hand Gesture Recognition for Presentation Control",
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter
+    )
+    parser.add_argument("--device", type=int, default=0,
+                      help="Camera device number to use")
+    parser.add_argument("--width", help="Camera capture width", type=int, default=960)
+    parser.add_argument("--height", help="Camera capture height", type=int, default=540)
+    parser.add_argument("--use_static_image_mode", action="store_true",
+                      help="Enable static image mode for MediaPipe")
+    parser.add_argument("--min_detection_confidence", type=float, default=0.7,
+                      help="Minimum confidence value for hand detection")
+    parser.add_argument("--min_tracking_confidence", type=float, default=0.5,
+                      help="Minimum confidence value for hand tracking")
+    parser.add_argument("--disable_webcam", action="store_true",
+                      help="Run without webcam (for debugging or environments without camera)")
+    parser.add_argument("--debug", action="store_true",
+                      help="Show debug messages and warnings")
+    
     args = parser.parse_args()
     return args
 
 def main():
+    # Parse arguments
     args = get_args()
     cap_device = args.device
     cap_width = args.width
@@ -44,11 +147,57 @@ def main():
     use_static_image_mode = args.use_static_image_mode
     min_detection_confidence = args.min_detection_confidence
     min_tracking_confidence = args.min_tracking_confidence
+    disable_webcam = args.disable_webcam
+    debug_mode = args.debug
+    
+    # FPS display variables
+    last_fps_update_time = 0
+    display_fps = 0
+    fps_update_interval = 1.0  # Update FPS display once per second
 
-    cap = cv.VideoCapture(cap_device)
-    cap.set(cv.CAP_PROP_FRAME_WIDTH, cap_width)
-    cap.set(cv.CAP_PROP_FRAME_HEIGHT, cap_height)
+    # Timezone adjustment for UTC+8 (Philippines)
+    ph_timezone = timezone(timedelta(hours=8))
+    
+    # Print debug mode status
+    if debug_mode:
+        print("Debug mode: ON - Showing all warnings and debug messages")
+    else:
+        print("Debug mode: OFF - Suppressing warnings (use --debug to show them)")
+        
+        # Additional measures to prevent warnings from being shown
+        try:
+            # Suppress Python warnings
+            import warnings
+            warnings.filterwarnings('ignore')
+            
+            # Suppress TensorFlow warnings directly
+            import tensorflow as tf
+            tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
+            
+            # Suppress all other warnings from Python libraries
+            import logging
+            logging.getLogger().setLevel(logging.ERROR)
+            
+            # Forcibly silence ABSL warning facility
+            logging.getLogger('absl').disabled = True
+        except Exception:
+            # Continue even if these attempts fail
+            pass
 
+    # Initialize webcam or create a dummy video source
+    if not disable_webcam:
+        cap = cv.VideoCapture(cap_device)
+        if not cap.isOpened():
+            print(f"Error: Could not open camera device {cap_device}")
+            print("Try running with --disable_webcam if no camera is available")
+            return
+        cap.set(cv.CAP_PROP_FRAME_WIDTH, cap_width)
+        cap.set(cv.CAP_PROP_FRAME_HEIGHT, cap_height)
+    else:
+        print("Running in no-webcam mode. Creating a blank image for demonstration.")
+        # We'll create a dummy blank image for processing
+
+    # Initialize MediaPipe Hands
     mp_hands = mp.solutions.hands
     hands = mp_hands.Hands(
         static_image_mode=use_static_image_mode,
@@ -57,16 +206,38 @@ def main():
         min_tracking_confidence=min_tracking_confidence,
     )
 
+    # Initialize classifiers
     keypoint_classifier = KeyPointClassifier()
 
+    # Redirect stdout/stderr during model loading
+    if not debug_mode:
+        old_stdout = sys.stdout
+        old_stderr = sys.stderr
+        null_out = open(os.devnull, 'w')
+        sys.stdout = null_out
+        sys.stderr = null_out
+    
     try:
         point_history_classifier = PointHistoryClassifier()
+        # Temporarily restore stdout to print success message
+        if not debug_mode:
+            sys.stdout = old_stdout
         print("PointHistoryClassifier loaded successfully.")
     except Exception as e:
+        # Restore stdout for error messages
+        if not debug_mode:
+            sys.stdout = old_stdout
         print(f"Error loading PointHistoryClassifier: {e}")
         print("Dynamic gesture recognition will be disabled.")
         point_history_classifier = None
+    finally:
+        # Restore stdout/stderr
+        if not debug_mode:
+            sys.stdout = old_stdout
+            sys.stderr = old_stderr
+            null_out.close()
 
+    # Load label files
     keypoint_classifier_labels = []
     keypoint_label_path = "model/keypoint_classifier/keypoint_classifier_label.csv"
     try:
@@ -88,6 +259,7 @@ def main():
         if point_history_classifier is not None:
             print(f"Error: {point_history_label_path} not found. Dynamic gesture names will not be displayed.")
 
+    # Initialize variables
     cvFpsCalc = CvFpsCalc(buffer_len=10)
     history_length = 16
     point_history = deque(maxlen=history_length)
@@ -101,10 +273,12 @@ def main():
     last_action_display_name = None
     action_display_until = 0.0
 
+    # Define gesture names with defaults
     do_nothing_gesture_name = "Do Nothing"
     next_slide_gesture_name = "Next Slide"
     previous_slide_gesture_name = "Previous Slide"
 
+    # Update gesture names if available from labels
     if point_history_classifier and point_history_classifier_labels:
         if 0 <= point_history_classifier.invalid_value < len(point_history_classifier_labels):
             do_nothing_gesture_name = point_history_classifier_labels[point_history_classifier.invalid_value]
@@ -119,49 +293,104 @@ def main():
 
     previous_gesture_action_name = do_nothing_gesture_name
 
-    # NEW: Variable to control visibility of points and trails
-    show_points = True
+    # NEW: Variable to control visibility of points, trails and UI elements
+    show_ui = True
 
+    # Print instruction information
+    print("\n===== 5-Pointer Hand Gesture Recognition =====")
     print("App started. Point history (5-finger gestures) should be active.")
     print(f"Actions '{next_slide_gesture_name}' and '{previous_slide_gesture_name}' have a {ACTION_COOLDOWN_SECONDS}s cooldown.")
     print(f"Action gestures will be displayed for {ACTION_GESTURE_DISPLAY_DURATION_SECONDS}s after execution.")
     print(f"'{do_nothing_gesture_name}' is the neutral state.")
+    print("\n===== Controls =====")
     print("Press 'k' for KeyPoint logging mode, 'h' for PointHistory logging mode, 'n' for Normal mode.")
-    print("Press 'v' to toggle visibility of landmarks and point history.") # Instruction for new key
+    print("Press 'v' to toggle visibility of landmarks and point history.")
     print("Press 'ESC' to quit.")
+    print("====================================\n")
 
+    # Create dummy image for no-webcam mode
+    if disable_webcam:
+        dummy_image = np.zeros((cap_height, cap_width, 3), dtype=np.uint8)
+        # Add some text to the dummy image
+        cv.putText(dummy_image, "No Webcam Mode", (int(cap_width/4), int(cap_height/2)), 
+                  cv.FONT_HERSHEY_SIMPLEX, 1.5, (255, 255, 255), 2, cv.LINE_AA)
+        cv.putText(dummy_image, "Press ESC to exit", (int(cap_width/4), int(cap_height/2) + 50), 
+                  cv.FONT_HERSHEY_SIMPLEX, 1, (200, 200, 200), 1, cv.LINE_AA)
+
+    # Main loop
     while True:
-        fps = cvFpsCalc.get()
+        # Get current time
         current_time = time.time()
+        
+        # Update FPS display only once per second
+        if current_time - last_fps_update_time >= fps_update_interval:
+            display_fps = cvFpsCalc.get()
+            last_fps_update_time = current_time
+        
         key = cv.waitKey(10)
-        if key == 27: break
+        if key == 27: break  # ESC to exit
 
-        # NEW: Toggle for show_points
+        # NEW: Toggle for show_ui
         if key == ord('v'):
-            show_points = not show_points
-            print(f"Show hand keypoints/circles: {'ON' if show_points else 'OFF'}")
+            show_ui = not show_ui
+            print(f"Show UI elements and landmarks: {'ON' if show_ui else 'OFF'}")
 
         number_from_key, selected_mode = select_mode(key, mode)
         mode = selected_mode
 
-        ret, image = cap.read()
-        if not ret: break
-        image = cv.flip(image, 1)
+        # Get frame from camera or use dummy image
+        if not disable_webcam:
+            ret, image = cap.read()
+            if not ret: 
+                print("Failed to get frame from camera. Exiting...")
+                break
+            image = cv.flip(image, 1)  # Mirror display
+        else:
+            # Use dummy image in no-webcam mode
+            image = dummy_image.copy()
+            # Add current time to show it's updating
+            time_text = time.strftime("%H:%M:%S")
+            cv.putText(image, f"Time: {time_text}", (10, 30), 
+                      cv.FONT_HERSHEY_SIMPLEX, 0.8, (150, 150, 150), 1, cv.LINE_AA)
+            ret = True
+
         debug_image = copy.deepcopy(image)
+        
+        # Process image with MediaPipe
         image = cv.cvtColor(image, cv.COLOR_BGR2RGB)
         image.flags.writeable = False
-        results = hands.process(image)
+        
+        # Temporarily redirect stdout and stderr during MediaPipe processing
+        if not debug_mode:
+            old_stdout = sys.stdout
+            old_stderr = sys.stderr
+            null_out = open(os.devnull, 'w')
+            sys.stdout = null_out
+            sys.stderr = null_out
+        
+        try:
+            results = hands.process(image)
+        finally:
+            # Restore stdout and stderr
+            if not debug_mode:
+                sys.stdout = old_stdout
+                sys.stderr = old_stderr
+                null_out.close()
+        
         image.flags.writeable = True
 
         current_dynamic_gesture_name = do_nothing_gesture_name
         display_gesture_name = do_nothing_gesture_name
 
+        # Process hand landmarks if detected
         if results.multi_hand_landmarks is not None:
             for hand_landmarks, handedness in zip(
                 results.multi_hand_landmarks, results.multi_handedness
             ):
+                # Calculate landmark list
                 landmark_list = calc_landmark_list(debug_image, hand_landmarks)
 
+                # Extract fingertip coordinates
                 current_finger_coords = []
                 if landmark_list:
                     for idx in FINGERTIP_INDICES:
@@ -170,15 +399,18 @@ def main():
                 else:
                     current_finger_coords = [[0, 0]] * NUM_FINGERS
 
+                # Add to history and preprocess
                 point_history.append(current_finger_coords)
                 pre_processed_point_history_list = pre_process_point_history(debug_image, point_history)
 
+                # Handle logging modes
                 if mode == 1 and landmark_list:
                    pre_proc_kp_list = pre_process_landmark(landmark_list)
                    logging_csv(number_from_key, mode, pre_proc_kp_list, None)
                 elif mode == 2 and pre_processed_point_history_list:
                    logging_csv(number_from_key, mode, None, pre_processed_point_history_list)
 
+                # Classify dynamic gesture using point history
                 dynamic_gesture_id = point_history_classifier.invalid_value if point_history_classifier else 0
                 if point_history_classifier is not None:
                     if len(pre_processed_point_history_list) == (history_length * NUM_FINGERS * 2):
@@ -188,6 +420,7 @@ def main():
                             print(f"PointHistoryClassifier Error: {e}. Check model input requirements.")
                             dynamic_gesture_id = point_history_classifier.invalid_value
                 
+                # Filter gestures with history
                 finger_gesture_history.append(dynamic_gesture_id)
                 most_common_fg_tuples = Counter(finger_gesture_history).most_common(1)
 
@@ -195,6 +428,7 @@ def main():
                 if most_common_fg_tuples:
                     final_dynamic_gesture_id = most_common_fg_tuples[0][0]
 
+                # Get gesture name
                 if point_history_classifier_labels and 0 <= final_dynamic_gesture_id < len(point_history_classifier_labels):
                     current_dynamic_gesture_name = point_history_classifier_labels[final_dynamic_gesture_id]
                 else:
@@ -223,11 +457,13 @@ def main():
                     if current_dynamic_gesture_name != previous_gesture_action_name:
                         if not is_action_cooldown_active:
                             if current_dynamic_gesture_name == next_slide_gesture_name:
-                                pyautogui.press("right")
+                                if not disable_webcam:
+                                    pyautogui.press("right")
                                 print(f"Action: Point History -> {next_slide_gesture_name}")
                                 action_taken_this_frame = True
                             elif current_dynamic_gesture_name == previous_slide_gesture_name:
-                                pyautogui.press("left")
+                                if not disable_webcam:
+                                    pyautogui.press("left")
                                 print(f"Action: Point History -> {previous_slide_gesture_name}")
                                 action_taken_this_frame = True
 
@@ -246,13 +482,11 @@ def main():
                         display_gesture_name = do_nothing_gesture_name
                         last_action_display_name = None
 
-                # Pass show_points to draw_landmarks
-                debug_image = draw_landmarks(debug_image, landmark_list, show_points)
-                debug_image = draw_info_text(
-                    debug_image,
-                    display_gesture_name
-                )
+                # Draw landmarks and info
+                debug_image = draw_landmarks(debug_image, landmark_list, show_ui)
+                debug_image = draw_info_text(debug_image, display_gesture_name, show_ui)
         else:
+            # No hand detected
             point_history.append([[0, 0]] * NUM_FINGERS)
             current_dynamic_gesture_name = do_nothing_gesture_name
 
@@ -266,9 +500,10 @@ def main():
             if previous_gesture_action_name != do_nothing_gesture_name:
                 previous_gesture_action_name = do_nothing_gesture_name
 
-        # Pass show_points to draw_point_history
-        debug_image = draw_point_history(debug_image, point_history, show_points)
+        # Draw point history
+        debug_image = draw_point_history(debug_image, point_history, show_ui)
 
+        # Prepare info for drawing
         number_for_draw_info = -1
         if mode == 1 or mode == 2:
             number_for_draw_info = number_from_key
@@ -277,11 +512,21 @@ def main():
         if display_gesture_name not in ["", "N/A", "Unknown", f"GestureID:{point_history_classifier.invalid_value if point_history_classifier else 0}"]:
              is_gesture_text_active_for_draw_info = True
 
-        debug_image = draw_info(debug_image, fps, mode, number_for_draw_info,
-                                is_gesture_text_active_for_draw_info, action_cooldown_until, current_time)
-        cv.imshow("ME4: Gesture Control of Powerpoint | Christian Klein C. Ramos", debug_image)
+        # Draw additional info on image
+        debug_image = draw_info(debug_image, display_fps, mode, number_for_draw_info,
+                              is_gesture_text_active_for_draw_info, action_cooldown_until, current_time, show_ui)
+        
+        # Show the image window
+        window_title = "ME4: Gesture Control of Powerpoint | Christian Klein C. Ramos"
+        if disable_webcam:
+            window_title += " (No Webcam Mode)"
+        if debug_mode:
+            window_title += " [DEBUG]"
+        cv.imshow(window_title, debug_image)
 
-    cap.release()
+    # Clean up resources
+    if not disable_webcam:
+        cap.release()
     cv.destroyAllWindows()
 
 
@@ -374,9 +619,9 @@ def pre_process_point_history(image, point_history_deque_of_lists):
                 processed_history_flat.extend([0.0, 0.0])
     return processed_history_flat
 
-# Modified to accept show_points_flag
-def draw_landmarks(image, landmark_point, show_points_flag):
-    if not show_points_flag: # If flag is false, do not draw
+# Modified to accept show_ui_flag
+def draw_landmarks(image, landmark_point, show_ui_flag):
+    if not show_ui_flag: # If flag is false, do not draw
         return image
     if not landmark_point or len(landmark_point) < 21: return image
     lines = [
@@ -403,15 +648,17 @@ def draw_landmarks(image, landmark_point, show_points_flag):
         cv.circle(image, point, radius, (0,0,0), 1)
     return image
 
-def draw_info_text(image, finger_gesture_text_to_display):
+def draw_info_text(image, finger_gesture_text_to_display, show_ui_flag=True):
+    if not show_ui_flag:  # If flag is false, do not draw
+        return image
     if finger_gesture_text_to_display not in ["", "N/A", "Unknown"]:
         cv.putText(image, "Gesture: " + finger_gesture_text_to_display, (10,60), cv.FONT_HERSHEY_SIMPLEX, 0.8,(0,0,0),4,cv.LINE_AA)
         cv.putText(image, "Gesture: " + finger_gesture_text_to_display, (10,60), cv.FONT_HERSHEY_SIMPLEX, 0.8,(255,255,255),2,cv.LINE_AA)
     return image
 
-# Modified to accept show_points_flag
-def draw_point_history(image, point_history_deque_of_lists, show_points_flag):
-    if not show_points_flag: # If flag is false, do not draw
+# Modified to accept show_ui_flag
+def draw_point_history(image, point_history_deque_of_lists, show_ui_flag):
+    if not show_ui_flag: # If flag is false, do not draw
         return image
     trail_color = (152,251,152)
     for finger_idx in range(NUM_FINGERS):
@@ -422,9 +669,17 @@ def draw_point_history(image, point_history_deque_of_lists, show_points_flag):
                     cv.circle(image,(pt[0],pt[1]),1+int(time_idx/3),trail_color,2)
     return image
 
-def draw_info(image, fps, mode, number, is_gesture_displayed, cooldown_until_time, current_frame_time):
-    cv.putText(image, "FPS:"+str(fps), (10,30), cv.FONT_HERSHEY_SIMPLEX,1.0,(0,0,0),4,cv.LINE_AA)
-    cv.putText(image, "FPS:"+str(fps), (10,30), cv.FONT_HERSHEY_SIMPLEX,1.0,(255,255,255),2,cv.LINE_AA)
+def draw_info(image, fps, mode, number, is_gesture_displayed, cooldown_until_time, current_frame_time, show_ui_flag=True):
+    if not show_ui_flag:  # If flag is false, do not draw
+        return image
+    
+    # Get current time in UTC+8 (Philippines)
+    ph_time = datetime.datetime.now(timezone(timedelta(hours=8)))
+    formatted_time = ph_time.strftime("%H:%M:%S")
+    
+    # Draw FPS counter with timezone
+    cv.putText(image, f"FPS:{fps} | {formatted_time}", (10,30), cv.FONT_HERSHEY_SIMPLEX, 0.8, (0,0,0), 4, cv.LINE_AA)
+    cv.putText(image, f"FPS:{fps} | {formatted_time}", (10,30), cv.FONT_HERSHEY_SIMPLEX, 0.8, (255,255,255), 2, cv.LINE_AA)
 
     mode_map = {0: "Normal", 1: "Log KeyPoint", 2: "Log PointHistory"}
     mode_str = mode_map.get(mode, "Unknown Mode")
@@ -444,6 +699,13 @@ def draw_info(image, fps, mode, number, is_gesture_displayed, cooldown_until_tim
         wait_text = f"Waiting: {int(round(remaining_cooldown))}s"
         cv.putText(image, wait_text, (10, cooldown_text_y_pos), cv.FONT_HERSHEY_SIMPLEX, 0.6, (0,0,0), 2, cv.LINE_AA)
         cv.putText(image, wait_text, (10, cooldown_text_y_pos), cv.FONT_HERSHEY_SIMPLEX, 0.6, (255,0,0), 1, cv.LINE_AA)
+
+    # Add help text at bottom of screen
+    help_y_pos = image.shape[0] - 20
+    cv.putText(image, "Controls: 'v':Toggle UI | 'k':KeyPoint Mode | 'h':History Mode | 'n':Normal Mode | ESC:Exit", 
+              (10, help_y_pos), cv.FONT_HERSHEY_SIMPLEX, 0.5, (0,0,0), 2, cv.LINE_AA)
+    cv.putText(image, "Controls: 'v':Toggle UI | 'k':KeyPoint Mode | 'h':History Mode | 'n':Normal Mode | ESC:Exit", 
+              (10, help_y_pos), cv.FONT_HERSHEY_SIMPLEX, 0.5, (255,255,255), 1, cv.LINE_AA)
 
     return image
 
