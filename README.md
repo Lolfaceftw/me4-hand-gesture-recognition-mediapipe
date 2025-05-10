@@ -2,6 +2,9 @@
 Estimate hand pose using MediaPipe (Python version) with enhanced 5 pointer tracking.<br> This is a modified 
 fork that improves hand signs and finger gestures recognition by tracking all 5 fingers simultaneously.
 <br> 
+# Fork
+![image](sample.gif)
+# Original
 ![mqlrf-s6x16](https://user-images.githubusercontent.com/37477845/102222442-c452cd00-3f26-11eb-93ec-c387c98231be.gif)
 
 This repository contains the following contents:
@@ -16,6 +19,17 @@ This fork enhances the original project by:
 * Enabling simultaneous tracking of all 5 finger pointers
 * Improved gesture recognition accuracy
 * More robust hand pose estimation
+* **Focus on finger trajectory tracking only** (keypoint static pose classification is disabled)
+* **Specialization for presentation control** with left and right swipe detection
+
+## Presentation Control Mode
+This fork is specifically trained to control PowerPoint presentations using simple hand gestures:
+
+1. **Left Swipe** → **Previous Slide**: Swipe your hand left to go back to the previous slide
+2. **Right Swipe** → **Next Slide**: Swipe your hand right to advance to the next slide
+3. **All Other Movements** → **No Action**: Any other hand position or movement does nothing
+
+The system uses only three states and is optimized for presenting in a natural way without having to hold any device.
 
 ## Technical Implementation
 This implementation uses MediaPipe's hand landmark detection but extends it to track all five fingertips simultaneously rather than just the index finger. Here's how it works:
@@ -125,6 +139,7 @@ This mathematical enhancement significantly increases the discriminative power o
 * Tensorflow 2.3.0 or Later<br>tf-nightly 2.5.0.dev or later (Only when creating a TFLite for an LSTM model)
 * scikit-learn 0.23.2 or Later (Only if you want to display the confusion matrix) 
 * matplotlib 3.3.2 or Later (Only if you want to display the confusion matrix)
+* pyautogui (For presentation control with keyboard commands)
 
 # Demo
 Here's how to run the demo using your webcam.
@@ -180,10 +195,10 @@ In addition, learning data (key points) for hand sign recognition,<br>
 You can also collect training data (all five finger coordinate history) for finger gesture recognition.
 
 ### keypoint_classification.ipynb
-This is a model training script for hand sign recognition.
+This is a model training script for hand sign recognition. Note: In this fork, keypoint classification is disabled in favor of using only the point history classifier.
 
 ### point_history_classification.ipynb
-This is a model training script for finger gesture recognition.
+This is a model training script for finger gesture recognition. This fork specifically trains a model to recognize three states: "Do Nothing", "Next Slide", and "Previous Slide" using all five finger trajectories.
 
 ### model/keypoint_classifier
 This directory stores files related to hand sign recognition.<br>
@@ -198,7 +213,7 @@ This directory stores files related to finger gesture recognition.<br>
 The following files are stored.
 * Training data(point_history.csv)
 * Trained model(point_history_classifier.tflite)
-* Label data(point_history_classifier_label.csv)
+* Label data(point_history_classifier_label.csv) - Contains three labels: "Do Nothing", "Next Slide", "Previous Slide"
 * Inference module(point_history_classifier.py)
 
 ### utils/cvfpscalc.py
@@ -238,13 +253,13 @@ If you press "0" to "9", the key points will be added to "model/point_history_cl
 <img src="https://user-images.githubusercontent.com/37477845/102345850-54ede380-3fe1-11eb-8d04-88e351445898.png" width="80%"><br><br>
 The key point coordinates are the ones that have undergone the following preprocessing up to ④.<br>
 <img src="https://user-images.githubusercontent.com/37477845/102244148-49e27700-3f3f-11eb-82e2-fc7de42b30fc.png" width="80%"><br><br>
-In the initial state, 4 types of learning data are included: stationary (class ID: 0), clockwise (class ID: 1), counterclockwise (class ID: 2), and moving (class ID: 4). <br>
-If necessary, add 5 or later, or delete the existing data of csv to prepare the training data.<br>
+In this fork, 3 types of gesture data are included: Do Nothing (class ID: 0), Next Slide (class ID: 1), and Previous Slide (class ID: 2).<br>
+If necessary, you can add more gesture types by adding training data and modifying the classifier.<br>
 <img src="https://user-images.githubusercontent.com/37477845/102350939-02b0c080-3fe9-11eb-94d8-54a3decdeebc.jpg" width="20%">　<img src="https://user-images.githubusercontent.com/37477845/102350945-05131a80-3fe9-11eb-904c-a1ec573a5c7d.jpg" width="20%">　<img src="https://user-images.githubusercontent.com/37477845/102350951-06444780-3fe9-11eb-98cc-91e352edc23c.jpg" width="20%">　<img src="https://user-images.githubusercontent.com/37477845/102350942-047a8400-3fe9-11eb-9103-dbf383e67bf5.jpg" width="20%">
 
 #### 2.Model training
 Open "[point_history_classification.ipynb](point_history_classification.ipynb)" in Jupyter Notebook and execute from top to bottom.<br>
-To change the number of training data classes, change the value of "NUM_CLASSES = 4" and <br>modify the label of "model/point_history_classifier/point_history_classifier_label.csv" as appropriate. <br><br>
+This notebook has been modified to use all five finger coordinates in the model training, significantly increasing the feature dimensions from 32 to 160.<br><br>
 
 #### X.Model structure
 The image of the model prepared in "[point_history_classification.ipynb](point_history_classification.ipynb)" is as follows.
