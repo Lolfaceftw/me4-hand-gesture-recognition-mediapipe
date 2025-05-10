@@ -159,7 +159,7 @@ The enhancements to the point history classifier fundamentally transform the mat
    - Let $P_{t,f} = (x_{t,f}, y_{t,f})$ represent the position of finger $f$ at time step $t$.
    - For each gesture, we now model the temporal sequence $\{P_{1,1}, P_{1,2}, ..., P_{1,5}, P_{2,1}, ..., P_{16,5}\}$
    - This sequence is normalized relative to a base point (hand landmark 0) to ensure scale and translation invariance:
-     $P'_{t,f} = \frac{P_{t,f} - P_{base}}{S}$
+     $P_{t,f}' = \frac{P_{t,f} - P_{base}}{S}$
      where $S$ is the normalization factor (typically image width/height)
 
 5. **Information Gain**:
