@@ -296,9 +296,9 @@ def main():
 
     previous_gesture_action_name = do_nothing_gesture_name
 
-    # NEW: Variable to control visibility of points, trails and UI elements
-    show_ui = True
-
+    # UI visibility states and tracking
+    ui_visible = True  # UI visibility state
+    
     # Print instruction information
     print("\n===== 5-Pointer Hand Gesture Recognition =====")
     print("App started. Point history (5-finger gestures) should be active.")
@@ -341,10 +341,10 @@ def main():
         key = cv.waitKey(1)
         if key == 27: break  # ESC to exit
 
-        # Toggle for show_ui
+        # Handle 'v' key for toggling UI visibility
         if key == ord('v'):
-            show_ui = not show_ui
-            print(f"Show UI elements and landmarks: {'ON' if show_ui else 'OFF'}")
+            ui_visible = not ui_visible
+            print(f"UI visibility: {'ON' if ui_visible else 'OFF'}")
 
         number_from_key, selected_mode = select_mode(key, mode)
         mode = selected_mode
@@ -367,12 +367,8 @@ def main():
                       cv.FONT_HERSHEY_SIMPLEX, 0.8, (150, 150, 150), 1, cv.LINE_AA)
             ret = True
             
-        debug_image = copy.deepcopy(image)
-
-        # Initialize default values
-        current_dynamic_gesture_name = do_nothing_gesture_name
-        display_gesture_name = do_nothing_gesture_name
-
+        debug_image = image.copy()
+        
         # Process image with MediaPipe
         image = cv.cvtColor(image, cv.COLOR_BGR2RGB)
         image.flags.writeable = False
@@ -395,140 +391,218 @@ def main():
                 null_out.close()
         
         image.flags.writeable = True
+        
+        # UI visibility flag
+        if ui_visible:
+            # Set default gesture when no hand is detected
+            current_gesture = do_nothing_gesture_name
+            
+            # Process hand landmarks if detected
+            if results.multi_hand_landmarks:
+                for hand_landmarks, handedness in zip(
+                    results.multi_hand_landmarks, results.multi_handedness
+                ):
+                    # Calculate landmark list
+                    landmark_list = calc_landmark_list(debug_image, hand_landmarks)
 
-        # Process hand landmarks if detected
-        if results.multi_hand_landmarks is not None:
-            for hand_landmarks, handedness in zip(
-                results.multi_hand_landmarks, results.multi_handedness
-            ):
-                # Calculate landmark list
-                landmark_list = calc_landmark_list(debug_image, hand_landmarks)
+                    # Extract fingertip coordinates
+                    current_finger_coords = []
+                    if landmark_list:
+                        for idx in FINGERTIP_INDICES:
+                            if idx < len(landmark_list): current_finger_coords.append(landmark_list[idx])
+                            else: current_finger_coords.append([0,0])
+                    else:
+                        current_finger_coords = [[0, 0]] * NUM_FINGERS
 
-                # Extract fingertip coordinates
-                current_finger_coords = []
-                if landmark_list:
-                    for idx in FINGERTIP_INDICES:
-                        if idx < len(landmark_list): current_finger_coords.append(landmark_list[idx])
-                        else: current_finger_coords.append([0,0])
-                else:
-                    current_finger_coords = [[0, 0]] * NUM_FINGERS
+                    # Add to history and preprocess
+                    point_history.append(current_finger_coords)
+                    pre_processed_point_history_list = pre_process_point_history(debug_image, point_history)
 
-                # Add to history and preprocess
-                point_history.append(current_finger_coords)
-                pre_processed_point_history_list = pre_process_point_history(debug_image, point_history)
+                    # Handle logging modes
+                    if mode == 1 and landmark_list:
+                       pre_proc_kp_list = pre_process_landmark(landmark_list)
+                       logging_csv(number_from_key, mode, pre_proc_kp_list, None)
+                    elif mode == 2 and pre_processed_point_history_list:
+                       logging_csv(number_from_key, mode, None, pre_processed_point_history_list)
 
-                # Handle logging modes
-                if mode == 1 and landmark_list:
-                   pre_proc_kp_list = pre_process_landmark(landmark_list)
-                   logging_csv(number_from_key, mode, pre_proc_kp_list, None)
-                elif mode == 2 and pre_processed_point_history_list:
-                   logging_csv(number_from_key, mode, None, pre_processed_point_history_list)
+                    # Classify dynamic gesture using point history
+                    dynamic_gesture_id = point_history_classifier.invalid_value if point_history_classifier else 0
+                    if point_history_classifier is not None:
+                        if len(pre_processed_point_history_list) == (history_length * NUM_FINGERS * 2):
+                            try:
+                                dynamic_gesture_id = point_history_classifier(pre_processed_point_history_list)
+                            except ValueError as e:
+                                print(f"PointHistoryClassifier Error: {e}. Check model input requirements.")
+                                dynamic_gesture_id = point_history_classifier.invalid_value
+                    
+                    # Filter gestures with history
+                    finger_gesture_history.append(dynamic_gesture_id)
+                    most_common_fg_tuples = Counter(finger_gesture_history).most_common(1)
 
-                # Classify dynamic gesture using point history
-                dynamic_gesture_id = point_history_classifier.invalid_value if point_history_classifier else 0
-                if point_history_classifier is not None:
-                    if len(pre_processed_point_history_list) == (history_length * NUM_FINGERS * 2):
-                        try:
-                            dynamic_gesture_id = point_history_classifier(pre_processed_point_history_list)
-                        except ValueError as e:
-                            print(f"PointHistoryClassifier Error: {e}. Check model input requirements.")
-                            dynamic_gesture_id = point_history_classifier.invalid_value
-                
-                # Filter gestures with history
-                finger_gesture_history.append(dynamic_gesture_id)
-                most_common_fg_tuples = Counter(finger_gesture_history).most_common(1)
+                    final_dynamic_gesture_id = point_history_classifier.invalid_value if point_history_classifier else 0
+                    if most_common_fg_tuples:
+                        final_dynamic_gesture_id = most_common_fg_tuples[0][0]
 
-                final_dynamic_gesture_id = point_history_classifier.invalid_value if point_history_classifier else 0
-                if most_common_fg_tuples:
-                    final_dynamic_gesture_id = most_common_fg_tuples[0][0]
+                    # Get gesture name
+                    if point_history_classifier_labels and 0 <= final_dynamic_gesture_id < len(point_history_classifier_labels):
+                        current_dynamic_gesture_name = point_history_classifier_labels[final_dynamic_gesture_id]
+                    else:
+                         current_dynamic_gesture_name = f"GestureID:{final_dynamic_gesture_id}"
 
-                # Get gesture name
-                if point_history_classifier_labels and 0 <= final_dynamic_gesture_id < len(point_history_classifier_labels):
-                    current_dynamic_gesture_name = point_history_classifier_labels[final_dynamic_gesture_id]
-                else:
-                     current_dynamic_gesture_name = f"GestureID:{final_dynamic_gesture_id}"
+                    # --- Determine Display Gesture Name ---
+                    is_action_cooldown_active = current_time < action_cooldown_until
+                    is_forced_display_active = current_time < action_display_until
 
-                # --- Determine Display Gesture Name ---
-                is_action_cooldown_active = current_time < action_cooldown_until
-                is_forced_display_active = current_time < action_display_until
-
-                if is_forced_display_active and last_action_display_name:
-                    display_gesture_name = last_action_display_name
-                elif is_action_cooldown_active and \
-                     (current_dynamic_gesture_name == next_slide_gesture_name or \
-                      current_dynamic_gesture_name == previous_slide_gesture_name):
-                    display_gesture_name = do_nothing_gesture_name
-                else:
-                    display_gesture_name = current_dynamic_gesture_name
-                    if not is_forced_display_active:
-                        last_action_display_name = None
-
-                # --- ACTIONS BASED ON POINT HISTORY (using current_dynamic_gesture_name) ---
-                action_taken_this_frame = False
-
-                if current_dynamic_gesture_name == next_slide_gesture_name or \
-                   current_dynamic_gesture_name == previous_slide_gesture_name:
-                    if current_dynamic_gesture_name != previous_gesture_action_name:
-                        if not is_action_cooldown_active:
-                            if current_dynamic_gesture_name == next_slide_gesture_name:
-                                if not disable_webcam:
-                                    pyautogui.press("right")
-                                print(f"Action: Point History -> {next_slide_gesture_name}")
-                                action_taken_this_frame = True
-                            elif current_dynamic_gesture_name == previous_slide_gesture_name:
-                                if not disable_webcam:
-                                    pyautogui.press("left")
-                                print(f"Action: Point History -> {previous_slide_gesture_name}")
-                                action_taken_this_frame = True
-
-                            if action_taken_this_frame:
-                                previous_gesture_action_name = current_dynamic_gesture_name
-                                action_cooldown_until = current_time + ACTION_COOLDOWN_SECONDS
-                                last_action_display_name = current_dynamic_gesture_name
-                                action_display_until = current_time + ACTION_GESTURE_DISPLAY_DURATION_SECONDS
-                                display_gesture_name = last_action_display_name
-                                print(f"Cooldown started for {ACTION_COOLDOWN_SECONDS}s. Displaying '{last_action_display_name}' for {ACTION_GESTURE_DISPLAY_DURATION_SECONDS}s.")
-
-                elif current_dynamic_gesture_name == do_nothing_gesture_name:
-                    if previous_gesture_action_name != do_nothing_gesture_name:
-                        previous_gesture_action_name = do_nothing_gesture_name
-                    if not is_forced_display_active:
+                    if is_forced_display_active and last_action_display_name:
+                        display_gesture_name = last_action_display_name
+                    elif is_action_cooldown_active and \
+                         (current_dynamic_gesture_name == next_slide_gesture_name or \
+                          current_dynamic_gesture_name == previous_slide_gesture_name):
                         display_gesture_name = do_nothing_gesture_name
-                        last_action_display_name = None
+                    else:
+                        display_gesture_name = current_dynamic_gesture_name
+                        if not is_forced_display_active:
+                            last_action_display_name = None
 
-                # Draw landmarks and info
-                debug_image = draw_landmarks(debug_image, landmark_list, show_ui)
-                debug_image = draw_info_text(debug_image, display_gesture_name, show_ui, current_time)
-        else:
-            # No hand detected
-            point_history.append([[0, 0]] * NUM_FINGERS)
-            current_dynamic_gesture_name = do_nothing_gesture_name
+                    # Track current gesture
+                    current_gesture = display_gesture_name
+                    is_do_nothing = (current_gesture == do_nothing_gesture_name)
+                    
+                    # --- ACTIONS BASED ON POINT HISTORY (using current_dynamic_gesture_name) ---
+                    action_taken_this_frame = False
 
-            is_forced_display_active = current_time < action_display_until
-            if is_forced_display_active and last_action_display_name:
-                 display_gesture_name = last_action_display_name
-            else:
-                 display_gesture_name = do_nothing_gesture_name
-                 last_action_display_name = None
+                    if current_dynamic_gesture_name == next_slide_gesture_name or \
+                       current_dynamic_gesture_name == previous_slide_gesture_name:
+                        if current_dynamic_gesture_name != previous_gesture_action_name:
+                            if not is_action_cooldown_active:
+                                if current_dynamic_gesture_name == next_slide_gesture_name:
+                                    if not disable_webcam:
+                                        pyautogui.press("right")
+                                    print(f"Action: Point History -> {next_slide_gesture_name}")
+                                    action_taken_this_frame = True
+                                elif current_dynamic_gesture_name == previous_slide_gesture_name:
+                                    if not disable_webcam:
+                                        pyautogui.press("left")
+                                    print(f"Action: Point History -> {previous_slide_gesture_name}")
+                                    action_taken_this_frame = True
 
-            if previous_gesture_action_name != do_nothing_gesture_name:
-                previous_gesture_action_name = do_nothing_gesture_name
+                                if action_taken_this_frame:
+                                    previous_gesture_action_name = current_dynamic_gesture_name
+                                    action_cooldown_until = current_time + ACTION_COOLDOWN_SECONDS
+                                    last_action_display_name = current_dynamic_gesture_name
+                                    action_display_until = current_time + ACTION_GESTURE_DISPLAY_DURATION_SECONDS
+                                    display_gesture_name = last_action_display_name
+                                    print(f"Cooldown started for {ACTION_COOLDOWN_SECONDS}s. Displaying '{last_action_display_name}' for {ACTION_GESTURE_DISPLAY_DURATION_SECONDS}s.")
 
-        # Draw point history
-        debug_image = draw_point_history(debug_image, point_history, show_ui)
+                    elif current_dynamic_gesture_name == do_nothing_gesture_name:
+                        if previous_gesture_action_name != do_nothing_gesture_name:
+                            previous_gesture_action_name = do_nothing_gesture_name
+                        if not is_forced_display_active:
+                            display_gesture_name = do_nothing_gesture_name
+                            last_action_display_name = None
 
-        # Prepare info for drawing
-        number_for_draw_info = -1
-        if mode == 1 or mode == 2:
-            number_for_draw_info = number_from_key
+                    # Draw landmarks and connections
+                    mp_drawing = mp.solutions.drawing_utils
+                    mp_drawing_styles = mp.solutions.drawing_styles
+                    
+                    # Only draw hand landmarks if not in "Do Nothing" gesture
+                    if current_gesture != do_nothing_gesture_name:
+                        # Draw hand landmarks
+                        if landmark_list:
+                            # Draw connections between landmarks
+                            for idx1, idx2 in [(0,1), (1,2), (2,3), (3,4), (0,5), (5,6), 
+                                             (6,7), (7,8), (0,9), (9,10), (10,11), (11,12),
+                                             (0,13), (13,14), (14,15), (15,16), (0,17), 
+                                             (17,18), (18,19), (19,20), (5,9), (9,13), (13,17)]:
+                                if idx1 < len(landmark_list) and idx2 < len(landmark_list):
+                                    p1 = tuple(landmark_list[idx1])
+                                    p2 = tuple(landmark_list[idx2])
+                                    cv.line(debug_image, p1, p2, (0,0,0), 6)
+                                    cv.line(debug_image, p1, p2, (255,255,255), 2)
+                                    
+                            # Draw landmark points
+                            fingertip_draw_color = (152,251,152)  # Light green
+                            for i, lm_coord in enumerate(landmark_list):
+                                if lm_coord is None: continue
+                                point = tuple(lm_coord)
+                                radius, color = (8, fingertip_draw_color) if i in FINGERTIP_INDICES else (5, (255,255,255))
+                                cv.circle(debug_image, point, radius, color, -1)
+                                cv.circle(debug_image, point, radius, (0,0,0), 1)
+                    
+                    # Draw gesture name
+                    cv.putText(debug_image, "Gesture: " + display_gesture_name, 
+                              (10, 60), cv.FONT_HERSHEY_SIMPLEX, 0.8, (0,0,0), 4, cv.LINE_AA)
+                    cv.putText(debug_image, "Gesture: " + display_gesture_name, 
+                              (10, 60), cv.FONT_HERSHEY_SIMPLEX, 0.8, (255,255,255), 2, cv.LINE_AA)
+                
+                # Draw point history
+                if point_history:
+                    # Only draw point history if not in "Do Nothing" gesture
+                    if current_gesture != do_nothing_gesture_name:
+                        # Draw finger trails for 5 fingers
+                        trail_color = (152,251,152)  # Light green
+                        
+                        for finger_idx in range(NUM_FINGERS):
+                            prev_point = None
+                            for time_idx, points_at_t in enumerate(point_history):
+                                if finger_idx < len(points_at_t) and points_at_t[finger_idx] is not None:
+                                    pt = points_at_t[finger_idx]
+                                    if pt[0]!=0 or pt[1]!=0:
+                                        # Draw with fading effect based on age
+                                        radius = 1 + int(time_idx/2.5)
+                                        
+                                        # Draw circle
+                                        cv.circle(debug_image, (pt[0], pt[1]), radius, 
+                                                 trail_color, -1, cv.LINE_AA)
+                                        
+                                        # Draw connecting line
+                                        if prev_point and (prev_point[0]!=0 or prev_point[1]!=0):
+                                            cv.line(debug_image, prev_point, (pt[0], pt[1]), 
+                                                   trail_color, 1, cv.LINE_AA)
+                                            
+                                        prev_point = (pt[0], pt[1])
+            
+            # Get current time in UTC+8 (Philippines)
+            ph_time = datetime.datetime.now(timezone(timedelta(hours=8)))
+            formatted_time = ph_time.strftime("%H:%M:%S")
+            
+            # Format FPS with consistent decimal places
+            fps_text = f"{display_fps:.1f}" if display_fps else "0.0"
+            
+            # Draw FPS counter with timezone
+            cv.putText(debug_image, f"FPS: {fps_text} | Time: {formatted_time}", 
+                      (10, 30), cv.FONT_HERSHEY_SIMPLEX, 0.7, (0,0,0), 4, cv.LINE_AA)
+            cv.putText(debug_image, f"FPS: {fps_text} | Time: {formatted_time}", 
+                      (10, 30), cv.FONT_HERSHEY_SIMPLEX, 0.7, (255,255,255), 2, cv.LINE_AA)
 
-        is_gesture_text_active_for_draw_info = False
-        if display_gesture_name not in ["", "N/A", "Unknown", f"GestureID:{point_history_classifier.invalid_value if point_history_classifier else 0}"]:
-             is_gesture_text_active_for_draw_info = True
+            # Draw mode info
+            mode_map = {0: "Normal", 1: "Log KeyPoint", 2: "Log PointHistory"}
+            mode_str = mode_map.get(mode, "Unknown Mode")
+            if mode in [1, 2] and number_from_key != -1:
+                mode_str += f" (Label: {number_from_key})"
 
-        # Draw additional info on image
-        debug_image = draw_info(debug_image, display_fps, mode, number_for_draw_info,
-                              is_gesture_text_active_for_draw_info, action_cooldown_until, current_time, show_ui)
+            mode_text_y_pos = 90
+            cv.putText(debug_image, "MODE:" + mode_str, 
+                      (10, mode_text_y_pos), cv.FONT_HERSHEY_SIMPLEX, 0.6, (0,0,0), 4, cv.LINE_AA)
+            cv.putText(debug_image, "MODE:" + mode_str, 
+                      (10, mode_text_y_pos), cv.FONT_HERSHEY_SIMPLEX, 0.6, (255,255,255), 2, cv.LINE_AA)
+
+            # Draw cooldown timer if active
+            remaining_cooldown = action_cooldown_until - current_time
+            if remaining_cooldown > 0:
+                cooldown_text_y_pos = mode_text_y_pos + 30
+                wait_text = f"Waiting: {int(round(remaining_cooldown))}s"
+                cv.putText(debug_image, wait_text, 
+                          (10, cooldown_text_y_pos), cv.FONT_HERSHEY_SIMPLEX, 0.6, (0,0,0), 4, cv.LINE_AA)
+                cv.putText(debug_image, wait_text, 
+                          (10, cooldown_text_y_pos), cv.FONT_HERSHEY_SIMPLEX, 0.6, (255,0,0), 2, cv.LINE_AA)
+
+            # Add help text at bottom of screen
+            help_y_pos = debug_image.shape[0] - 20
+            cv.putText(debug_image, "Controls: 'v':Toggle UI | 'k':KeyPoint Mode | 'h':History Mode | 'n':Normal Mode | ESC:Exit", 
+                      (10, help_y_pos), cv.FONT_HERSHEY_SIMPLEX, 0.5, (0,0,0), 4, cv.LINE_AA)
+            cv.putText(debug_image, "Controls: 'v':Toggle UI | 'k':KeyPoint Mode | 'h':History Mode | 'n':Normal Mode | ESC:Exit", 
+                      (10, help_y_pos), cv.FONT_HERSHEY_SIMPLEX, 0.5, (255,255,255), 2, cv.LINE_AA)
         
         # Show the image window
         window_title = "ME4: Gesture Control of Powerpoint | Christian Klein C. Ramos"
@@ -632,116 +706,6 @@ def pre_process_point_history(image, point_history_deque_of_lists):
             else:
                 processed_history_flat.extend([0.0, 0.0])
     return processed_history_flat
-
-# Modified to accept show_ui_flag
-def draw_landmarks(image, landmark_point, show_ui_flag=True):
-    if not show_ui_flag:  # If flag is false, do not draw
-        return image
-    if not landmark_point or len(landmark_point) < 21: 
-        return image
-        
-    lines = [
-        (0,1), (1,2), (2,3), (3,4),
-        (0,5), (5,6), (6,7), (7,8),
-        (0,9), (9,10), (10,11), (11,12),
-        (0,13), (13,14), (14,15), (15,16),
-        (0,17), (17,18), (18,19), (19,20),
-        (5,9), (9,13), (13,17)
-    ]
-    for p1_idx, p2_idx in lines:
-        if p1_idx < len(landmark_point) and p2_idx < len(landmark_point):
-            p1 = tuple(landmark_point[p1_idx])
-            p2 = tuple(landmark_point[p2_idx])
-            cv.line(image, p1, p2, (0,0,0),6)
-            cv.line(image, p1, p2, (255,255,255),2)
-
-    fingertip_draw_color = (152,251,152)
-    for i, lm_coord in enumerate(landmark_point):
-        if lm_coord is None: continue
-        point = tuple(lm_coord)
-        radius, color = (8, fingertip_draw_color) if i in FINGERTIP_INDICES else (5, (255,255,255))
-        cv.circle(image, point, radius, color, -1)
-        cv.circle(image, point, radius, (0,0,0), 1)
-    return image
-
-def draw_info_text(image, finger_gesture_text_to_display, show_ui_flag=True, current_time=None):
-    if not show_ui_flag:  # If flag is false, do not draw
-        return image
-        
-    if finger_gesture_text_to_display not in ["", "N/A", "Unknown"]:
-        cv.putText(image, "Gesture: " + finger_gesture_text_to_display, (10,60), cv.FONT_HERSHEY_SIMPLEX, 0.8,(0,0,0),4,cv.LINE_AA)
-        cv.putText(image, "Gesture: " + finger_gesture_text_to_display, (10,60), cv.FONT_HERSHEY_SIMPLEX, 0.8,(255,255,255),2,cv.LINE_AA)
-    return image
-
-# Modified to accept show_ui_flag
-def draw_point_history(image, point_history_deque_of_lists, show_ui_flag=True):
-    if not show_ui_flag:  # If flag is false, do not draw
-        return image
-    
-    trail_color = (152,251,152)
-    for finger_idx in range(NUM_FINGERS):
-        prev_point = None
-        for time_idx, points_at_t in enumerate(point_history_deque_of_lists):
-            if finger_idx < len(points_at_t) and points_at_t[finger_idx] is not None:
-                pt = points_at_t[finger_idx]
-                if pt[0]!=0 or pt[1]!=0:
-                    # Draw with fading effect
-                    alpha = 0.6 + 0.4 * (time_idx / len(point_history_deque_of_lists))
-                    radius = 1 + int(time_idx/2.5)
-                    
-                    # Draw anti-aliased circle
-                    cv.circle(image, (pt[0], pt[1]), radius, trail_color, -1, cv.LINE_AA)
-                    
-                    # Draw a connecting line to previous point for continuity
-                    if prev_point and (prev_point[0]!=0 or prev_point[1]!=0):
-                        cv.line(image, prev_point, (pt[0], pt[1]), trail_color, 1, cv.LINE_AA)
-                        
-                    prev_point = (pt[0], pt[1])
-                    
-    return image
-
-def draw_info(image, fps, mode, number, is_gesture_displayed, cooldown_until_time, current_frame_time, show_ui_flag=True):
-    if not show_ui_flag:  # If flag is false, do not draw
-        return image
-    
-    # Get current time in UTC+8 (Philippines)
-    ph_time = datetime.datetime.now(timezone(timedelta(hours=8)))
-    formatted_time = ph_time.strftime("%H:%M:%S")
-    
-    # Format FPS with consistent decimal places
-    fps_text = f"{fps:.1f}" if fps else "0.0"
-    
-    # Draw FPS counter with timezone
-    cv.putText(image, f"FPS: {fps_text} | Time: {formatted_time}", (10,30), cv.FONT_HERSHEY_SIMPLEX, 0.7, (0,0,0), 4, cv.LINE_AA)
-    cv.putText(image, f"FPS: {fps_text} | Time: {formatted_time}", (10,30), cv.FONT_HERSHEY_SIMPLEX, 0.7, (255,255,255), 2, cv.LINE_AA)
-
-    mode_map = {0: "Normal", 1: "Log KeyPoint", 2: "Log PointHistory"}
-    mode_str = mode_map.get(mode, "Unknown Mode")
-    if mode in [1,2] and number != -1:
-        mode_str += f" (Label: {number})"
-
-    mode_text_y_pos = 60
-    if is_gesture_displayed:
-        mode_text_y_pos = 90
-
-    cv.putText(image, "MODE:"+mode_str, (10, mode_text_y_pos), cv.FONT_HERSHEY_SIMPLEX, 0.6, (0,0,0), 2, cv.LINE_AA)
-    cv.putText(image, "MODE:"+mode_str, (10, mode_text_y_pos), cv.FONT_HERSHEY_SIMPLEX, 0.6, (255,255,255), 1, cv.LINE_AA)
-
-    remaining_cooldown = cooldown_until_time - current_frame_time
-    if remaining_cooldown > 0:
-        cooldown_text_y_pos = mode_text_y_pos + 30
-        wait_text = f"Waiting: {int(round(remaining_cooldown))}s"
-        cv.putText(image, wait_text, (10, cooldown_text_y_pos), cv.FONT_HERSHEY_SIMPLEX, 0.6, (0,0,0), 2, cv.LINE_AA)
-        cv.putText(image, wait_text, (10, cooldown_text_y_pos), cv.FONT_HERSHEY_SIMPLEX, 0.6, (255,0,0), 1, cv.LINE_AA)
-
-    # Add help text at bottom of screen
-    help_y_pos = image.shape[0] - 20
-    cv.putText(image, "Controls: 'v':Toggle UI | 'k':KeyPoint Mode | 'h':History Mode | 'n':Normal Mode | ESC:Exit", 
-              (10, help_y_pos), cv.FONT_HERSHEY_SIMPLEX, 0.5, (0,0,0), 2, cv.LINE_AA)
-    cv.putText(image, "Controls: 'v':Toggle UI | 'k':KeyPoint Mode | 'h':History Mode | 'n':Normal Mode | ESC:Exit", 
-              (10, help_y_pos), cv.FONT_HERSHEY_SIMPLEX, 0.5, (255,255,255), 1, cv.LINE_AA)
-
-    return image
 
 if __name__ == "__main__":
     main()
