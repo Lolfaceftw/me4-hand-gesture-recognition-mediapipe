@@ -155,9 +155,6 @@ def main():
     display_fps = 0  # Initialize to 0
     fps_update_interval = 1.0  # Update FPS display once per second
 
-    # Ensure we get a proper initial fps value before display
-    first_frame = True
-
     # Timezone adjustment for UTC+8 (Philippines)
     ph_timezone = timezone(timedelta(hours=8))
     
@@ -196,6 +193,9 @@ def main():
             return
         cap.set(cv.CAP_PROP_FRAME_WIDTH, cap_width)
         cap.set(cv.CAP_PROP_FRAME_HEIGHT, cap_height)
+        
+        # Reset any camera buffer to ensure direct frame capture
+        cap.set(cv.CAP_PROP_BUFFERSIZE, 1)
     else:
         print("Running in no-webcam mode. Creating a blank image for demonstration.")
         # We'll create a dummy blank image for processing
@@ -219,7 +219,7 @@ def main():
         null_out = open(os.devnull, 'w')
         sys.stdout = null_out
         sys.stderr = null_out
-    
+
     try:
         point_history_classifier = PointHistoryClassifier()
         # Temporarily restore stdout to print success message
@@ -263,7 +263,7 @@ def main():
             print(f"Error: {point_history_label_path} not found. Dynamic gesture names will not be displayed.")
 
     # Initialize variables
-    cvFpsCalc = CvFpsCalc(buffer_len=30)  # Use larger buffer for smoother FPS readings
+    cvFpsCalc = CvFpsCalc(buffer_len=10)  # Use smaller buffer for direct FPS readings
     history_length = 16
     point_history = deque(maxlen=history_length)
     finger_gesture_history = deque(maxlen=history_length)
@@ -322,46 +322,42 @@ def main():
 
     # Main loop
     while True:
-        # Calculate FPS on every frame to maintain accuracy
+        # Calculate FPS
         current_fps = cvFpsCalc.get()
         
         # Get current time
         current_time = time.time()
         
-        # Set initial FPS value for first frame
-        if first_frame:
-            display_fps = current_fps
-            first_frame = False
-            last_fps_update_time = current_time
-
-        # But only update the display value once per second
+        # Update the display FPS once per second
         if current_time - last_fps_update_time >= fps_update_interval:
             display_fps = current_fps
             # Debug FPS calculation (only in debug mode)
             if debug_mode:
                 fps_debug = cvFpsCalc.debug_info()
-                print(f"FPS Info: {display_fps} (buffer: {fps_debug['buffer_size']}/{fps_debug['max_buffer']}, " +
-                     f"avg frame time: {fps_debug['avg_frame_time_ms']}ms)")
+                print(f"FPS Info: {display_fps} (avg frame time: {fps_debug['avg_frame_time_ms']}ms)")
             last_fps_update_time = current_time
         
-        key = cv.waitKey(10)
+        # Use 1ms wait to ensure consistent frame processing without skipping
+        key = cv.waitKey(1)
         if key == 27: break  # ESC to exit
 
-        # NEW: Toggle for show_ui
+        # Toggle for show_ui
         if key == ord('v'):
             show_ui = not show_ui
             print(f"Show UI elements and landmarks: {'ON' if show_ui else 'OFF'}")
 
         number_from_key, selected_mode = select_mode(key, mode)
         mode = selected_mode
-
+        
         # Get frame from camera or use dummy image
         if not disable_webcam:
-            ret, image = cap.read()
+            # Get a real frame from camera - no buffering, no skipping
+            ret, frame = cap.read()
             if not ret: 
                 print("Failed to get frame from camera. Exiting...")
                 break
-            image = cv.flip(image, 1)  # Mirror display
+                
+            image = cv.flip(frame, 1)  # Mirror display
         else:
             # Use dummy image in no-webcam mode
             image = dummy_image.copy()
@@ -370,9 +366,13 @@ def main():
             cv.putText(image, f"Time: {time_text}", (10, 30), 
                       cv.FONT_HERSHEY_SIMPLEX, 0.8, (150, 150, 150), 1, cv.LINE_AA)
             ret = True
-
+            
         debug_image = copy.deepcopy(image)
-        
+
+        # Initialize default values
+        current_dynamic_gesture_name = do_nothing_gesture_name
+        display_gesture_name = do_nothing_gesture_name
+
         # Process image with MediaPipe
         image = cv.cvtColor(image, cv.COLOR_BGR2RGB)
         image.flags.writeable = False
@@ -395,9 +395,6 @@ def main():
                 null_out.close()
         
         image.flags.writeable = True
-
-        current_dynamic_gesture_name = do_nothing_gesture_name
-        display_gesture_name = do_nothing_gesture_name
 
         # Process hand landmarks if detected
         if results.multi_hand_landmarks is not None:
@@ -493,7 +490,7 @@ def main():
                                 print(f"Cooldown started for {ACTION_COOLDOWN_SECONDS}s. Displaying '{last_action_display_name}' for {ACTION_GESTURE_DISPLAY_DURATION_SECONDS}s.")
 
                 elif current_dynamic_gesture_name == do_nothing_gesture_name:
-                    if previous_gesture_action_name != do_nothing_gesture_name :
+                    if previous_gesture_action_name != do_nothing_gesture_name:
                         previous_gesture_action_name = do_nothing_gesture_name
                     if not is_forced_display_active:
                         display_gesture_name = do_nothing_gesture_name
@@ -501,7 +498,7 @@ def main():
 
                 # Draw landmarks and info
                 debug_image = draw_landmarks(debug_image, landmark_list, show_ui)
-                debug_image = draw_info_text(debug_image, display_gesture_name, show_ui)
+                debug_image = draw_info_text(debug_image, display_gesture_name, show_ui, current_time)
         else:
             # No hand detected
             point_history.append([[0, 0]] * NUM_FINGERS)
@@ -637,10 +634,12 @@ def pre_process_point_history(image, point_history_deque_of_lists):
     return processed_history_flat
 
 # Modified to accept show_ui_flag
-def draw_landmarks(image, landmark_point, show_ui_flag):
-    if not show_ui_flag: # If flag is false, do not draw
+def draw_landmarks(image, landmark_point, show_ui_flag=True):
+    if not show_ui_flag:  # If flag is false, do not draw
         return image
-    if not landmark_point or len(landmark_point) < 21: return image
+    if not landmark_point or len(landmark_point) < 21: 
+        return image
+        
     lines = [
         (0,1), (1,2), (2,3), (3,4),
         (0,5), (5,6), (6,7), (7,8),
@@ -665,25 +664,40 @@ def draw_landmarks(image, landmark_point, show_ui_flag):
         cv.circle(image, point, radius, (0,0,0), 1)
     return image
 
-def draw_info_text(image, finger_gesture_text_to_display, show_ui_flag=True):
+def draw_info_text(image, finger_gesture_text_to_display, show_ui_flag=True, current_time=None):
     if not show_ui_flag:  # If flag is false, do not draw
         return image
+        
     if finger_gesture_text_to_display not in ["", "N/A", "Unknown"]:
         cv.putText(image, "Gesture: " + finger_gesture_text_to_display, (10,60), cv.FONT_HERSHEY_SIMPLEX, 0.8,(0,0,0),4,cv.LINE_AA)
         cv.putText(image, "Gesture: " + finger_gesture_text_to_display, (10,60), cv.FONT_HERSHEY_SIMPLEX, 0.8,(255,255,255),2,cv.LINE_AA)
     return image
 
 # Modified to accept show_ui_flag
-def draw_point_history(image, point_history_deque_of_lists, show_ui_flag):
-    if not show_ui_flag: # If flag is false, do not draw
+def draw_point_history(image, point_history_deque_of_lists, show_ui_flag=True):
+    if not show_ui_flag:  # If flag is false, do not draw
         return image
+    
     trail_color = (152,251,152)
     for finger_idx in range(NUM_FINGERS):
+        prev_point = None
         for time_idx, points_at_t in enumerate(point_history_deque_of_lists):
             if finger_idx < len(points_at_t) and points_at_t[finger_idx] is not None:
                 pt = points_at_t[finger_idx]
                 if pt[0]!=0 or pt[1]!=0:
-                    cv.circle(image,(pt[0],pt[1]),1+int(time_idx/3),trail_color,2)
+                    # Draw with fading effect
+                    alpha = 0.6 + 0.4 * (time_idx / len(point_history_deque_of_lists))
+                    radius = 1 + int(time_idx/2.5)
+                    
+                    # Draw anti-aliased circle
+                    cv.circle(image, (pt[0], pt[1]), radius, trail_color, -1, cv.LINE_AA)
+                    
+                    # Draw a connecting line to previous point for continuity
+                    if prev_point and (prev_point[0]!=0 or prev_point[1]!=0):
+                        cv.line(image, prev_point, (pt[0], pt[1]), trail_color, 1, cv.LINE_AA)
+                        
+                    prev_point = (pt[0], pt[1])
+                    
     return image
 
 def draw_info(image, fps, mode, number, is_gesture_displayed, cooldown_until_time, current_frame_time, show_ui_flag=True):
@@ -728,7 +742,6 @@ def draw_info(image, fps, mode, number, is_gesture_displayed, cooldown_until_tim
               (10, help_y_pos), cv.FONT_HERSHEY_SIMPLEX, 0.5, (255,255,255), 1, cv.LINE_AA)
 
     return image
-
 
 if __name__ == "__main__":
     main()

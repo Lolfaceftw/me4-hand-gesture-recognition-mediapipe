@@ -4,7 +4,7 @@ import time
 
 
 class CvFpsCalc(object):
-    def __init__(self, buffer_len=30):
+    def __init__(self, buffer_len=5):
         self._start_tick = cv.getTickCount()
         self._freq = 1000.0 / cv.getTickFrequency()
         self._difftimes = deque(maxlen=buffer_len)
@@ -17,8 +17,8 @@ class CvFpsCalc(object):
 
         self._difftimes.append(different_time)
 
-        fps = 1000.0 / (sum(self._difftimes) / len(self._difftimes))
-        fps_rounded = round(fps, 2)
+        fps = 1000.0 / different_time if different_time > 0 else 0
+        fps_rounded = round(fps, 1)
 
         return fps_rounded
 
