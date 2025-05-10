@@ -3,7 +3,8 @@ Estimate hand pose using MediaPipe (Python version) with enhanced 5 pointer trac
 fork that improves hand signs and finger gestures recognition by tracking all 5 fingers simultaneously.
 <br> 
 # Fork
-![image](sample.gif)
+<img src="sample.gif" width=475/>
+
 # Original
 ![mqlrf-s6x16](https://user-images.githubusercontent.com/37477845/102222442-c452cd00-3f26-11eb-93ec-c387c98231be.gif)
 
@@ -81,6 +82,41 @@ This implementation uses MediaPipe's hand landmark detection but extends it to t
    # Toggle visibility of landmarks and trails
    if key == ord('v'):
        show_points = not show_points
+   ```
+
+6. **Gesture Action Cooldown**: A cooldown timer prevents accidental detection of gestures when transitioning between different hand positions:
+   ```python
+   # Define a cooldown period for actions to prevent rapid successive triggers
+   ACTION_COOLDOWN_SECONDS = 2.0
+   
+   # In the main processing loop:
+   is_action_cooldown_active = current_time < action_cooldown_until
+   
+   # When an action is executed:
+   if current_dynamic_gesture_name == next_slide_gesture_name or \
+      current_dynamic_gesture_name == previous_slide_gesture_name:
+       if current_dynamic_gesture_name != previous_gesture_action_name:
+           if not is_action_cooldown_active:
+               # Execute the action (e.g., press right/left arrow)
+               
+               # Set cooldown timer
+               action_cooldown_until = current_time + ACTION_COOLDOWN_SECONDS
+               print(f"Cooldown started for {ACTION_COOLDOWN_SECONDS}s.")
+   ```
+
+   This mechanism is crucial for preventing false detections when:
+   - Moving from "Next Slide" gesture to neutral position
+   - Moving from "Previous Slide" gesture to neutral position
+   - Transitioning between different gestures
+   
+   The cooldown is visually displayed on screen:
+   ```python
+   # Display the remaining cooldown time
+   remaining_cooldown = cooldown_until_time - current_frame_time
+   if remaining_cooldown > 0:
+       wait_text = f"Waiting: {int(round(remaining_cooldown))}s"
+       cv.putText(image, wait_text, (10, cooldown_text_y_pos), 
+                 cv.FONT_HERSHEY_SIMPLEX, 0.6, (255,0,0), 1, cv.LINE_AA)
    ```
 
 This approach significantly improves gesture recognition by providing a richer feature set (5x more spatial information) and enabling more complex gesture patterns that involve multiple fingers.
