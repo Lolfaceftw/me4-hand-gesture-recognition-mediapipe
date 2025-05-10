@@ -3,7 +3,7 @@ Estimate hand pose using MediaPipe (Python version) with enhanced 5 pointer trac
 fork that improves hand signs and finger gestures recognition by tracking all 5 fingers simultaneously.
 <br> 
 # Fork
-<img src="sample.gif" width=475/>
+<img src="sample.gif" width=300/>
 
 # Original
 ![mqlrf-s6x16](https://user-images.githubusercontent.com/37477845/102222442-c452cd00-3f26-11eb-93ec-c387c98231be.gif)
