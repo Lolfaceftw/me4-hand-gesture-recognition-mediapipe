@@ -152,8 +152,11 @@ def main():
     
     # FPS display variables
     last_fps_update_time = 0
-    display_fps = 0
+    display_fps = 0  # Initialize to 0
     fps_update_interval = 1.0  # Update FPS display once per second
+
+    # Ensure we get a proper initial fps value before display
+    first_frame = True
 
     # Timezone adjustment for UTC+8 (Philippines)
     ph_timezone = timezone(timedelta(hours=8))
@@ -260,7 +263,7 @@ def main():
             print(f"Error: {point_history_label_path} not found. Dynamic gesture names will not be displayed.")
 
     # Initialize variables
-    cvFpsCalc = CvFpsCalc(buffer_len=10)
+    cvFpsCalc = CvFpsCalc(buffer_len=30)  # Use larger buffer for smoother FPS readings
     history_length = 16
     point_history = deque(maxlen=history_length)
     finger_gesture_history = deque(maxlen=history_length)
@@ -319,12 +322,26 @@ def main():
 
     # Main loop
     while True:
+        # Calculate FPS on every frame to maintain accuracy
+        current_fps = cvFpsCalc.get()
+        
         # Get current time
         current_time = time.time()
         
-        # Update FPS display only once per second
+        # Set initial FPS value for first frame
+        if first_frame:
+            display_fps = current_fps
+            first_frame = False
+            last_fps_update_time = current_time
+
+        # But only update the display value once per second
         if current_time - last_fps_update_time >= fps_update_interval:
-            display_fps = cvFpsCalc.get()
+            display_fps = current_fps
+            # Debug FPS calculation (only in debug mode)
+            if debug_mode:
+                fps_debug = cvFpsCalc.debug_info()
+                print(f"FPS Info: {display_fps} (buffer: {fps_debug['buffer_size']}/{fps_debug['max_buffer']}, " +
+                     f"avg frame time: {fps_debug['avg_frame_time_ms']}ms)")
             last_fps_update_time = current_time
         
         key = cv.waitKey(10)
@@ -677,9 +694,12 @@ def draw_info(image, fps, mode, number, is_gesture_displayed, cooldown_until_tim
     ph_time = datetime.datetime.now(timezone(timedelta(hours=8)))
     formatted_time = ph_time.strftime("%H:%M:%S")
     
+    # Format FPS with consistent decimal places
+    fps_text = f"{fps:.1f}" if fps else "0.0"
+    
     # Draw FPS counter with timezone
-    cv.putText(image, f"FPS:{fps} | {formatted_time}", (10,30), cv.FONT_HERSHEY_SIMPLEX, 0.8, (0,0,0), 4, cv.LINE_AA)
-    cv.putText(image, f"FPS:{fps} | {formatted_time}", (10,30), cv.FONT_HERSHEY_SIMPLEX, 0.8, (255,255,255), 2, cv.LINE_AA)
+    cv.putText(image, f"FPS: {fps_text} | Time: {formatted_time}", (10,30), cv.FONT_HERSHEY_SIMPLEX, 0.7, (0,0,0), 4, cv.LINE_AA)
+    cv.putText(image, f"FPS: {fps_text} | Time: {formatted_time}", (10,30), cv.FONT_HERSHEY_SIMPLEX, 0.7, (255,255,255), 2, cv.LINE_AA)
 
     mode_map = {0: "Normal", 1: "Log KeyPoint", 2: "Log PointHistory"}
     mode_str = mode_map.get(mode, "Unknown Mode")
